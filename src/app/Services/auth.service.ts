@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: Router,) { }
   signUp(data: any) {
     return this.http.post(`${environment.serviceUrl}/Register`, data);
   }
@@ -42,5 +43,9 @@ export class AuthService {
 
   ValidateMobileNumber(phoneNumber: any) {
     return this.http.post(`${environment.serviceUrl}/ValidateMobileNumber`, phoneNumber)
+  }
+  logOut() {
+    localStorage.removeItem('token');
+    this.route.navigate(['']);
   }
 }
