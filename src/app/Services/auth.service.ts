@@ -55,7 +55,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       Authorization: `bearer ${localStorage.getItem('token')}`,
     });
-    return this.http.post(`${environment.serviceUrl} / SaveOnBoardData`, data, {
+    return this.http.post(`${environment.serviceUrl}/SaveOnBoardData`, data, {
       headers: headers,
     });
   }
