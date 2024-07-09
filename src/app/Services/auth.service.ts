@@ -13,8 +13,8 @@ export class AuthService {
   }
   storeTokenLocally(result: any) {
     if (result != null) {
-      if (result.jwtToken) {
-        localStorage.setItem('token', result.jwtToken);
+      if (result) {
+        localStorage.setItem('token', result);
       }
     }
   }
