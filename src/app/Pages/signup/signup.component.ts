@@ -170,9 +170,8 @@ export class SignupComponent implements OnInit {
       {
         phoneNumber: ['', [Validators.pattern(/^[0-9]{10}$/)]],
         firstName: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
-        lastName: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
-        email: ['', [Validators.pattern(GlobalConstants.emailPattern)]],
-        password: ['', [Validators.pattern(GlobalConstants.passwordpattern)]],
+        // lastName: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
+        email: ['', [Validators.pattern(GlobalConstants.emailPattern)]],       
         country: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
         state: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
         district: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
@@ -182,12 +181,8 @@ export class SignupComponent implements OnInit {
         farmAdress: [''],
         typeofCrop: [],
         growingStartDate: [''],
-        deviceStatus: [false],
-        confirmPassword: [
-          '',
-          [Validators.pattern(GlobalConstants.passwordpattern)],
-        ],
-        otp: [''],
+        deviceStatus: [false],       
+       
       },
       { validators: this.passwordMatchValidator }
     );
