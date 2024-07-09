@@ -108,7 +108,6 @@ export class SignupComponent implements OnInit {
 
 
   SignUp() {
-    debugger;
     let { email, firstName, lastName, password, phoneNumber } = this.signupForm.value;
     const data = {
       firstName: firstName,

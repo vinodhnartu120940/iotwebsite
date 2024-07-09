@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServicesService } from '../../Services/services.service';
 
 @Component({
   selector: 'app-predict-disease',
@@ -6,31 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './predict-disease.component.scss'
 })
 export class PredictDiseaseComponent {
+  matchingDisease: any;
+  constructor(private userService: ServicesService) { }
 
-  //  uploadedImageSrc: string | ArrayBuffer | null = null;
-  //   diseaseName: string = 'No disease detected';
-  //   diseaseMeasures: string = 'Upload an image to get suggestions';
-
-  //   loadFile(event: Event) {
-  //     const file = (event.target as HTMLInputElement).files?.[0];
-  //     if (file) {
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         this.uploadedImageSrc = reader.result;
-  //       };
-  //       reader.readAsDataURL(file);
-  //     }
-  //   }
-
-  //   detectDisease() {
-  //     // Placeholder function to simulate disease detection
-  //     this.diseaseName = 'Leaf Rust';
-  //     this.diseaseMeasures = '1. Remove affected leaves\n2. Use fungicide\n3. Ensure good air circulation';
-  //   }
-
-  uploadedImageSrc: string | ArrayBuffer | null = null;
+  uploadedImageSrc: any;
   diseaseName: string = 'No disease detected';
   diseaseMeasures: string = 'Upload an image to get suggestions';
+  selectedFile: File | null = null;
   diseases: any[] = [
     {
       title: "Cercospora Leaf Spot",
@@ -129,9 +112,11 @@ export class PredictDiseaseComponent {
     this.loadCarousel();
   }
 
+
   loadFile(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
+      this.selectedFile = file;
       const reader = new FileReader();
       reader.onload = () => {
         this.uploadedImageSrc = reader.result;
@@ -141,9 +126,20 @@ export class PredictDiseaseComponent {
   }
 
   detectDisease() {
-    // Placeholder function to simulate disease detection
-    this.diseaseName = 'Leaf Rust';
-    this.diseaseMeasures = '1. Remove affected leaves\n2. Use fungicide\n3. Ensure good air circulation';
+    if (this.selectedFile) {
+      this.userService.uploadFile(this.selectedFile).subscribe(
+        response => {
+          const predictedClass = response.predicted_class;
+          this.matchingDisease = this.findMatchingDiseases(predictedClass);
+        },
+        error => {
+          console.error('Error uploading file', error);
+        }
+      );
+    }
+  }
+  findMatchingDiseases(predictedClass: any) {
+    return this.diseases.filter(disease => disease.title.toLowerCase().includes(predictedClass.toLowerCase()));
   }
 
   loadCarousel() {

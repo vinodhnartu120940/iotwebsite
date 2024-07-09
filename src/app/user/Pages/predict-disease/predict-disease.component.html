@@ -20,15 +20,55 @@
       </div>
     </div>
   </div>
+  @if (matchingDisease.length > 0) {
+  <div class="col-md-6">
+    <div class="card mb-3">
+      @for (disease of matchingDisease; track $index) {
+      <div class="card-header">{{ disease?.title }}</div>
+      <div class="card-body">
+        <p class="card-text">{{ disease?.details }}</p>
+        <h5>Symptoms</h5>
+        <ul>
+          @for (item of disease.symptoms; track $index) {
+          <li>
+            {{ item }}
+          </li>
+          }
+        </ul>
+        <h5>Remedies</h5>
+        <ul>
+          @for (item of disease.remedies; track $index) {
+          <li>
+            {{ item }}
+          </li>
+          }
+        </ul>
+
+        <h5>Preventive Measures</h5>
+        <ul>
+          @for (item of disease.preventive_measures; track $index) {
+          <li>
+            {{ item }}
+          </li>
+          }
+        </ul>
+        <h5>What Caused It</h5>
+        <p>{{ disease.what_caused_it }}</p>
+      </div>
+      }
+    </div>
+  </div>
+  }@else{
   <div class="col-md-6">
     <div class="card mb-3">
       <div class="card-header">Detected Disease</div>
       <div class="card-body">
-        <p>{{ diseaseName }}</p>
-        <p>{{ diseaseMeasures }}</p>
+        <p id="diseaseName">No disease detected</p>
+        <p id="diseaseMeasures">Upload an image to get suggestions</p>
       </div>
     </div>
   </div>
+  }
 </div>
 <h2>Disease Information</h2>
 <div id="diseaseCarousel" class="carousel slide" data-ride="carousel">
