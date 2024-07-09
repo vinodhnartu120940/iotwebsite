@@ -107,6 +107,11 @@ export class SignupComponent implements OnInit {
             }
           });
       }
+      else if(this.questionNumber===this.questionType.user)
+        {
+          this.questionNumber++;
+          return;
+        }
       if (this.questionNumber === this.questionType.farm) {
         const onBoarddata =
         {
