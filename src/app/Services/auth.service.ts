@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private route: Router,) { }
+  constructor(private http: HttpClient, private route: Router) { }
   signUp(data: any) {
     return this.http.post(`${environment.serviceUrl}/Register`, data);
   }
@@ -27,11 +27,9 @@ export class AuthService {
     return false;
   }
 
-
   getClimateData() {
-    return this.http.get("http://192.168.1.72:5000/api/climatedata");
+    return this.http.get('http://192.168.1.72:5000/api/climatedata');
   }
-
 
   sendOtp(mobileNumber: any) {
     return this.http.post(`${environment.serviceUrl}/SendSms`, mobileNumber);
@@ -42,10 +40,23 @@ export class AuthService {
   }
 
   ValidateMobileNumber(phoneNumber: any) {
-    return this.http.post(`${environment.serviceUrl}/ValidateMobileNumber`, phoneNumber)
+    return this.http.post(
+      `${environment.serviceUrl}/ValidateMobileNumber`,
+      phoneNumber
+    );
   }
   logOut() {
     localStorage.removeItem('token');
     this.route.navigate(['']);
+  }
+
+  SaveOnBoardData(data: any) {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(`${environment.serviceUrl} / SaveOnBoardData`, data, {
+      headers: headers,
+    });
   }
 }

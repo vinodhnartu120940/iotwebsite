@@ -28,7 +28,7 @@ export class SignupComponent implements OnInit {
   canResend: boolean = false;
   otpInputConfig: NgxOtpInputConfig = {
     otpLength: 6,
-    autofocus: true
+    autofocus: true,
   };
   otp: any;
 
@@ -39,7 +39,12 @@ export class SignupComponent implements OnInit {
   handleFillEvent(value: string): void {
     this.otp = value;
   }
-  constructor(private fb: FormBuilder, private auth: AuthService, private route: Router, private notificationService: NotificationService) {
+  constructor(
+    private fb: FormBuilder,
+    private auth: AuthService,
+    private route: Router,
+    private notificationService: NotificationService
+  ) {
     this.questionType = QuestionType;
   }
   // Continue() {
@@ -57,70 +62,107 @@ export class SignupComponent implements OnInit {
   //   }
   // }
 
-  // Continue() {
-  //   this.notificationService.showWarning("Hello World!");
-  //   if (this.signupForm.valid) {
-  //     let { phoneNumber } = this.signupForm.value;
-  //     if (this.questionNumber === this.questionType.otp) {
-  //       const data = {
-  //         phoneNumber: phoneNumber.toString(),
-  //         otp: this.otp
-  //       }
-  //       this.auth.ValidateOtp(data).subscribe((res: any) => {
-  //         if (res.status === "Success") {
-  //           this.auth.ValidateMobileNumber({ phoneNumber: phoneNumber.toString() }).subscribe((res: any) => {
-  //             if (res.status === "Success" && res.onBoardStatus) {
-  //               this.auth.storeTokenLocally(res.token);
-  //               this.route.navigate(['/user']);
-
-  //             } else {
-  //               this.auth.storeTokenLocally(res.token);
-  //               this.questionNumber++;
-  //             }
-  //           })
-  //         }
-  //       })
-  //     } else {
-  //       this.auth.sendOtp({ phoneNumber: phoneNumber.toString() }).subscribe((res: any) => {
-  //         if (res.status === "Success") {
-  //           this.questionNumber++;
-  //           this.startTimer();
-  //         }
-  //       }
-
-  //       )
-  //     }
-
-
-
-  //   } else {
-  //     this.signupForm.markAllAsTouched();
-  //   }
-  // }
   Continue() {
-    this.notificationService.showWarning("Hello World!");
-    if (this.questionNumber === this.questionType.farm) {
-      this.route.navigate(['/user']);
+    this.notificationService.showWarning('Hello World!');
+    if (this.signupForm.valid) {
+      let { phoneNumber, firstName,
+        lastName,
+        email,
+        country,
+        state,
+        district,
+        zipcode,
+        landSize,
+        soilType,
+        farmAdress,
+        typeofCrop,
+        growingStartDate,
+        deviceStatus } = this.signupForm.value;
+      if (this.questionNumber === this.questionType.otp) {
+        const data = {
+          phoneNumber: phoneNumber.toString(),
+          otp: this.otp,
+        };
+        this.auth.ValidateOtp(data).subscribe((res: any) => {
+          if (res.status === 'Success') {
+            this.auth
+              .ValidateMobileNumber({ phoneNumber: phoneNumber.toString() })
+              .subscribe((res: any) => {
+                if (res.status === 'Success' && res.onBoardStatus) {
+                  this.auth.storeTokenLocally(res.token);
+                  this.route.navigate(['/user']);
+                } else {
+                  this.auth.storeTokenLocally(res.token);
+                  this.questionNumber++;
+                }
+              });
+          }
+        });
+      } else {
+        this.auth
+          .sendOtp({ phoneNumber: phoneNumber.toString() })
+          .subscribe((res: any) => {
+            if (res.status === 'Success') {
+              this.questionNumber++;
+              this.startTimer();
+            }
+          });
+      }
+      if (this.questionNumber === this.questionType.farm) {
+
+        const onBoarddata =
+        {
+          phoneNumber: phoneNumber,
+          name: firstName,
+          email: email,
+          country: country,
+          state: state,
+          district: district,
+          zipCode: zipcode,
+          landSize: landSize,
+          farmAddress: farmAdress,
+          deviceStatus: deviceStatus,
+          cropType: typeofCrop,
+          soilType: soilType,
+          cropGrowingStartDate: "2024-07-09T08:39:35.627Z",
+          onBoardingStatus: true,
+          tenantId: "1234"
+
+        }
+        this.auth.SaveOnBoardData(onBoarddata).subscribe(res => {
+          this.route.navigate(['/user']);
+        })
+      }
+
+
     } else {
-      this.questionNumber++;
+      this.signupForm.markAllAsTouched();
     }
   }
-
+  // Continue() {
+  //   this.notificationService.showWarning("Hello World!");
+  //   if (this.questionNumber === this.questionType.farm) {
+  //     this.route.navigate(['/user']);
+  //   } else {
+  //     this.questionNumber++;
+  //   }
+  // }
 
   SignUp() {
-    let { email, firstName, lastName, password, phoneNumber } = this.signupForm.value;
+    let { email, firstName, lastName, password, phoneNumber } =
+      this.signupForm.value;
     const data = {
       firstName: firstName,
       lastName: lastName,
       // userName: `${lastName}+""+${firstName}`,
       phoneNumber: phoneNumber.toString(),
       email: email,
-      password: password
-    }
+      password: password,
+    };
     this.route.navigate(['/user']);
-    this.auth.signUp(data).subscribe(res => {
+    this.auth.signUp(data).subscribe((res) => {
       console.log(res);
-    })
+    });
   }
   editMobileNumber() {
     this.questionNumber--;
@@ -151,9 +193,6 @@ export class SignupComponent implements OnInit {
       },
       { validators: this.passwordMatchValidator }
     );
-
-
-
   }
   passwordMatchValidator: ValidatorFn = (
     control: AbstractControl
@@ -205,15 +244,15 @@ export class SignupComponent implements OnInit {
   get buttonText() {
     switch (this.questionNumber) {
       case 0:
-        return "Send OTP";
+        return 'Send OTP';
       case 1:
-        return "Validate OTP";
+        return 'Validate OTP';
       case 2:
-        return "Next";
+        return 'Next';
       case 3:
-        return "Register";
+        return 'Register';
       default:
-        return "Unknown Action"; // Handle unexpected values
+        return 'Unknown Action'; // Handle unexpected values
     }
   }
 }
@@ -221,5 +260,5 @@ export enum QuestionType {
   mobilenumber = 0,
   otp = 1,
   user = 2,
-  farm = 3
+  farm = 3,
 }
