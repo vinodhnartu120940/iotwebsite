@@ -1,0 +1,324 @@
+<!-- <div id="page-1" class="background">
+  <div class="content">
+    <form [formGroup]="signupForm">
+      @switch (questionNumber) { @case(questionType.mobilenumber){
+      <div class="mobile_screen">
+        <h2>Signup for Coffee Plantation Services</h2>
+        <label for="mobile-number">Enter Mobile Number:</label>
+        <input
+          type="number"
+          id="mobile-number"
+          name="mobile-number"
+          formControlName="phoneNumber"
+          required
+          appNumericOnly
+          placeholder="Enter Mobile Number"
+        />
+      </div>
+      } @case (questionType.otp) {   
+      <h2>Enter OTP</h2>
+      <label for="otp">Enter 6-digit OTP:</label>
+      <input type="text" id="otp" name="otp" formControlName="otp" required />
+      <div id="timer">{{ minutes }}:{{ seconds }}</div>
+      <button
+        id="resend-otp"
+        onclick="resendOtp()"
+        class="otp-button"
+        [disabled]="!canResend"
+      >
+        Resend OTP
+      </button>
+      <button id="edit-mobile" (click)="editMobileNumber()" class="otp-button">
+        Edit Mobile Number
+      </button>   
+      } @case (questionType.user) {
+      <div class="user-details">
+        <h2>Complete Registration</h2>
+        <label for="firstname">First Name:</label>
+        <input
+          type="text"
+          id="firstname"
+          name="firstname"
+          formControlName="firstName"
+          placeholder="First name"
+          required
+        />
+        <label for="lastname">Last Name:</label>
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          formControlName="lastName"
+          placeholder="Last name"
+          required
+        />
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          formControlName="email"
+          placeholder="Email"
+          required
+        />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          placeholder="password"
+          formControlName="password"
+        />
+        <label for="confirm-password">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          formControlName="confirmPassword"
+          placeholder="Confirm password"
+          required
+        />
+        @if (passwordMismatch) {
+        <div class="error">*Password and Confirm Password do not match.</div>
+        }
+      </div>
+      } }
+    </form>
+    <button (click)="Continue()">
+      {{ this.questionType.user == questionNumber ? "Submit" : "Next" }}
+    </button>
+  </div>
+</div> -->
+
+<div class="main">
+  <div class="left">
+    <!-- Image content -->
+  </div>
+  <div class="right">
+    <div class="d-flex justify-content-center align-items-center mb-4 register">
+      <img src="Trees&Rays_Logo.webp" alt="logo" width="75px" height="75px" />
+      <h2>TREES & RAYS</h2>
+    </div>
+    <form [formGroup]="signupForm">
+      <div class="container">
+        @switch (questionNumber) { @case(questionType.mobilenumber){
+        <h1>Welcome to Coffee Farm Connect</h1>
+        <p>Enter your mobile number to receive an OTP</p>
+        <input
+          type="text"
+          placeholder="Enter mobile number"
+          type="number"
+          id="mobile-number"
+          name="mobile-number"
+          formControlName="phoneNumber"
+          required
+          appNumericOnly
+        />
+        } @case (questionType.otp) {
+        <h2>Enter OTP</h2>
+        <p>Enter the OTP sent to your mobile number</p>
+        <ngx-otp-input
+          [config]="otpInputConfig"
+          (otpChange)="handeOtpChange($event)"
+          (fill)="handleFillEvent($event)"
+        ></ngx-otp-input>
+        @if(!canResend){
+        <div class="timer" id="timer">
+          Time remaining:{{ minutes }}:{{ seconds }}
+        </div>
+        } @if (canResend) {
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="resendOtpButton"
+          (click)="resendOtp()"
+        >
+          Resend OTP
+        </button>
+        } } @case(questionType.user){
+        <h2>Personal Details</h2>
+        <div class="section-header">
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phoneNumber"
+                  placeholder="Enter phone number"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Enter name"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter email"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="country">Country</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="country"
+                  placeholder="Enter country"
+                  formControlName="country"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="state">State</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="state"
+                  placeholder="Enter state"
+                  formControlName="state"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="district">District</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="district"
+                  placeholder="Enter district"
+                  formControlName="district"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="zipcode">Zipcode</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="zipcode"
+                  placeholder="Enter zipcode"
+                  formControlName="zipcode"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        } @case(questionType.farm){
+        <h2>Farm Details</h2>
+        <div class="section-header">
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="landSize">Land Size</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="landSize"
+                  placeholder="Enter land size"
+                  formControlName="landSize"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="soilType">Soil Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="soilType"
+                  placeholder="Enter soil type"
+                  formControlName="soilType"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="farmAddress">Farm Address</label>
+                <textarea
+                  class="form-control"
+                  id="farmAddress"
+                  rows="2"
+                  placeholder="Enter farm address"
+                  formControlName="farmAdress"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="cropType">Type of Crop</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cropType"
+                  placeholder="Enter type of crop"
+                  formControlName="typeofCrop"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="cropStartDate">Growing Start Date</label>
+                <input type="date" class="form-control" id="cropStartDate"  formControlName="growingStartDate"/>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="deviceStatus">Device Status</label>
+                <div class="custom-control custom-switch">
+                  <span class="no-label">No</span>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="deviceStatus"
+                    formControlName="deviceStatus"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="deviceStatus"
+                  ></label>
+                  <span class="yes-label">Yes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        } }
+        <button (click)="Continue()">
+          {{ buttonText }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

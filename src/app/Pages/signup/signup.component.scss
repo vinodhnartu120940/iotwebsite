@@ -1,0 +1,226 @@
+// body,
+// html {
+//   height: 100%;
+//   margin: 0;
+//   font-family: Arial, sans-serif;
+// }
+
+// .background {
+//   background-size: cover;
+//   background-position: center;
+//   height: 100%;
+//   width: 100%;
+//   position: absolute;
+// }
+
+// #page-1 {
+//   background: url("https://ninetheme.com/themes/html-templates/agrikon/assets/images/main-slider/main-slider-1-1.jpg")
+//     no-repeat center center fixed;
+// }
+
+// .content {
+//   background-color: rgba(11, 11, 11, 0.7);
+//   padding: 35px;
+//   border-radius: 10px;
+//   max-width: 400px;
+//   margin: 0 auto;
+//   position: relative;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   text-align: center;
+//   color: #fff;
+// }
+
+// label,
+// input {
+//   display: block;
+//   margin: 10px auto;
+//   padding: 5px;
+//   border-radius: 5px;
+// }
+
+// button {
+//   background-color: #8b4513;
+//   color: white;
+//   padding: 10px 20px;
+//   border: none;
+//   border-radius: 5px;
+//   cursor: pointer;
+//   margin: 5px;
+// }
+
+// .otp-button {
+//   background-color: rgb(54 179 79 / 70%);
+// }
+
+// #timer {
+//   font-size: 18px;
+//   margin: 10px 0;
+// }
+
+// .hidden {
+//   display: none;
+// }
+// .error {
+//   color: red;
+// }
+
+//new styles
+
+.main {
+  display: flex;
+  height: 100vh;
+}
+.left {
+  background-image: url("/Homepage/coffee_plantation.png"); /* Update the path to the actual image */
+  background-size: cover;
+  background-position: center;
+  flex: 1;
+}
+.right {
+  padding: 40px;
+  background-color: #fefefe;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.register {
+  gap: 15px;
+}
+.right h2 {
+  font-size: 24px;
+  font-weight: bold;
+  //margin-bottom: 20px;
+  margin: 0;
+}
+.right img {
+  border-radius: 50%;
+}
+// .right .form-group {
+//   margin-bottom: 20px;
+// }
+// .right .form-control {
+//   border: 1px solid #ced4da;
+//   border-radius: 0.25rem;
+//   padding: 10px;
+//   width: 100%;
+// }
+// .right .btn {
+//   background-color: #ffc107;
+//   border: none;
+//   border-radius: 0.25rem;
+//   padding: 10px 20px;
+//   color: #fff;
+//   cursor: pointer;
+//   width: 100%;
+// }
+// .right .btn-primary:hover {
+//   background-color: #e0a800;
+// }
+// .right .btn-secondary {
+//   background-color: #6c757d;
+//   width: 48%;
+// }
+// .right .btn-secondary:hover {
+//   background-color: #5a6268;
+// }
+// .form-check-label {
+//   margin-left: 10px;
+// }
+// .button-group {
+//   display: flex;
+//   justify-content: space-between;
+//   margin-bottom: 10px;
+// }
+
+.container {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 400px;
+}
+.container h1 {
+  font-weight: bolder;
+}
+h1 {
+  margin: 0;
+  font-size: 20px;
+  color: #000;
+}
+p {
+  margin: 10px 0 20px;
+  font-size: 14px;
+  color: #333;
+}
+input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 5px);
+}
+input::placeholder {
+  color: #ccc;
+}
+button {
+  padding: 10px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #f0b750;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+button:hover {
+  background-color: #e0a640;
+}
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 300px;
+}
+.otp-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.otp-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 40px;
+  text-align: center;
+}
+.timer {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+::ng-deep.ngx-otp-input-container {
+  justify-content: center !important;
+}
+.section-header {
+  text-align: left;
+  margin-top: 15px;
+}

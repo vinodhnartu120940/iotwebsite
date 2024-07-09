@@ -1,0 +1,185 @@
+
+<div class="sensor_readings-main">
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-danger">
+        <div class="card-header">Soil Moisture</div>
+        <div class="card-body">
+          <i class="fa fa-tint icon"></i>
+          <h5 class="card-title">Moisture: 50%</h5>
+          <p class="card-text">Temperature: 25&#8451; / 30&#8451;</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-warning">
+        <div class="card-header">Temperature</div>
+        <div class="card-body">
+          <i class="fa fa-thermometer-half icon"></i>
+          <h5 class="card-title">25&#8451; / 30&#8451;</h5>
+          <p class="card-text">Humidity: 70% / 80%</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-info">
+        <div class="card-header">Humidity</div>
+        <div class="card-body">
+          <i class="fa fa-water icon"></i>
+          <h5 class="card-title">70% / 80%</h5>
+          <p class="card-text">pH Level: 6.5 / 7</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-success">
+        <div class="card-header">pH Level</div>
+        <div class="card-body">
+          <i class="fa fa-flask icon"></i>
+          <h5 class="card-title">6.5 / 7</h5>
+          <p class="card-text">Threshold: 7</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-primary">
+        <div class="card-header">Nitrogen (N)</div>
+        <div class="card-body">
+          <i class="fa fa-leaf icon"></i>
+          <h5 class="card-title">N Level: 20 mg/kg</h5>
+          <p class="card-text">Optimal Range: 10-30 mg/kg</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-secondary">
+        <div class="card-header">Phosphorus (P)</div>
+        <div class="card-body">
+          <i class="fa fa-seedling icon"></i>
+          <h5 class="card-title">P Level: 15 mg/kg</h5>
+          <p class="card-text">Optimal Range: 5-20 mg/kg</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-dark">
+        <div class="card-header">Potassium (K)</div>
+        <div class="card-body">
+          <i class="fa fa-carrot icon"></i>
+          <h5 class="card-title">K Level: 25 mg/kg</h5>
+          <p class="card-text">Optimal Range: 10-40 mg/kg</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <h2>Historical Data</h2>
+<div class="row">
+<div class="col-md-4">
+  <div class="card mb-3">
+    <div class="card-header">Sensor Data Trends</div>
+    <div class="card-body">
+      <p class="card-text">
+        Visualize sensor data trends for better analysis.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="card mb-3">
+    <div class="card-header">Graph Analysis</div>
+    <div class="card-body">
+      <p class="card-text">
+        Graphs display sensor data trends over time for analysis and
+        decision-making.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="col-md-4">
+  <div class="card mb-3">
+    <div class="card-header">Pest Control</div>
+    <div class="card-body">
+      <p class="card-text">Take proactive measures to control pests.</p>
+    </div>
+  </div>
+</div>
+</div> -->
+
+  <h2>Sensor Readings</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Value / Threshold</th>
+          <th>Soil Moisture</th>
+          <th>Temperature</th>
+          <th>Humidity</th>
+          <th>pH Level</th>
+          <th>NPK (mg/kg)</th>
+          <th>Last Modified</th>
+        </tr>
+      </thead>
+      <tbody [@scroll]="scrollState">
+        <tr>
+          <td>Moisture: 5.3 / 6.0</td>
+          <td>25&#8451;</td>
+          <td>22&#8451;</td>
+          <td>60%</td>
+          <td>6.5</td>
+          <td>15 / 10 / 20</td>
+          <td>24/08/2023</td>
+        </tr>
+        <tr>
+          <td>Moisture: 4.5 / 5.0</td>
+          <td>30&#8451;</td>
+          <td>25&#8451;</td>
+          <td>55%</td>
+          <td>7.0</td>
+          <td>18 / 12 / 22</td>
+          <td>23/08/2023</td>
+        </tr>
+        <tr>
+          <td>Moisture: 4.5 / 5.0</td>
+          <td>30&#8451;</td>
+          <td>25&#8451;</td>
+          <td>55%</td>
+          <td>7.0</td>
+          <td>18 / 12 / 22</td>
+          <td>23/08/2023</td>
+        </tr>
+        <tr>
+          <td>Moisture: 4.5 / 5.0</td>
+          <td>30&#8451;</td>
+          <td>25&#8451;</td>
+          <td>55%</td>
+          <td>7.0</td>
+          <td>18 / 12 / 22</td>
+          <td>23/08/2023</td>
+        </tr>
+        <tr>
+          <td>Moisture: 4.5 / 5.0</td>
+          <td>30&#8451;</td>
+          <td>25&#8451;</td>
+          <td>55%</td>
+          <td>7.0</td>
+          <td>18 / 12 / 22</td>
+          <td>23/08/2023</td>
+        </tr>
+        <tr>
+          <td>Moisture: 4.5 / 5.0</td>
+          <td>30&#8451;</td>
+          <td>25&#8451;</td>
+          <td>55%</td>
+          <td>7.0</td>
+          <td>18 / 12 / 22</td>
+          <td>23/08/2023</td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+</div>

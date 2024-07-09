@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidenav Started -->
+    <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#"> User Management </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#"> Farm Management </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#"> Disease Management </a>
+          </li> -->
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#"> Pest Management </a>
+          </li> -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['predict']"
+              routerLinkActive="router-link-active"
+            >
+              Coffee Plant Detection
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- SideNav Ended -->
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main">
+      <nav class="navbar navbar-dark bg-dark d-md-none">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#mobileSidebar"
+          aria-controls="mobileSidebar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+
+      <div class="collapse bg-dark" id="mobileSidebar">
+        <div class="p-4">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#"> User Management </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#"> Farm Management </a>
+            </li> -->
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#"> Disease Management </a>
+            </li> -->
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="#"> Pest Management </a>
+            </li> -->
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                [routerLink]="['/predict']"
+                routerLinkActive="router-link-active"
+              >
+                Coffee Plant Detection
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Main content body Stated  -->
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+      >
+        <h1 class="h2">{{ currentRouteTitle }}</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search sensors"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+          <div class="dropdown ml-3">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fa fa-user-circle"></i>
+            </button>
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a class="dropdown-item" href="#">My Account</a>
+              <a class="dropdown-item" href="#">Settings</a>
+              <a class="dropdown-item" href="#">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feauters Content Show Started -->
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+
+      <!--  -->
+    </main>
+  </div>
+</div>

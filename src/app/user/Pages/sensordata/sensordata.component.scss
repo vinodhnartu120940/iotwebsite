@@ -1,0 +1,88 @@
+.table-responsive {
+  margin-top: 20px;
+}
+
+#uploadedImage {
+  max-width: 100%;
+  height: auto;
+  margin-top: 20px;
+  display: none;
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    margin-left: 0;
+  }
+}
+
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-bottom: 20px;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.card-header {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.card-text {
+  font-size: 1rem;
+}
+.icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.row {
+  justify-content: center;
+}
+
+thead,
+tbody tr {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}
+thead {
+  overflow: hidden;
+}
+td {
+  vertical-align: middle;
+  padding: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin: 20px 0;
+  color: #007bff;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #006935; /* Or any color that matches your theme */
+  z-index: 1;
+  color: white;
+}

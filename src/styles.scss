@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  // background-color: #f9e4b7;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input.ng-dirty.ng-invalid.ng-touched {
+  border-color: red !important;
+  border: 2px solid red !important;
+}
+
+input:focus-visible {
+  border: 2px solid currentColor;
+  outline: none;
+}
+input.ng-pristine.ng-invalid.ng-touched {
+  border-color: red !important;
+  border: 2px solid red !important;
+}
+button:disabled {
+  background-color: #ccc !important;
+  pointer-events: none;
+}

@@ -1,0 +1,278 @@
+// /* Reset and base styles */
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
+
+// body {
+//   font-family: Arial, sans-serif;
+// }
+// header {
+//   position: sticky;
+//   top: 0;
+//   z-index: 9999;
+// }
+// /* Navigation bar styles */
+// .navbar {
+//   background-color: #fff;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 20px;
+// }
+
+// .logo img {
+//   max-height: 50px;
+// }
+
+// .nav-links {
+//   list-style: none;
+//   display: flex;
+//   gap: 20px;
+// }
+
+// .nav-links li a {
+//   text-decoration: none;
+//   color: #333;
+//   font-weight: bold;
+//   transition: color 0.3s; /* Add transition for hover effect */
+// }
+
+// .nav-links li a:hover {
+//   color: #ffc107; /* Hover effect */
+// }
+
+// .contact-button a {
+//   background-color: #ffc107;
+//   color: #fff;
+//   padding: 10px 20px;
+//   text-decoration: none;
+//   border-radius: 5px;
+// }
+
+// /* Hero section styles */
+// .hero {
+//   position: relative;
+//   overflow: hidden;
+//   height: 100vh;
+//   text-align: center;
+//   color: #fff;
+// }
+
+// .hero img {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   opacity: 0;
+//   transform: scale(1.1);
+//   transition: opacity 2s ease-in, transform 2s ease-in;
+// }
+
+// .hero img.active {
+//   opacity: 1;
+//   transform: scale(1);
+// }
+
+// .loading-overlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: white; /* Same color as the page background */
+//   z-index: 10;
+//   transition: opacity 2s ease-out;
+// }
+
+// .loading-overlay.hidden {
+//   opacity: 0;
+//   pointer-events: none;
+// }
+
+// .hero-content {
+//   position: relative;
+//   z-index: 2;
+//   padding: 100px 20px;
+//   opacity: 0;
+//   transform: translateY(-50px);
+//   transition: opacity 5s ease-out, transform 5s ease-out;
+// }
+
+// .hero-content.active {
+//   opacity: 1;
+//   transform: translateY(0);
+// }
+
+// .hero-content h1 {
+//   font-size: 2.5em;
+//   margin-bottom: 20px;
+// }
+
+// .hero-content h2 {
+//   font-size: 1.8em;
+//   margin-bottom: 20px;
+// }
+
+// .hero-content p {
+//   font-size: 1.2em;
+//   margin-bottom: 20px;
+// }
+
+// .hero-content .btn {
+//   background-color: #ffc107;
+//   color: #fff;
+//   padding: 10px 20px;
+//   text-decoration: none;
+//   border-radius: 5px;
+//   font-weight: bold;
+//   transition: background-color 0.3s; /* Add transition for hover effect */
+// }
+
+// .hero-content .btn:hover {
+//   background-color: #e0a800; /* Hover effect */
+// }
+
+// /* Services section styles */
+// .services {
+//   display: flex;
+//   justify-content: space-around;
+//   padding: 50px 20px;
+//   background-color: #f7f7f7;
+// }
+
+// .service {
+//   text-align: center;
+// }
+
+// .service img {
+//   max-width: 100%;
+//   border-radius: 10px;
+//   margin-bottom: 20px;
+// }
+
+// .service h3 {
+//   font-size: 1.5em;
+//   color: #333;
+// }
+
+// new style css
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.jumbotron {
+  background-color: #f6ead2;
+  color: #333;
+  padding: 3rem 2rem;
+  margin: 0px 20px 20px 20px;
+  border-radius: 0px 0px 40px 40px;
+}
+
+.jumbotron .btn-primary {
+  background-color: white;
+  color: #007bff;
+  border-color: white;
+}
+
+.jumbotron .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.leaf-icon img {
+  width: 100px;
+  height: auto;
+}
+
+.stats {
+  background-color: #f7c35e;
+  padding: 20px 0;
+}
+
+.stats .stats_sub {
+  background-color: #f6ead2;
+  padding: 50px 50px 34px 50px;
+  border-radius: 5px;
+  width: 100%;
+}
+.stats_row {
+  display: flex;
+  gap: 20px;
+  width: 98%;
+  margin: auto;
+}
+.footer {
+  background-color: #fff9ed;
+  padding: 40px 0;
+}
+.footer .footer-logo {
+  font-weight: bold;
+  font-size: 24px;
+}
+.footer .footer-social a {
+  color: #000;
+  margin-right: 15px;
+  font-size: 18px;
+  text-decoration: none;
+}
+.footer .footer-social a:hover {
+  text-decoration: underline;
+}
+.footer .footer-links a {
+  color: #000;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+.footer .footer-links a:hover {
+  text-decoration: underline;
+}
+.footer .footer-subscribe input {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  width: 70%;
+  margin-right: 10px;
+}
+.footer .footer-subscribe button {
+  background-color: #ffc107;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+.footer .footer-subscribe button:hover {
+  background-color: #e0a800;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+}
+.logo_img {
+  border-radius: 45px;
+  margin-right: 10px;
+}
+.carousel-inner {
+  height: 300px;
+  object-fit: cover;
+  border-radius: 25px;
+}
+.navbar-nav {
+  gap: 50px;
+}
+.col-md-2 p {
+  font-weight: 600;
+  font-size: 18px;
+}
