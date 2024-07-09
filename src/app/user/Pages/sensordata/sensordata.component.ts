@@ -22,7 +22,6 @@ export class SensordataComponent {
 
   constructor(private userService: UserService)
   {
-    debugger;
     this.userService.GetSensorLatestData().subscribe((res: any) => {
       this.sensorLatestData = res;
     });
