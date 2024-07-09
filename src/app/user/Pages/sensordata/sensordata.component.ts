@@ -1,5 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
+import { AuthService } from '../../../Services/auth.service';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-sensordata',
@@ -16,10 +18,17 @@ import { Component } from '@angular/core';
 export class SensordataComponent {
 
   scrollState = 'start';
+  sensorLatestData : any;
 
+  constructor(private userService: UserService)
+  {
+    debugger;
+    this.userService.GetSensorLatestData().subscribe((res: any) => {
+      this.sensorLatestData = res;
+    });
+  }
 
-
-  ngOnInit(): void {
+  ngOnInit(): void {    
     // setInterval(() => {
     //   this.scrollState = this.scrollState === 'start' ? 'end' : 'start';    
     // }, 5000); // Adjust interval as needed
