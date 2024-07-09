@@ -97,7 +97,7 @@ export class SignupComponent implements OnInit {
               });
           }
         });
-      } else {
+      } else if(this.questionNumber===this.questionType.mobileNumber) {
         this.auth
           .sendOtp({ phoneNumber: phoneNumber.toString() })
           .subscribe((res: any) => {
