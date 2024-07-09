@@ -63,10 +63,9 @@ export class SignupComponent implements OnInit {
   // }
 
   Continue() {
-    this.notificationService.showWarning('Hello World!');
+    // this.notificationService.showWarning('Hello World!');
     if (this.signupForm.valid) {
-      let { phoneNumber, firstName,
-        lastName,
+      let { phoneNumber, firstName,      
         email,
         country,
         state,
@@ -109,7 +108,6 @@ export class SignupComponent implements OnInit {
           });
       }
       if (this.questionNumber === this.questionType.farm) {
-
         const onBoarddata =
         {
           phoneNumber: phoneNumber,
