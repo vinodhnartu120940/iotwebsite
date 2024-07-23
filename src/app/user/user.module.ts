@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
 import { DashboardComponent } from './Pages/dashboard/dashboard.component';
 import { PredictDiseaseComponent } from './Pages/predict-disease/predict-disease.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SensordataComponent } from './Pages/sensordata/sensordata.component';
-
-
-
+import { PredictDiseaseCopyComponent } from './Pages/predict-disease-one/predict-disease.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,12 +14,8 @@ import { SensordataComponent } from './Pages/sensordata/sensordata.component';
     DashboardComponent,
     PredictDiseaseComponent,
     SensordataComponent,
-
+    PredictDiseaseCopyComponent,
   ],
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-
-  ]
+  imports: [CommonModule, UserRoutingModule, NgbModule],
 })
-export class UserModule { }
+export class UserModule {}

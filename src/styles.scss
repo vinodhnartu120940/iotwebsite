@@ -8,8 +8,10 @@ input::-webkit-inner-spin-button {
 }
 
 body {
-  font-family: Arial, sans-serif;
-  // background-color: #f9e4b7;
+  font-family: "Roboto Slab", serif;
+  // font-optical-sizing: auto;
+  // font-weight: 300;
+  // font-style: normal;
 }
 
 /* Firefox */
@@ -42,7 +44,6 @@ button:disabled {
 //   padding: 5px;
 // }
 .VIpgJd-ZVi9od-ORHb-OEVmcd {
-
   display: none !important;
 }
 .goog-te-banner-frame.skiptranslate {
@@ -50,4 +51,11 @@ button:disabled {
 }
 body {
   top: 0px !important;
+}
+
+::ng-deep.modal-backdrop {
+  background: rgba(6, 184, 255, 0.7) !important;
+  -webkit-backdrop-filter: blur(30px) !important;
+  backdrop-filter: blur(30px) !important;
+  z-index: 0 !important;
 }

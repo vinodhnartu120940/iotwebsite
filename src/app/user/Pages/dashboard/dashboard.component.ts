@@ -11,6 +11,11 @@ import { filter } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   currentRouteTitle: any;
+  isMenuVisible: boolean = false;
+
+  toggleMenu(): void {
+    this.isMenuVisible = !this.isMenuVisible;
+  }
 
   constructor(public auth: AuthService, private http: HttpClient, private router: Router, private activatedRoute: ActivatedRoute,) {
     this.router.events.pipe(

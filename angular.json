@@ -34,8 +34,11 @@
             "styles": [
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+               
+            ]
           },
           "configurations": {
             "production": {
@@ -98,8 +101,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
-               "node_modules/ngx-toastr/toastr.css"
+              "src/styles.scss"
+               
             ],
             "scripts": []
           }

@@ -1,18 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GlobalConstants } from '../../utils/global-constants';
 import { NumericOnlyDirective } from '../../Services/numeric-only-directive.directive';
 import { AuthService } from '../../Services/auth.service';
 import { Router } from '@angular/router';
 import { NgxOtpInputConfig, NgxOtpInputModule } from 'ngx-otp-input';
 import { NotificationService } from '../../Services/notification.service';
+import { HttpClient } from '@angular/common/http';
+import { cropTypes, soilTypes } from '../../utils/farm.data';
+import moment from 'moment';
 
 @Component({
   selector: 'app-signup',
@@ -31,10 +27,8 @@ export class SignupComponent implements OnInit {
     autofocus: true,
   };
   otp: any;
-
-  handeOtpChange(value: string[]): void {
-    console.log(value);
-  }
+  soilTypes: string[] = soilTypes;
+  cropTypes: string[] = cropTypes;
 
   handleFillEvent(value: string): void {
     this.otp = value;
@@ -43,29 +37,18 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private auth: AuthService,
     private route: Router,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private http: HttpClient
   ) {
     this.questionType = QuestionType;
+    this.getLocation();
   }
-  // Continue() {
-  //   if (this.signupForm.valid) {
-  //     if (this.questionNumber === this.questionType.user) {
-  //       this.SignUp();
-  //     } else {
-  //       this.questionNumber++;
-  //     }
-
-  //     this.startTimer();
-  //     this.signupForm.markAsUntouched();
-  //   } else {
-  //     this.signupForm.markAllAsTouched();
-  //   }
-  // }
 
   Continue() {
-    // this.notificationService.showWarning('Hello World!');
     if (this.signupForm.valid) {
-      let { phoneNumber, firstName,      
+      let {
+        phoneNumber,
+        firstName,
         email,
         country,
         state,
@@ -76,7 +59,10 @@ export class SignupComponent implements OnInit {
         farmAdress,
         typeofCrop,
         growingStartDate,
-        deviceStatus } = this.signupForm.value;
+        deviceStatus,
+        latitude,
+        longitude,
+      } = this.signupForm.value;
       if (this.questionNumber === this.questionType.otp) {
         const data = {
           phoneNumber: phoneNumber.toString(),
@@ -97,24 +83,24 @@ export class SignupComponent implements OnInit {
               });
           }
         });
-      } else if(this.questionNumber===this.questionType.mobilenumber) {
+      } else if (this.questionNumber === this.questionType.mobilenumber) {
         this.auth
           .sendOtp({ phoneNumber: phoneNumber.toString() })
           .subscribe((res: any) => {
             if (res.status === 'Success') {
               this.questionNumber++;
+              this.notificationService.showInfo(
+                'The OTP has been sent to your mobile number'
+              );
               this.startTimer();
             }
           });
+      } else if (this.questionNumber === this.questionType.user) {
+        this.questionNumber++;
+        return;
       }
-      else if(this.questionNumber===this.questionType.user)
-        {
-          this.questionNumber++;
-          return;
-        }
       if (this.questionNumber === this.questionType.farm) {
-        const onBoarddata =
-        {
+        const onBoarddata = {
           phoneNumber: phoneNumber,
           name: firstName,
           email: email,
@@ -124,95 +110,44 @@ export class SignupComponent implements OnInit {
           zipCode: zipcode,
           landSize: landSize,
           farmAddress: farmAdress,
-          deviceStatus: deviceStatus,
+          deviceStatus: false,
           cropType: typeofCrop,
           soilType: soilType,
-          cropGrowingStartDate: "2024-07-09T08:39:35.627Z",
+          cropGrowingStartDate: moment(growingStartDate).format(
+            'YYYY-MM-DDTHH:mm:ss.SSS[Z]'
+          ),
           onBoardingStatus: true,
-          tenantId: "1234"
-
-        }
-        this.auth.SaveOnBoardData(onBoarddata).subscribe(res => {
+          latitude: latitude,
+          longitude: longitude,
+        };
+        this.auth.SaveOnBoardData(onBoarddata).subscribe((res) => {
           this.route.navigate(['/user']);
-        })
+        });
       }
-
-
     } else {
       this.signupForm.markAllAsTouched();
     }
   }
-  // Continue() {
-  //   this.notificationService.showWarning("Hello World!");
-  //   if (this.questionNumber === this.questionType.farm) {
-  //     this.route.navigate(['/user']);
-  //   } else {
-  //     this.questionNumber++;
-  //   }
-  // }
 
-  SignUp() {
-    let { email, firstName, lastName, password, phoneNumber } =
-      this.signupForm.value;
-    const data = {
-      firstName: firstName,
-      lastName: lastName,
-      // userName: `${lastName}+""+${firstName}`,
-      phoneNumber: phoneNumber.toString(),
-      email: email,
-      password: password,
-    };
-    this.route.navigate(['/user']);
-    this.auth.signUp(data).subscribe((res) => {
-      console.log(res);
-    });
-  }
-  editMobileNumber() {
-    this.questionNumber--;
-  }
   ngOnInit(): void {
-    this.signupForm = this.fb.group(
-      {
-        phoneNumber: ['', [Validators.pattern(/^[0-9]{10}$/)]],
-        firstName: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
-        // lastName: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
-        email: ['', [Validators.pattern(GlobalConstants.emailPattern)]],       
-        country: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
-        state: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
-        district: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
-        zipcode: ['', [Validators.pattern(/^[0-9]{6}$/)]],
-        landSize: [''],
-        soilType: [''],
-        farmAdress: [''],
-        typeofCrop: [],
-        growingStartDate: [''],
-        deviceStatus: [false],       
-       
-      },
-      { validators: this.passwordMatchValidator }
-    );
-  }
-  passwordMatchValidator: ValidatorFn = (
-    control: AbstractControl
-  ): ValidationErrors | null => {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirmPassword');
-    return password &&
-      confirmPassword &&
-      password.value !== confirmPassword.value
-      ? { passwordMismatch: true }
-      : null;
-  };
-
-  get passwordMismatch(): boolean {
-    return (
-      this.signupForm.hasError('passwordMismatch') &&
-      this.signupForm.get('confirmPassword').touched
-    );
-  }
-  onInput(event: any) {
-    const input = event.target.value;
-    event.target.value = input.replace(/[^0-9]/g, '');
+    this.signupForm = this.fb.group({
+      phoneNumber: ['', [Validators.pattern(/^[0-9]{10}$/)]],
+      firstName: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
+      // lastName: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
+      email: ['', [Validators.pattern(GlobalConstants.emailPattern)]],
+      country: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
+      state: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
+      district: ['', [Validators.pattern(GlobalConstants.firstnamePattern)]],
+      zipcode: ['', [Validators.pattern(/^[0-9]{6}$/)]],
+      landSize: [''],
+      soilType: [null],
+      farmAdress: [''],
+      typeofCrop: [null],
+      growingStartDate: [''],
+      deviceStatus: [false],
+      latitude: [''],
+      longitude: [''],
+    });
   }
 
   minutes: string = '02';
@@ -229,14 +164,23 @@ export class SignupComponent implements OnInit {
       if (time < 0) {
         clearInterval(this.timer);
         this.canResend = true;
-        // this.canEdit = true;
       }
     }, 1000);
   }
 
   resendOtp() {
+    let { phoneNumber } = this.signupForm.value;
     this.canResend = false;
-    this.startTimer();
+    this.auth
+      .sendOtp({ phoneNumber: phoneNumber.toString() })
+      .subscribe((res: any) => {
+        if (res.status === 'Success') {
+          this.notificationService.showInfo(
+            'The OTP has been sent to your mobile number'
+          );
+          this.startTimer();
+        }
+      });
   }
 
   get buttonText() {
@@ -251,6 +195,36 @@ export class SignupComponent implements OnInit {
         return 'Register';
       default:
         return 'Unknown Action'; // Handle unexpected values
+    }
+  }
+
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        // Call reverse geocoding API
+        this.http
+          .get(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+          )
+          .subscribe(
+            (data: any) => {
+              this.signupForm.patchValue({
+                latitude: data.lat,
+                longitude: data.lon,
+                state: data.address.state,
+                zipcode: data.address.postcode,
+                farmAdress: data.display_name,
+              });
+            },
+            (error) => {
+              console.log('Error fetching data:', error);
+            }
+          );
+      });
+    } else {
+      console.log('Geolocation is not supported by this browser.');
     }
   }
 }

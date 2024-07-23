@@ -1,34 +1,83 @@
-
-<div class="sensor_readings-main">
+<!-- Tabs View Started -->
+<div class="content_style">
+  <div class="tabs">
+    <div
+      class="tab"
+      [class.active]="currentTab === 'all'"
+      (click)="showTab('all')"
+    >
+      All
+    </div>
+    <div
+      class="tab"
+      [class.active]="currentTab === 'temp'"
+      (click)="showTab('temp')"
+    >
+      Temp
+    </div>
+    <div
+      class="tab"
+      [class.active]="currentTab === 'moisture'"
+      (click)="showTab('moisture')"
+    >
+      Moisture
+    </div>
+    <div
+      class="tab"
+      [class.active]="currentTab === 'humidity'"
+      (click)="showTab('humidity')"
+    >
+      Humidity
+    </div>
+    <div
+      class="tab"
+      [class.active]="currentTab === 'npk'"
+      (click)="showTab('npk')"
+    >
+      NPK
+    </div>
+  </div>
+  @if (currentTab === 'all') {
   <div class="row">
     <div class="col-md-3 col-sm-6">
-      <div class="card text-white bg-danger">
+      <div class="card_all text-white bg-danger">
         <div class="card-header">Soil Moisture</div>
         <div class="card-body">
           <i class="fa fa-tint icon"></i>
-          <h5 class="card-title">Moisture : {{this.sensorLatestData.moisture}}</h5>
-          <h5 class="card-title">Moisture in % : {{this.sensorLatestData.moisturePercentage}} %</h5>
+          <h5 class="card-title">
+            Moisture : {{ this.sensorLatestData?.moisture }}
+          </h5>
+          <h5 class="card-title">
+            Moisture in % : {{ this.sensorLatestData?.moisturePercentage }} %
+          </h5>
           <!-- <p class="card-text">Temperature: 25&#8451; / 30&#8451;</p> -->
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card text-white bg-warning">
+      <div class="card_all text-white bg-warning">
         <div class="card-header">Temperature</div>
         <div class="card-body">
           <i class="fa fa-thermometer-half icon"></i>
-          <h5 class="card-title">{{this.sensorLatestData.temperatureFahrenheit}}<span> &deg;F</span></h5>
-          <h5 class="card-title">{{this.sensorLatestData.temperatureCelsius}}<span> &deg;C</span></h5>
+          <h5 class="card-title">
+            {{ this.sensorLatestData?.temperatureFahrenheit
+            }}<span> &deg;F</span>
+          </h5>
+          <h5 class="card-title">
+            {{ this.sensorLatestData?.temperatureCelsius }}<span> &deg;C</span>
+          </h5>
           <!-- <p class="card-text">Humidity: 70% / 80%</p> -->
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card text-white bg-info">
+      <div class="card_all text-white bg-info">
         <div class="card-header">Humidity</div>
         <div class="card-body">
           <i class="fa fa-water icon"></i>
-          <h5 class="card-title">{{this.sensorLatestData.humidityPercentage}} %</h5>
+          <h5 class="card-title">
+            {{ this.sensorLatestData?.humidityPercentage }} %
+          </h5>
           <!-- <p class="card-text">pH Level: 6.5 / 7</p> -->
         </div>
       </div>
@@ -44,144 +93,185 @@
       </div>
     </div> -->
   </div>
-
   <div class="row">
     <div class="col-md-3 col-sm-6">
-      <div class="card text-white bg-primary">
+      <div class="card_all text-white bg-primary">
         <div class="card-header">Nitrogen</div>
         <div class="card-body">
           <i class="fa fa-leaf icon"></i>
-          <h5 class="card-title">{{this.sensorLatestData.nitrogen}}</h5>
+          <h5 class="card-title">{{ this.sensorLatestData?.nitrogen }}</h5>
           <!-- <p class="card-text">Optimal Range: 10-30 mg/kg</p> -->
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card text-white bg-secondary">
+      <div class="card_all text-white bg-secondary">
         <div class="card-header">Phosphorus</div>
         <div class="card-body">
           <i class="fa fa-seedling icon"></i>
-          <h5 class="card-title">{{this.sensorLatestData.phosphorus}}</h5>
+          <h5 class="card-title">{{ this.sensorLatestData?.phosphorus }}</h5>
           <!-- <p class="card-text">Optimal Range: 5-20 mg/kg</p> -->
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card text-white bg-dark">
+      <div class="card_all text-white bg-dark">
         <div class="card-header">Potassium</div>
         <div class="card-body">
           <i class="fa fa-carrot icon"></i>
-          <h5 class="card-title">{{this.sensorLatestData.potassium}}</h5>
+          <h5 class="card-title">{{ this.sensorLatestData?.potassium }}</h5>
           <!-- <p class="card-text">Optimal Range: 10-40 mg/kg</p> -->
         </div>
       </div>
     </div>
   </div>
 
-  <!-- <h2>Historical Data</h2>
-<div class="row">
-<div class="col-md-4">
-  <div class="card mb-3">
-    <div class="card-header">Sensor Data Trends</div>
-    <div class="card-body">
-      <p class="card-text">
-        Visualize sensor data trends for better analysis.
-      </p>
+  } @if (currentTab === 'temp') {
+  <div class="content">
+    <div class="content" id="moisture">
+      <div class="detailed-card moisture-section">
+        <div class="section-header">
+          <h3>Temperature:</h3>
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACGUlEQVR4Xu3WQQ6CMBBF0cM8vJ27B+yZjTujkhAsztI9+H8ga63kZ2eJeXkh3fp+y6SAAAAAAAAAK5C3akIiEZPIQDBvlWBQ7BfK9FwqD2vhxRVuDhzP1yqB0I+pD1om6J6IWyF9RhfJOLZKuBi6KVI15BB3KoFuAHtIakL+FFUoBEjEIHqChoiQyizEVhUxyQkakFb7WFKB5N5C6+DDXERKkEpxQiFWRUuoFL6DEckNDfQL4AJ+kFYKNFTXFJi6gUd4Qxrk0+pH1MEpugVO5kVcoDK6CU1oiQ6gde4IZXYJipjSi8XxHiiA1niKNftKN12iM/RiVR6FSbQL4AJ+kFYKNFTXFJi6gUd4YZGYVT6UVXoNDQp35Hg6kG/TVYQ2mFhM5smg62kURuj2yVRIp/gVAAAAAAAAAAAAAAAAAADg/AhCtnqzAOlXUgAAAABJRU5ErkJggg=="
+            alt="Icon"
+          />
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+        <div class="value-box">
+          <div class="value-text">Celcius (Value):</div>
+          <div class="line"></div>
+          <div class="text-right">
+            <h2 class="value-percentage mb-0">
+              {{ this.sensorLatestData?.temperatureCelsius
+              }}<span> &deg;C</span>
+            </h2>
+          </div>
+        </div>
+        <div class="sensor-meter mt-4">
+          <h4>Sensor Meter Readings:</h4>
+          <p>
+            Based on the latest sensor data, your crop is receiving exactly what
+            it needs!
+          </p>
+          <div class="meter">
+            <div class="needle"></div>
+          </div>
+          <div class="text-center mt-2">
+            <span class="text-danger">Poor</span>
+            <span class="text-warning ml-3">Average</span>
+            <span class="text-success ml-3">Good</span>
+          </div>
+        </div>
+      </div>
+      <div class="detailed-card">
+        <h3>Graph</h3>
+        <img src="https://via.placeholder.com/400x200" alt="Graph" />
+      </div>
     </div>
   </div>
-</div>
-<div class="col-md-4">
-  <div class="card mb-3">
-    <div class="card-header">Graph Analysis</div>
-    <div class="card-body">
-      <p class="card-text">
-        Graphs display sensor data trends over time for analysis and
-        decision-making.
-      </p>
-    </div>
-  </div>
-</div>
-<div class="col-md-4">
-  <div class="card mb-3">
-    <div class="card-header">Pest Control</div>
-    <div class="card-body">
-      <p class="card-text">Take proactive measures to control pests.</p>
-    </div>
-  </div>
-</div>
-</div> -->
+  } @if(currentTab === 'moisture'){
 
-  <!-- <h2>Sensor Readings</h2>
-  <div class="table-responsive">
-    <table class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th>Value / Threshold</th>
-          <th>Soil Moisture</th>
-          <th>Temperature</th>
-          <th>Humidity</th>
-          <th>pH Level</th>
-          <th>NPK (mg/kg)</th>
-          <th>Last Modified</th>
-        </tr>
-      </thead>
-      <tbody [@scroll]="scrollState">
-        <tr>
-          <td>Moisture: 5.3 / 6.0</td>
-          <td>25&#8451;</td>
-          <td>22&#8451;</td>
-          <td>60%</td>
-          <td>6.5</td>
-          <td>15 / 10 / 20</td>
-          <td>24/08/2023</td>
-        </tr>
-        <tr>
-          <td>Moisture: 4.5 / 5.0</td>
-          <td>30&#8451;</td>
-          <td>25&#8451;</td>
-          <td>55%</td>
-          <td>7.0</td>
-          <td>18 / 12 / 22</td>
-          <td>23/08/2023</td>
-        </tr>
-        <tr>
-          <td>Moisture: 4.5 / 5.0</td>
-          <td>30&#8451;</td>
-          <td>25&#8451;</td>
-          <td>55%</td>
-          <td>7.0</td>
-          <td>18 / 12 / 22</td>
-          <td>23/08/2023</td>
-        </tr>
-        <tr>
-          <td>Moisture: 4.5 / 5.0</td>
-          <td>30&#8451;</td>
-          <td>25&#8451;</td>
-          <td>55%</td>
-          <td>7.0</td>
-          <td>18 / 12 / 22</td>
-          <td>23/08/2023</td>
-        </tr>
-        <tr>
-          <td>Moisture: 4.5 / 5.0</td>
-          <td>30&#8451;</td>
-          <td>25&#8451;</td>
-          <td>55%</td>
-          <td>7.0</td>
-          <td>18 / 12 / 22</td>
-          <td>23/08/2023</td>
-        </tr>
-        <tr>
-          <td>Moisture: 4.5 / 5.0</td>
-          <td>30&#8451;</td>
-          <td>25&#8451;</td>
-          <td>55%</td>
-          <td>7.0</td>
-          <td>18 / 12 / 22</td>
-          <td>23/08/2023</td>
-        </tr>
-         Add more rows as needed 
-      </tbody>
-    </table>
-  </div> -->
+  <div class="content" id="moisture">
+    <div class="detailed-card moisture-section">
+      <div class="section-header">
+        <h3>Moisture:</h3>
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACGUlEQVR4Xu3WQQ6CMBBF0cM8vJ27B+yZjTujkhAsztI9+H8ga63kZ2eJeXkh3fp+y6SAAAAAAAAAK5C3akIiEZPIQDBvlWBQ7BfK9FwqD2vhxRVuDhzP1yqB0I+pD1om6J6IWyF9RhfJOLZKuBi6KVI15BB3KoFuAHtIakL+FFUoBEjEIHqChoiQyizEVhUxyQkakFb7WFKB5N5C6+DDXERKkEpxQiFWRUuoFL6DEckNDfQL4AJ+kFYKNFTXFJi6gUd4Qxrk0+pH1MEpugVO5kVcoDK6CU1oiQ6gde4IZXYJipjSi8XxHiiA1niKNftKN12iM/RiVR6FSbQL4AJ+kFYKNFTXFJi6gUd4YZGYVT6UVXoNDQp35Hg6kG/TVYQ2mFhM5smg62kURuj2yVRIp/gVAAAAAAAAAAAAAAAAAADg/AhCtnqzAOlXUgAAAABJRU5ErkJggg=="
+          alt="Icon"
+        />
+      </div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+      <div class="value-box">
+        <div class="value-text">Percentage (Value):</div>
+        <div class="line"></div>
+        <div class="text-right">
+          <h2 class="value-percentage mb-0">
+            {{ this.sensorLatestData?.moisture }}%
+          </h2>
+          <span class="value-unit"
+            >{{ this.sensorLatestData?.moisturePercentage }}g/m³</span
+          >
+        </div>
+      </div>
+      <div class="sensor-meter mt-4">
+        <h4>Sensor Meter Readings:</h4>
+        <p>
+          Based on the latest sensor data, your crop is receiving exactly what
+          it needs!
+        </p>
+        <div class="meter">
+          <div class="needle"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="text-danger">Poor</span>
+          <span class="text-warning ml-3">Average</span>
+          <span class="text-success ml-3">Good</span>
+        </div>
+      </div>
+    </div>
+    <div class="detailed-card">
+      <h3>Graph</h3>
+      <img src="https://via.placeholder.com/400x200" alt="Graph" />
+    </div>
+  </div>
+
+  } @if (currentTab === 'humidity') {
+  <div class="content" id="moisture">
+    <div class="detailed-card moisture-section">
+      <div class="section-header">
+        <h3>Humidity:</h3>
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACGUlEQVR4Xu3WQQ6CMBBF0cM8vJ27B+yZjTujkhAsztI9+H8ga63kZ2eJeXkh3fp+y6SAAAAAAAAAK5C3akIiEZPIQDBvlWBQ7BfK9FwqD2vhxRVuDhzP1yqB0I+pD1om6J6IWyF9RhfJOLZKuBi6KVI15BB3KoFuAHtIakL+FFUoBEjEIHqChoiQyizEVhUxyQkakFb7WFKB5N5C6+DDXERKkEpxQiFWRUuoFL6DEckNDfQL4AJ+kFYKNFTXFJi6gUd4Qxrk0+pH1MEpugVO5kVcoDK6CU1oiQ6gde4IZXYJipjSi8XxHiiA1niKNftKN12iM/RiVR6FSbQL4AJ+kFYKNFTXFJi6gUd4YZGYVT6UVXoNDQp35Hg6kG/TVYQ2mFhM5smg62kURuj2yVRIp/gVAAAAAAAAAAAAAAAAAADg/AhCtnqzAOlXUgAAAABJRU5ErkJggg=="
+          alt="Icon"
+        />
+      </div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
+      <div class="value-box">
+        <div class="value-text">Percentage (Value):</div>
+        <div class="line"></div>
+        <div class="text-right">
+          <h2 class="value-percentage mb-0">80%</h2>
+          <span class="value-unit">280g/m³</span>
+        </div>
+      </div>
+      <div class="sensor-meter mt-4">
+        <h4>Sensor Meter Readings:</h4>
+        <p>
+          Based on the latest sensor data, your crop is receiving exactly what
+          it needs!
+        </p>
+        <div class="meter">
+          <div class="needle"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="text-danger">Poor</span>
+          <span class="text-warning ml-3">Average</span>
+          <span class="text-success ml-3">Good</span>
+        </div>
+      </div>
+    </div>
+    <div class="detailed-card">
+      <h3>Graph</h3>
+      <img src="https://via.placeholder.com/400x200" alt="Graph" />
+    </div>
+  </div>
+  } @if (currentTab === 'npk') {
+  <div class="content">
+    <div class="detailed-card">
+      <div class="header">NPK Values:</div>
+      <p>Nitrogen: 0/255</p>
+      <p>Phosphorus: 22/255</p>
+      <p>Potassium: 60/255</p>
+      <div class="status">
+        <span>Good</span>
+        <div class="status-bar good" style="width: 70%"></div>
+      </div>
+    </div>
+    <div class="detailed-card">
+      <h3>Graph</h3>
+      <img src="https://via.placeholder.com/400x200" alt="Graph" />
+    </div>
+  </div>
+  }
 </div>

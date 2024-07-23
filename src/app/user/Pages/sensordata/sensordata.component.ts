@@ -1,6 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
-import { AuthService } from '../../../Services/auth.service';
 import { UserService } from '../../user.service';
 
 @Component({
@@ -18,19 +17,20 @@ import { UserService } from '../../user.service';
 export class SensordataComponent {
 
   scrollState = 'start';
-  sensorLatestData : any;
+  sensorLatestData: any;
+  currentTab: string = 'all';
+  showTab(tabName: string) {
+    this.currentTab = tabName;
+  }
 
-  constructor(private userService: UserService)
-  {
+
+  constructor(private userService: UserService) {
     this.userService.GetSensorLatestData().subscribe((res: any) => {
       this.sensorLatestData = res;
     });
   }
 
-  ngOnInit(): void {    
-    // setInterval(() => {
-    //   this.scrollState = this.scrollState === 'start' ? 'end' : 'start';    
-    // }, 5000); // Adjust interval as needed
+  ngOnInit(): void {
     setTimeout(() => {
       [
         this.scrollState = this.scrollState === 'start' ? 'end' : 'start'

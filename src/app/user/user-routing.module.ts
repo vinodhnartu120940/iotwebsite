@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './Pages/dashboard/dashboard.component';
-import { PredictDiseaseComponent } from './Pages/predict-disease/predict-disease.component';
-import { UserComponent } from './user.component';
 import { SensordataComponent } from './Pages/sensordata/sensordata.component';
-
+import { DashboardtwoComponent } from './Pages/dashboardtwo/dashboardtwo.component';
+import { PredictDiseaseCopyComponent } from './Pages/predict-disease-one/predict-disease.component';
 
 const routes: Routes = [
   {
-    path: 'dashboard', component: DashboardComponent, children: [
-      { path: "", component: SensordataComponent, data: { title: 'Sensor Readings' } }, {
-        path: 'predict', component: PredictDiseaseComponent, data: { title: "Coffe Plant Detection" }
-      }
-    ]
+    path: 'dashboard',
+    component: DashboardtwoComponent,
+    children: [
+      {
+        path: '',
+        component: SensordataComponent,
+        data: { title: 'Sensor Data' },
+      },
+      {
+        path: 'predict',
+        component: PredictDiseaseCopyComponent,
+        data: { title: 'Coffe Plant Detection' },
+      },
+    ],
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-
-
 ];
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}
