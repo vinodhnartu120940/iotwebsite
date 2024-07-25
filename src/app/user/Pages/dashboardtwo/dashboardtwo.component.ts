@@ -4,6 +4,8 @@ import {
   ActivatedRoute,
   NavigationEnd,
   Router,
+  RouterLink,
+  RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
 import { AuthService } from '../../../Services/auth.service';
@@ -13,7 +15,7 @@ import { filter } from 'rxjs';
 @Component({
   selector: 'app-dashboardtwo',
   standalone: true,
-  imports: [NgClass, RouterOutlet],
+  imports: [NgClass, RouterOutlet,RouterLink,RouterLinkActive],
   templateUrl: './dashboardtwo.component.html',
   styleUrl: './dashboardtwo.component.scss',
 })

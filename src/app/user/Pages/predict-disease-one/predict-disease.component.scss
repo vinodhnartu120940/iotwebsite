@@ -1,3 +1,4 @@
+
 .nav-tabs .nav-link {
   color: #4a6b47;
 }
@@ -20,6 +21,11 @@
 .upload-options {
   text-align: center;
   margin: 20px 0;
+  cursor: pointer;
+}
+.upload-options button,
+.upload-options span {
+  cursor: pointer;
 }
 .content-wrapper {
   display: flex;

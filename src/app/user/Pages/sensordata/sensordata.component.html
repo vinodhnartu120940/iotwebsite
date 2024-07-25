@@ -166,7 +166,7 @@
       </div>
       <div class="detailed-card">
         <h3>Graph</h3>
-        <img src="https://via.placeholder.com/400x200" alt="Graph" />
+        <canvas #chartCanvas id="chartCanvasMoisture"></canvas>
       </div>
     </div>
   </div>
@@ -212,7 +212,7 @@
     </div>
     <div class="detailed-card">
       <h3>Graph</h3>
-      <img src="https://via.placeholder.com/400x200" alt="Graph" />
+      <canvas #chartCanvas id="chartCanvasMoisture"></canvas>
     </div>
   </div>
 
@@ -253,7 +253,7 @@
     </div>
     <div class="detailed-card">
       <h3>Graph</h3>
-      <img src="https://via.placeholder.com/400x200" alt="Graph" />
+        <canvas #chartCanvas id="chartCanvasHumidity"></canvas>
     </div>
   </div>
   } @if (currentTab === 'npk') {
@@ -270,7 +270,7 @@
     </div>
     <div class="detailed-card">
       <h3>Graph</h3>
-      <img src="https://via.placeholder.com/400x200" alt="Graph" />
+      <canvas #chartCanvas id="chartCanvasNPK"></canvas>
     </div>
   </div>
   }

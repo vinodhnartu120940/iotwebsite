@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SensordataComponent } from './Pages/sensordata/sensordata.component';
 import { DashboardtwoComponent } from './Pages/dashboardtwo/dashboardtwo.component';
 import { PredictDiseaseCopyComponent } from './Pages/predict-disease-one/predict-disease.component';
+import { ProfileComponent } from './Pages/profile/profile.component';
+
 
 const routes: Routes = [
   {
@@ -19,8 +21,14 @@ const routes: Routes = [
         component: PredictDiseaseCopyComponent,
         data: { title: 'Coffe Plant Detection' },
       },
+      {
+        path: 'my-account',
+        component: ProfileComponent,
+        data: { title: 'My Account' },
+      },
     ],
   },
+
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 
