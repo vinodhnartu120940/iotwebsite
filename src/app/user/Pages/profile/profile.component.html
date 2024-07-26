@@ -15,17 +15,21 @@
             class="rounded-circle mb-3"
           />
           <div>
-            <h5>Vijay Patil</h5>
-            <p>+91 96480 65489</p>
+            <h5>{{userService.userInfo?.name}}</h5>
+            <p>+91 {{userService.userInfo?.phoneNumber}}</p>
           </div>
         </div>
         <div class="device-dropdown">
           <div class="form-group">
             <label for="deviceSelect">Select Device:</label>
-            <select id="deviceSelect" class="form-control">
-              <option>Device1</option>
-              <option>Device2</option>
-              <option>Device3</option>
+            <select
+              id="deviceSelect"
+              class="form-control"
+              (change)="handleDevice($event)"
+            >
+              @for (item of userService.tenets; track $index) {
+              <option [value]="item">Device {{ $index + 1 }}</option>
+              }
             </select>
           </div>
         </div>
@@ -47,7 +51,7 @@
         <div
           class="d-flex justify-content-between align-items-center p-2 bg-light rounded"
         >
-          <span>Coffee</span>
+          <span>{{userService.userInfo?.cropType}}</span>
           <button class="btn btn-success btn-sm">Add+</button>
         </div>
       </div>

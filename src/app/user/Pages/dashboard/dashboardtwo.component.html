@@ -7,7 +7,7 @@
     <div class="sidenav" [ngClass]="{ show: isMenuVisible }" id="sidenav">
       <span class="close-btn" (click)="toggleMenu()">&times;</span>
       <div class="text-center mb-4">
-        <h3>Trees & Rays</h3>
+        <h3>Agri Central</h3>
       </div>
       <a
         routerLink="/user/dashboard"
@@ -20,23 +20,23 @@
         routerLink="/user/dashboard/predict"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
-        ><i class="fas fa-seedling icon"></i>Plantation</a
+        ><i class="fas fa-seedling icon"></i>Disease Management</a
       >
-      <a href="#"><i class="fas fa-user-friends icon"></i>Farmers</a>
+      <!-- <a href="#"><i class="fas fa-user-friends icon"></i>Farmers</a>
       <a href="#"><i class="fas fa-tint icon"></i>Soil Moisture</a>
       <hr />
       <h6 class="pl-3">Plantation Workers</h6>
       <a href="#"><i class="fas fa-cogs icon"></i>Customization</a>
       <a href="#"><i class="fas fa-shield-alt icon"></i>Security Settings</a>
       <a href="#"><i class="fas fa-unlock-alt icon"></i>Access Control</a>
-      <a href="#"><i class="fas fa-ellipsis-h icon"></i>Lorem Ipsum</a>
-      <div class="profile-section">
+      <a href="#"><i class="fas fa-ellipsis-h icon"></i>Lorem Ipsum</a> -->
+      <!-- <div class="profile-section">
         <img src="https://via.placeholder.com/50" alt="User Profile" />
         <p>User Profile</p>
-        <!-- <a href="mailto:user@coffeesense.com">user@coffeesense.com</a> -->
-      </div>
-      <div class="text-center">
-        <a href="#"><i class="fas fa-cog icon"></i>Preferences</a>
+        <a href="mailto:user@coffeesense.com">usercoffeesense.com</a>
+      </div> -->
+      <div class="text-center logout-account">
+        <a routerLink="/user/dashboard/my-account" ><i class="fa-solid fa-user icon"></i>My Account</a>
         <a (click)="auth.logOut()"
           ><i class="fas fa-sign-out-alt icon"></i>Sign Out</a
         >
@@ -48,11 +48,11 @@
       >
         <h1 class="h2">{{ currentRouteTitle }}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
+          <!-- <div class="btn-group mr-2">
             <button type="button" class="btn btn-sm btn-outline-secondary">
               Alerts
             </button>
-          </div>
+          </div> -->
           <button
             type="button"
             class="btn btn-sm btn-outline-secondary dropdown-toggle"
@@ -69,8 +69,12 @@
             class="dropdown-menu dropdown-menu-right"
             aria-labelledby="accountMenuButton"
           >
-            <span class="dropdown-item-text">vinodhnewdev&#64;yopmail.com</span>
-            <a class="dropdown-item" routerLink="/user/dashboard/my-account"><i class="fas fa-user"></i> My Account</a>
+            <span class="dropdown-item-text">{{
+              userService.userInfo?.email
+            }}</span>
+            <a class="dropdown-item" routerLink="/user/dashboard/my-account"
+              ><i class="fas fa-user"></i> My Account</a
+            >
             <a class="dropdown-item" (click)="auth.logOut()"
               ><i class="fas fa-sign-out-alt"></i> Log Out</a
             >

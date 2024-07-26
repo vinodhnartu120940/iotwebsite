@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SensordataComponent } from './Pages/sensordata/sensordata.component';
-import { DashboardtwoComponent } from './Pages/dashboardtwo/dashboardtwo.component';
-import { PredictDiseaseCopyComponent } from './Pages/predict-disease-one/predict-disease.component';
+import { DashboardtwoComponent } from './Pages/dashboard/dashboardtwo.component';
 import { ProfileComponent } from './Pages/profile/profile.component';
-
+import { PredictDiseaseComponent } from './Pages/predict-disease/predict-disease.component';
 
 const routes: Routes = [
   {
@@ -18,8 +17,8 @@ const routes: Routes = [
       },
       {
         path: 'predict',
-        component: PredictDiseaseCopyComponent,
-        data: { title: 'Coffe Plant Detection' },
+        component: PredictDiseaseComponent,
+        data: { title: 'Coffe Leaf Disease Detection' },
       },
       {
         path: 'my-account',
