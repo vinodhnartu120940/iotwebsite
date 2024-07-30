@@ -1,0 +1,25 @@
+<ul class="nav nav-tabs custom-tabs" id="myTab" role="tablist">
+  @for (tab of tabs; track tab.id) {
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        [class.active]="isActive(tab.id)"
+        (click)="setActiveTab(tab.id)"
+        [id]="tab.id + '-tab'"
+        type="button"
+        role="tab"
+        [attr.aria-controls]="tab.id"
+        [attr.aria-selected]="isActive(tab.id)"
+      >
+        {{ tab.title }}
+      </button>
+    </li>
+  }
+</ul>
+<div class="tab-content" id="myTabContent">
+  @for (tab of tabs; track tab.id) {
+    <div class="tab-pane fade" [class.show]="isActive(tab.id)" [class.active]="isActive(tab.id)" [id]="tab.id" role="tabpanel" [attr.aria-labelledby]="tab.id + '-tab'">
+      <ng-container *ngComponentOutlet="isActive(tab.id) ? tab.component : null"></ng-container>
+    </div>
+  }
+</div>

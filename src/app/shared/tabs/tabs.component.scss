@@ -1,0 +1,31 @@
+.nav-tabs {
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .nav-item {
+    margin-bottom: -1px;
+
+    .nav-link {
+      background-color: transparent;
+      border: 1px solid transparent;
+      border-radius: 0.25rem 0.25rem 0 0;
+      color: #6c757d;
+      padding: 0.5rem 1rem;
+      margin-right: 1rem;
+      transition: color 0.3s, background-color 0.3s, border 0.3s;
+
+      &:hover {
+        color: #495057;
+      }
+
+      &.active {
+        color: #fff;
+        background-color: #4a6b47; 
+        border-color: #ddd #ddd #fff;
+        border-radius: 0.25rem 0.25rem 0 0;
+      }
+    }
+  }
+}
