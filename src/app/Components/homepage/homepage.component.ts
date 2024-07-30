@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss'
+  styleUrl: './homepage.component.scss',
 })
 export class HomepageComponent implements OnInit {
   ngOnInit(): void {
@@ -17,14 +17,14 @@ export class HomepageComponent implements OnInit {
       let currentIndex = 0;
 
       const changeImage = () => {
-        images[currentIndex].classList.remove('active');
+        images[currentIndex]?.classList.remove('active');
         currentIndex = (currentIndex + 1) % images.length;
-        images[currentIndex].classList.add('active');
+        images[currentIndex]?.classList.add('active');
       };
 
       // Apply the initial transition after a short delay
       setTimeout(() => {
-        images[currentIndex].classList.add('active');
+        images[currentIndex]?.classList.add('active');
         heroContent?.classList.add('active'); // Add class to show hero content
         loadingOverlay?.classList.add('hidden'); // Hide the loading overlay
       }, 100); // 100ms delay for initial load
@@ -33,6 +33,4 @@ export class HomepageComponent implements OnInit {
       setInterval(changeImage, 5000); // Change image every 10 seconds
     }, 100);
   }
-  
-
 }

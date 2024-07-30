@@ -9,11 +9,17 @@ import { NotificationService } from '../../Services/notification.service';
 import { HttpClient } from '@angular/common/http';
 import { cropTypes, soilTypes } from '../../utils/farm.data';
 import moment from 'moment';
+import { DisableButtonDuringAjax } from '../../Services/disable-during-ajax.directive';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, NumericOnlyDirective, NgxOtpInputModule],
+  imports: [
+    ReactiveFormsModule,
+    NumericOnlyDirective,
+    NgxOtpInputModule,
+    DisableButtonDuringAjax,
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
@@ -30,8 +36,15 @@ export class SignupComponent implements OnInit {
   soilTypes: string[] = soilTypes;
   cropTypes: string[] = cropTypes;
 
+  // handleFillEvent(value: string): void {
+  //   this.otp = value;
+  // }
   handleFillEvent(value: string): void {
     this.otp = value;
+    console.log(this.otp.length);
+    if (this.otp.length === this.otpInputConfig.otpLength) {
+      console.log('vinodh');
+    }
   }
   constructor(
     private fb: FormBuilder,
@@ -63,7 +76,10 @@ export class SignupComponent implements OnInit {
         latitude,
         longitude,
       } = this.signupForm.value;
-      if (this.questionNumber === this.questionType.otp) {
+      if (
+        this.questionNumber === this.questionType.otp &&
+        this.otp?.length === this.otpInputConfig.otpLength
+      ) {
         const data = {
           phoneNumber: phoneNumber.toString(),
           otp: this.otp,
