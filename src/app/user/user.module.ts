@@ -7,10 +7,11 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { PredictDiseaseComponent } from './Pages/predict-disease/predict-disease.component';
 import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [UserComponent, PredictDiseaseComponent, ProfileComponent],
-  imports: [CommonModule, UserRoutingModule, NgbModule,SharedModule],
+  imports: [CommonModule, UserRoutingModule, NgbModule,SharedModule,ReactiveFormsModule],
   providers: [provideCharts(withDefaultRegisterables())],
 })
 export class UserModule {}
