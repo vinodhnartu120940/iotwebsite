@@ -4,6 +4,9 @@ import { SensordataComponent } from './Pages/sensordata/sensordata.component';
 import { DashboardtwoComponent } from './Pages/dashboard/dashboardtwo.component';
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { PredictDiseaseComponent } from './Pages/predict-disease/predict-disease.component';
+import { CoffeeCycleComponent } from './Pages/coffee-cycle/coffee-cycle.component';
+import { Title } from 'chart.js';
+import { RevenueComponent } from './Pages/revenue/revenue.component';
 
 const routes: Routes = [
   {
@@ -24,10 +27,19 @@ const routes: Routes = [
         path: 'my-account',
         component: ProfileComponent,
         data: { title: 'My Account' },
+      },    
+      {
+        path:'coffee-cycle',
+        component: CoffeeCycleComponent,
+        data:{title:"Coffee-Cycle"}
+      },
+      {
+        path:"revenue",
+        component: RevenueComponent,
+        data:{title:"Revenue"}
       },
     ],
   },
-
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

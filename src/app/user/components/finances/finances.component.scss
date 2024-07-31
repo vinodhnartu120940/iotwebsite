@@ -1,0 +1,24 @@
+:host {
+    display: block;
+    width: 100%;
+  }
+  
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .custom-legend {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  
+  .custom-legend div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  

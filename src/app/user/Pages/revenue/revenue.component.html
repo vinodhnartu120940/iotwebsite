@@ -1,0 +1,38 @@
+<div class="row mb-3" >
+    <div class="col-12">
+      <div class="card border-0 shadow">
+        <div class="card-body text-center">
+          <p class="mb-2">You haven't added any revenue yet!</p>
+          <p class="text-muted">Start adding your farm activities and track your expenses and revenues</p>
+          <button class="btn btn-outline-success " (click)="openAddRevenueModal()">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- 
+        <div class="modal-header">
+          <h5 class="modal-title" id="addRevenueModalLabel">Log Expense</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form >
+            <div class="mb-3">
+              <label for="date" class="form-label">Date</label>
+              <input type="date" id="date" formControlName="date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+              <select id="category" formControlName="category" class="form-select" required>
+                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="amount" class="form-label">Amount</label>
+              <input type="number" id="amount" formControlName="amount" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </form>
+        </div> -->
