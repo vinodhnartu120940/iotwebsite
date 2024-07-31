@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { PieChartComponent } from "../../../shared/pie-chart/pie-chart.component";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-finances',
   standalone: true,
-  imports: [PieChartComponent],
+  imports: [PieChartComponent,RouterLink],
   templateUrl: './finances.component.html',
   styleUrl: './finances.component.scss'
 })
