@@ -31,11 +31,21 @@ export class FinancesComponent {
     plugins: {
       legend: {
         position: 'bottom',
-        align: 'start'
+        align: 'start',
+        labels: {
+          font: {
+            size: 18
+          }
+        }
+        
       },
       title: {
         display: true,
-        text: 'Pie Chart Example'
+        text: 'Coffee Crop Revenue',
+        font: {
+          size: 36, 
+          weight: 'bold' 
+        }
       }
     }
   };
