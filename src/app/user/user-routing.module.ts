@@ -7,6 +7,7 @@ import { PredictDiseaseComponent } from './Pages/predict-disease/predict-disease
 import { CoffeeCycleComponent } from './Pages/coffee-cycle/coffee-cycle.component';
 import { Title } from 'chart.js';
 import { RevenueComponent } from './Pages/revenue/revenue.component';
+import { ExpenseComponent } from './Pages/expense/expense.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,11 @@ const routes: Routes = [
         path:"revenue",
         component: RevenueComponent,
         data:{title:"Revenue"}
+      },
+      {
+        path:"expense",
+        component: ExpenseComponent,
+        data:{title:"Expense"}
       },
     ],
   },
