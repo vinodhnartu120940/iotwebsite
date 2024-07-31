@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabsComponent } from './tabs/tabs.component';
-
-
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+   
+  ],
   imports: [
     CommonModule,
-    TabsComponent
+    PieChartComponent,
+    TabsComponent,
+    
   ],
-  exports: [TabsComponent]
+  exports: [TabsComponent,PieChartComponent]
 })
 export class SharedModule { }

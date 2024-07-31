@@ -68,11 +68,8 @@
         <div class="col-12">
           <div class="card border-0 shadow">
             <div class="card-body text-center">
-              <img src="../images/profit-icon.svg" alt="Profit Icon" class="mb-2">
-              <p class="mb-0">Your Current Crop</p>
-              <h5 class="mb-0">Coffee</h5>
-              <p class="text-muted">Your estimated total profit</p>
-              <h5>₹0</h5>
+              <app-pie-chart [chartData]="pieChartData" [chartOptions]="pieChartOptions" [height]="pieChartHeight" [width]="pieChartWidth"></app-pie-chart>
+              <div id="legend" class="custom-legend"></div>
             </div>
           </div>
         </div>
@@ -81,11 +78,7 @@
         <div class="col-12">
           <div class="card border-0 shadow">
             <div class="card-body text-center">
-              <img src="../images/profit-icon.svg" alt="Profit Icon" class="mb-2">
-              <p class="mb-0">Your Current Crop</p>
-              <h5 class="mb-0">Coffee</h5>
-              <p class="text-muted">Your estimated total profit</p>
-              <h5>₹0</h5>
+              <app-pie-chart [chartData]="pieChartData" [chartOptions]="pieChartOptions" [height]="pieChartHeight" [width]="pieChartWidth"></app-pie-chart>
             </div>
           </div>
         </div>
