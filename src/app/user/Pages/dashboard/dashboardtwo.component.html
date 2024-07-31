@@ -26,7 +26,10 @@
         routerLink="/user/dashboard/coffee-cycle"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
-        > <img class="pr-2" src="../images/coffee-cycle.svg" alt="img"> Coffee Cycle</a>
+      >
+        <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" /> Coffee
+        Cycle</a
+      >
       <!-- <a href="#"><i class="fas fa-user-friends icon"></i>Farmers</a>
       <a href="#"><i class="fas fa-tint icon"></i>Soil Moisture</a>
       <hr />
@@ -41,7 +44,9 @@
         <a href="mailto:user@coffeesense.com">usercoffeesense.com</a>
       </div> -->
       <div class="text-center logout-account">
-        <a routerLink="/user/dashboard/my-account" ><i class="fa-solid fa-user icon"></i>My Account</a>
+        <a routerLink="/user/dashboard/my-account"
+          ><i class="fa-solid fa-user icon"></i>My Account</a
+        >
         <a (click)="auth.logOut()"
           ><i class="fas fa-sign-out-alt icon"></i>Sign Out</a
         >
