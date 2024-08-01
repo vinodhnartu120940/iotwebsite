@@ -16,7 +16,6 @@ Chart.register(...registerables);
 })
 export class SensordataComponent implements AfterViewChecked, OnDestroy {
   @ViewChild('chartCanvas', { static: false }) chartCanvas!: ElementRef;
-
   currentTab: string = 'all';
   sensorLatestData: any;
   chart: Chart | undefined;
