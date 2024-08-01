@@ -20,6 +20,8 @@
       </div>
     </div>
   
+    <button class="btn btn-success my-3" (click)="openAddEventModal(addEventContent)">Add Event</button>
+  
     <mwl-calendar-month-view
       *ngIf="view === CalendarView.Month"
       [viewDate]="viewDate"
@@ -58,6 +60,62 @@
       </ul>
       <p *ngIf="modalData?.event?.start">Start: {{ modalData?.event?.start | date: 'medium' }}</p>
       <p *ngIf="modalData?.event?.end">End: {{ modalData?.event?.end | date: 'medium' }}</p>
+      <hr>
+      <h5>Add Expense</h5>
+      <form (ngSubmit)="addExpense(modal)">
+        <div class="mb-3">
+          <label for="expenseAmount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="expenseAmount" required [(ngModel)]="expense.amount" name="amount">
+        </div>
+        <div class="mb-3">
+          <label for="expenseDate" class="form-label">Date</label>
+          <input type="date" class="form-control" id="expenseDate" required [(ngModel)]="expense.date" name="date">
+        </div>
+        <div class="mb-3">
+          <label for="expenseVendor" class="form-label">Vendor</label>
+          <input type="text" class="form-control" id="expenseVendor" [(ngModel)]="expense.vendor" name="vendor">
+        </div>
+        <div class="mb-3">
+          <label for="expenseNotes" class="form-label">Notes</label>
+          <textarea class="form-control" id="expenseNotes" rows="3" [(ngModel)]="expense.notes" name="notes"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="expenseReceipt" class="form-label">Receipt</label>
+          <input type="file" class="form-control" id="expenseReceipt" (change)="handleFileInput($event)">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Expense</button>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+  
+  <ng-template #addEventContent let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Add New Event</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="addEvent(modal)">
+        <div class="mb-3">
+          <label for="eventTitle" class="form-label">Title</label>
+          <input type="text" class="form-control" id="eventTitle" required [(ngModel)]="newEvent.title" name="title">
+        </div>
+        <div class="mb-3">
+          <label for="eventStart" class="form-label">Start Date</label>
+          <input type="date" class="form-control" id="eventStart" required [(ngModel)]="newEvent.start" name="start">
+        </div>
+        <div class="mb-3">
+          <label for="eventEnd" class="form-label">End Date</label>
+          <input type="date" class="form-control" id="eventEnd" required [(ngModel)]="newEvent.end" name="end">
+        </div>
+        <div class="mb-3">
+          <label for="eventDetails" class="form-label">Details</label>
+          <textarea class="form-control" id="eventDetails" rows="3" [(ngModel)]="newEvent.meta.details[0]" name="details"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Event</button>
+      </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

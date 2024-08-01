@@ -3,6 +3,7 @@ import { CalendarView, CalendarEvent, CalendarModule } from 'angular-calendar';
 import { startOfDay, endOfDay, addDays, addMonths } from 'date-fns';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-calendar',
@@ -11,7 +12,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     CalendarModule,
     NgFor,
-    NgIf
+    NgIf,
+    FormsModule
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
@@ -109,7 +111,7 @@ export class CalendarComponent {
 
   CalendarView = CalendarView;
 
-  constructor(private modalService: NgbModal) {}
+  constructor(private modalService: NgbModal) { }
 
   changeView(view: CalendarView) {
     this.view = view;
@@ -125,6 +127,30 @@ export class CalendarComponent {
 
   handleEvent(action: string, event: CalendarEvent, content: any): void {
     this.modalData = { event };
+    this.modalService.open(content, { size: 'lg' });
+  }
+
+  addExpense(modal: any) {
+    console.log('Expense added:', this.expense);
+    modal.close('Save click');
+    // Clear the form
+    this.expense = { amount: null, date: '', vendor: '', notes: '', receipt: null };
+  }
+
+  handleFileInput(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.expense.receipt = file;
+    }
+  }
+
+  addEvent(modal: any) {
+    this.events.push({ ...this.newEvent });
+    modal.close();
+    this.newEvent = { start: new Date(), end: new Date(), title: '', color: { primary: '', secondary: '' }, meta: { details: [] } };
+  }
+
+  openAddEventModal(content: any) {
     this.modalService.open(content, { size: 'lg' });
   }
 }
