@@ -1,4 +1,3 @@
-
 .nav-tabs .nav-link {
   color: #4a6b47;
 }
@@ -60,11 +59,12 @@
 }
 
 .result-image img {
-  width: 90%;
+  // width: 90%;
   max-width: 100%;
   height: 200px;
   border-radius: 10px;
   object-fit: cover;
+  margin-top: 10px;
 }
 
 .disease-info {
