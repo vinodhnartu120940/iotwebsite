@@ -40,10 +40,10 @@
   @if (currentTab === 'all') {
   <div class="row">
     <div class="col-md-3 col-sm-6">
-      <div class="card_all text-white bg-danger">
+      <div class="card_all  ">
         <div class="card-header">Soil Moisture</div>
         <div class="card-body">
-          <i class="fa fa-tint icon"></i>
+          <i class="fa fa-tint icon"style="color: #ADD8E6;"></i>
           <!-- <h5 class="card-title">
             Moisture : {{ this.sensorLatestData?.moisture }}
           </h5> -->
@@ -55,16 +55,16 @@
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all text-white bg-warning">
+      <div class="card_all ">
         <div class="card-header">Temperature</div>
         <div class="card-body">
-          <i class="fa fa-thermometer-half icon"></i>
+          <i class="fa fa-thermometer-half icon" style="color:#FF4500"></i>
           <h5 class="card-title">
-            {{ sensorLatestData?.temperatureFahrenheit 
+            {{ sensorLatestData?.temperatureFahrenheit
             }}<span> &deg;F</span>
           </h5>
           <h5 class="card-title">
-            {{ sensorLatestData?.temperatureCelsius 
+            {{ sensorLatestData?.temperatureCelsius
             }}<span> &deg;C</span>
           </h5>
           <!-- <p class="card-text">Humidity: 70% / 80%</p> -->
@@ -72,12 +72,12 @@
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all text-white bg-info">
+      <div class="card_all ">
         <div class="card-header">Humidity</div>
         <div class="card-body">
-          <i class="fa fa-water icon"></i>
+          <i class="fa fa-water icon" style="color:#00FFFF"></i>
           <h5 class="card-title">
-            {{ sensorLatestData?.humidityPercentage  }} %
+            {{ sensorLatestData?.humidityPercentage }} %
           </h5>
           <!-- <p class="card-text">pH Level: 6.5 / 7</p> -->
         </div>
@@ -96,30 +96,30 @@
   </div>
   <div class="row">
     <div class="col-md-3 col-sm-6">
-      <div class="card_all text-white bg-primary">
+      <div class="card_all  ">
         <div class="card-header">Nitrogen</div>
         <div class="card-body">
-          <i class="fa fa-leaf icon"></i>
+          <i class="fa fa-leaf icon" style="color: #32CD32"></i>
           <h5 class="card-title">{{ sensorLatestData?.nitrogen }}</h5>
           <!-- <p class="card-text">Optimal Range: 10-30 mg/kg</p> -->
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all text-white bg-secondary">
+      <div class="card_all  ">
         <div class="card-header">Phosphorus</div>
         <div class="card-body">
-          <i class="fa fa-seedling icon"></i>
+          <i class="fa fa-seedling icon" style="color: #228B22"></i>
           <h5 class="card-title">{{ sensorLatestData?.phosphorus }}</h5>
           <!-- <p class="card-text">Optimal Range: 5-20 mg/kg</p> -->
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all text-white bg-dark">
+      <div class="card_all  ">
         <div class="card-header">Potassium</div>
         <div class="card-body">
-          <i class="fa fa-carrot icon"></i>
+          <i class="fa fa-carrot icon" style="color:#8B4513"></i>
           <h5 class="card-title">{{ sensorLatestData?.potassium }}</h5>
           <!-- <p class="card-text">Optimal Range: 10-40 mg/kg</p> -->
         </div>
@@ -144,7 +144,7 @@
           <div class="line"></div>
           <div class="text-right">
             <h2 class="value-percentage mb-0">
-              {{ sensorLatestData?.temperatureCelsius 
+              {{ sensorLatestData?.temperatureCelsius
               }}<span> &deg;C</span>
             </h2>
           </div>
@@ -233,7 +233,7 @@
         <div class="line"></div>
         <div class="text-right">
           <h2 class="value-percentage mb-0">
-            {{ sensorLatestData?.humidityPercentage  }} %
+            {{ sensorLatestData?.humidityPercentage }} %
           </h2>
           <!-- <span class="value-unit">280g/m³</span> -->
         </div>

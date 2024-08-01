@@ -1,14 +1,17 @@
 .content_style {
-  background: linear-gradient(to right, #d4a373, #4a6b47);
+  // background: linear-gradient(to right, #d4a373, #4a6b47);
+  // background: #eaecea;
+  background-color: #fffefe;
   padding: 20px 10px 10px 10px;
   border-radius: 5px;
   height: 100vh;
+ 
 }
 
 .tabs {
   display: flex;
   justify-content: space-around;
-  background-color: #eae7dc;
+  // background-color: #eae7dc;
   padding: 10px;
   margin: 10px;
   border-radius: 8px;
@@ -21,7 +24,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
   border-radius: 8px 8px 0 0;
-  background-color: #eae7dc;
+  // background-color: #eae7dc;
 }
 
 .tabs .active {
