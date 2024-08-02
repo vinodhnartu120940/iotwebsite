@@ -8,6 +8,7 @@ import { CoffeeCycleComponent } from './Pages/coffee-cycle/coffee-cycle.componen
 import { Title } from 'chart.js';
 import { RevenueComponent } from './Pages/revenue/revenue.component';
 import { ExpenseComponent } from './Pages/expense/expense.component';
+import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
 
 const routes: Routes = [
   {
@@ -28,21 +29,26 @@ const routes: Routes = [
         path: 'my-account',
         component: ProfileComponent,
         data: { title: 'My Account' },
-      },    
+      },
       {
-        path:'coffee-cycle',
+        path: 'coffee-cycle',
         component: CoffeeCycleComponent,
-        data:{title:"Coffee-Cycle"}
+        data: { title: 'Coffee-Cycle' },
       },
       {
-        path:"revenue",
+        path: 'revenue',
         component: RevenueComponent,
-        data:{title:"Revenue"}
+        data: { title: 'Revenue' },
       },
       {
-        path:"expense",
+        path: 'expense',
         component: ExpenseComponent,
-        data:{title:"Expense"}
+        data: { title: 'Expense' },
+      },
+      {
+        path: 'expenses',
+        component: ExpenseReportComponent,
+        data: { title: 'Expenses' },
       },
     ],
   },
