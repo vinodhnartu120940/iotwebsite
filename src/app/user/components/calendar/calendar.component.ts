@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CalendarView, CalendarEvent, CalendarModule } from 'angular-calendar';
-import { startOfDay, endOfDay, addDays, addMonths } from 'date-fns';
+import { startOfDay, endOfDay, addDays, addMonths, isWithinInterval } from 'date-fns';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,  } from '@angular/forms';
+import { NotificationService } from '../../../Services/notification.service';
+import { CalendarService } from '../../Services/calendar.service';
 
 @Component({
   selector: 'app-calendar',
@@ -11,7 +14,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     CalendarModule,
     NgFor,
-    NgIf
+    NgIf,
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
@@ -19,55 +24,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class CalendarComponent {
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
-  modalData: { event: CalendarEvent; } | undefined;
-  newEvent: CalendarEvent = { start: new Date(), end: new Date(), title: '', color: { primary: '', secondary: '' }, meta: { details: [] } };
+  modalData!: { event: CalendarEvent; };
+  newEvent: CalendarEvent = { start: new Date(), end: new Date(), title: '', color: { primary: '#ad2121', secondary: '#FAE3E3' }, meta: { details: [], expenses: [] } };
   expense = { amount: null, date: '', vendor: '', notes: '', receipt: null };
   events: CalendarEvent[] = [
     {
-      start: startOfDay(new Date(2024, 0, 1)),
-      end: addDays(startOfDay(new Date(2024, 1, 28)), 1),
-      title: 'Pruning, Shade Management, Soil Preparation',
-      color: { primary: '#ad2121', secondary: '#FAE3E3' },
-      allDay: true,
-      meta: {
-        details: [
-          'Pruning Tools and Labor: Cost of pruning shears, saws, and labor.',
-          'Shade Management: Costs associated with trimming shade trees.',
-          'Soil Testing and Amendments: Expenses for soil testing kits and soil amendments like lime and organic matter.'
-        ]
-      }
-    },
-    {
-      start: startOfDay(new Date(2024, 2, 1)),
-      end: addDays(startOfDay(new Date(2024, 3, 30)), 1),
-      title: 'Flowering, Irrigation, Fertilization',
-      color: { primary: '#1e90ff', secondary: '#D1E8FF' },
-      allDay: true,
-      meta: {
-        details: [
-          'Fertilizers: Cost of purchasing and applying fertilizers.',
-          'Irrigation: Installation and maintenance costs, water usage.',
-          'Pest Control: Expenses for pesticides and labor for application.'
-        ]
-      }
-    },
-    {
-      start: startOfDay(new Date(2024, 4, 1)),
-      end: addDays(startOfDay(new Date(2024, 5, 30)), 1),
-      title: 'Berry Development, Weed Control',
-      color: { primary: '#32CD32', secondary: '#F0FFF0' },
-      allDay: true,
-      meta: {
-        details: [
-          'Irrigation and Nutrients: Ongoing irrigation and nutrient management costs.',
-          'Weeding: Manual or chemical weed control expenses.',
-          'Mulching: Cost of mulch materials and application labor.'
-        ]
-      }
-    },
-    {
-      start: startOfDay(new Date(2024, 6, 1)),
-      end: addDays(startOfDay(new Date(2024, 7, 31)), 1),
+      start: startOfDay(new Date(2024, 7, 1)),
+      end: addDays(startOfDay(new Date(2024, 7, 1)), 1),
       title: 'Fruit Setting, Rain Management',
       color: { primary: '#FF8C00', secondary: '#FFEFD5' },
       allDay: true,
@@ -79,37 +42,75 @@ export class CalendarComponent {
         ]
       }
     },
+  
+  ];
+
+  Coffe_crop_Calendar: any = [
+    {
+      start: startOfDay(new Date(2024, 0, 1)),
+      end: addDays(startOfDay(new Date(2024, 1, 28)), 1),
+      title: 'Pruning, Shade Management, Soil Preparation',
+     
+    },
+    {
+      start: startOfDay(new Date(2024, 2, 1)),
+      end: addDays(startOfDay(new Date(2024, 3, 30)), 1),
+      title: 'Flowering, Irrigation, Fertilization',
+      
+    },
+    {
+      start: startOfDay(new Date(2024, 4, 1)),
+      end: addDays(startOfDay(new Date(2024, 5, 30)), 1),
+      title: 'Berry Development, Weed Control',
+      
+    },
+    {
+      start: startOfDay(new Date(2024, 6, 1)),
+      end: addDays(startOfDay(new Date(2024, 7, 31)), 1),
+      title: 'Fruit Setting, Rain Management',
+      
+    },
     {
       start: startOfDay(new Date(2024, 8, 1)),
       end: addDays(startOfDay(new Date(2024, 9, 31)), 1),
       title: 'Final Berry Development, Pre-Harvest Preparation',
-      color: { primary: '#8A2BE2', secondary: '#E6E6FA' },
-      allDay: true,
-      meta: {
-        details: [
-          'Shade Management: Costs for maintaining optimal shade.',
-          'Pre-Harvest Supplies: Preparing drying yards and storage facilities.'
-        ]
-      }
+     
     },
     {
       start: startOfDay(new Date(2024, 10, 1)),
       end: addDays(startOfDay(new Date(2024, 11, 31)), 1),
       title: 'Harvesting, Post-Harvest Processing',
-      color: { primary: '#FF4500', secondary: '#FFDEAD' },
-      allDay: true,
-      meta: {
-        details: [
-          'Harvesting: Labor costs for picking coffee cherries.',
-          'Processing: Costs for pulping, fermenting, washing, and drying beans.'
-        ]
-      }
+      
     },
   ];
 
   CalendarView = CalendarView;
+  addEventForm: FormGroup;
+  addExpenseForm: FormGroup;
+  currentMonthEventTitle: any;
+  constructor(
+    private calendarService: CalendarService,
+    private modalService: NgbModal,
+    private fb: FormBuilder, 
+    private notify:NotificationService ) { 
+    this.addEventForm = this.fb.group({
+      title: ['',Validators.required],
+      start: ['',Validators.required],
+      end: ['',Validators.required],
+      details: ['']
+    });
 
-  constructor(private modalService: NgbModal) {}
+    this.addExpenseForm = this.fb.group({
+      amount: ['',Validators.required],
+      date: ['',Validators.required],
+      vendor: ['',Validators.required],
+      notes: ['',Validators.required],
+      receipt: [null,Validators.required]
+    });
+  }
+  ngOnInit() {
+    this.updateCurrentMonthEventTitle();
+  }
 
   changeView(view: CalendarView) {
     this.view = view;
@@ -126,5 +127,74 @@ export class CalendarComponent {
   handleEvent(action: string, event: CalendarEvent, content: any): void {
     this.modalData = { event };
     this.modalService.open(content, { size: 'lg' });
+  }
+
+  addExpense(modal: any) {
+
+    if(!this.addExpenseForm.valid){
+      this.notify.showWarning("Fill missing fields!");
+      this.addEventForm.markAllAsTouched();
+      return;
+    }
+
+    if (!this.modalData.event.meta.expenses) {
+      this.modalData.event.meta.expenses = [];
+    }
+    const expense = this.addExpenseForm.value;
+    this.modalData.event.meta.expenses.push({ ...expense });
+    modal.close('Save click');
+    console.log(expense);
+    this.notify.showSuccess("Expenses added Successfully!");
+   
+    this.addExpenseForm.reset();
+  }
+
+
+  handleFileInput(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.expense.receipt = file;
+    }
+  }
+
+  addEvent(modal: any) {
+    if(!this.addEventForm.valid){
+      this.notify.showWarning("Fill missing fields!")
+      this.addEventForm.markAllAsTouched();
+      return;
+    }
+    
+    const newEvent = {
+      ...this.addEventForm.value,
+      start: new Date(this.addEventForm.value.start),
+      end: new Date(this.addEventForm.value.end),
+      color: { primary: '#ad2121', secondary: '#FAE3E3' },
+      meta: { details: [this.addEventForm.value.details], expenses: [] }
+    };
+    this.notify.showSuccess("Event Added Successfully!");
+    
+    this.events.push(newEvent);
+    console.log(this.events);
+    console.log(this.events);
+    this.setToday();
+    modal.close();
+    this.addEventForm.reset();
+  }
+
+  openAddEventModal(content: any) {
+    this.modalService.open(content, { size: 'lg' });
+  }
+  openCoffeeCalendar(content: any) {
+    this.modalService.open(content, { size: 'lg' });
+  }
+
+  updateCurrentMonthEventTitle() {
+    const currentDate = new Date();
+
+    const currentEvent = this.Coffe_crop_Calendar.find((event: any) =>
+      isWithinInterval(currentDate, { start: event.start, end: event.end })
+    );
+
+    this.currentMonthEventTitle = currentEvent ? currentEvent.title : 'No Event for this Month';
   }
 }

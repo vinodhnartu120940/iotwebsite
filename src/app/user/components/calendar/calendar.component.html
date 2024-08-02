@@ -10,16 +10,19 @@
       </div>
       <div class="col-md-4">
         <h3>{{ viewDate | calendarDate: view + 'ViewTitle' }}</h3>
+        <h4 class="mt-4">{{ currentMonthEventTitle }}</h4>
       </div>
       <div class="col-md-4">
         <div class="btn-group">
-          <button class="btn btn-primary" (click)="setViewDate(-1)">Previous</button>
+          <button class="btn btn-outline-primary" (click)="setViewDate(-1)">Previous</button>
           <button class="btn btn-outline-secondary" (click)="setToday()">Today</button>
-          <button class="btn btn-primary" (click)="setViewDate(1)">Next</button>
+          <button class="btn btn-outline-primary" (click)="setViewDate(1)">Next</button>
         </div>
       </div>
     </div>
   
+    <button class="btn btn-outline-success my-3" (click)="openAddEventModal(addEventContent)">Add Event</button>
+    <button class="btn btn-outline-secondary my-3 ms-2" (click)="openCoffeeCalendar(coffeeCalendarContent)">Coffee Calendar</button>
     <mwl-calendar-month-view
       *ngIf="view === CalendarView.Month"
       [viewDate]="viewDate"
@@ -47,6 +50,7 @@
     </mwl-calendar-day-view>
   </div>
   
+  <!-- Add expense popup -->
   <ng-template #content let-modal>
     <div class="modal-header">
       <h5 class="modal-title">{{ modalData?.event?.title }} - {{ modalData?.event?.start | date: 'MMMM' }}</h5>
@@ -56,13 +60,187 @@
       <ul>
         <li *ngFor="let detail of modalData?.event?.meta?.details">{{ detail }}</li>
       </ul>
-      <p *ngIf="modalData?.event?.start">Start: {{ modalData?.event?.start | date: 'medium' }}</p>
-      <p *ngIf="modalData?.event?.end">End: {{ modalData?.event?.end | date: 'medium' }}</p>
+      <p *ngIf="modalData?.event?.start">Start: {{ modalData.event?.start | date: 'medium' }}</p>
+      <p *ngIf="modalData?.event?.end">End: {{ modalData.event?.end | date: 'medium' }}</p>
+      <hr>
+ 
+      <h5>Expenses</h5>
+      <ul>
+        <!-- <li *ngIf="let expense ">
+          Amount: {{ expense.amount }}, Date: {{ expense.date }}, Vendor: {{ expense.vendor }}, Notes: {{ expense.notes }}
+        </li> -->
+      
+      </ul>
+      <hr>
+      <h5>Add Expense</h5>
+      <form [formGroup]="addExpenseForm" (ngSubmit)="addExpense(modal)" >
+        <div class="mb-3">
+          <label for="expenseAmount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="expenseAmount" required formControlName="amount"  name="amount">
+        </div>
+        <div class="mb-3">
+          <label for="expenseDate" class="form-label">Date</label>
+          <input type="date" class="form-control" id="expenseDate" required formControlName="date" required>
+        </div>
+        <div class="mb-3">
+          <label for="expenseVendor" class="form-label">Vendor</label>
+          <input type="text" class="form-control" id="expenseVendor" formControlName="vendor" name="vendor">
+        </div>
+        <div class="mb-3">
+          <label for="expenseNotes" class="form-label">Notes</label>
+          <textarea class="form-control" id="expenseNotes" rows="3"  formControlName="notes" name="notes"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="expenseReceipt" class="form-label">Receipt</label>
+          <input type="file" class="form-control" id="expenseReceipt" (change)="handleFileInput($event)">
+        </div>
+        <button type="submit" class="btn btn-primary">save</button>
+      </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
     </div>
   </ng-template>
   
+  <!-- add Event Popup -->
+  <ng-template #addEventContent let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Add New Event</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addEventForm" (ngSubmit)="addEvent(modal)">
+        <div class="mb-3">
+          <label for="eventTitle" class="form-label">Title</label>
+          <input type="text" class="form-control" id="eventTitle" required formControlName="title" name="title">
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="eventStart" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="eventStart" required formControlName="start" name="start">
+          </div>
+          <div class="col">
+            <label for="eventEnd" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="eventEnd" required formControlName="end" name="end">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="eventDetails" class="form-label">Details</label>
+          <textarea class="form-control" id="eventDetails" rows="3" formControlName="details" name="details"></textarea>
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Save</button>
+        <button type="button" class="btn btn-secondary ms-3" (click)="modal.close('Close click')">Discard</button>
+      </form>
+    </div>
+    
+  </ng-template>
   
+  <!-- coffee-crop-calendar -->
+  <ng-template #coffeeCalendarContent let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="coffee-calendar-title">Coffee Crop Calendar</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="accordion" id="coffeeCalendarAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <b>  January - February</b>: Pruning, Shade Management, Soil Preparation
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#coffeeCalendarAccordion">
+            <div class="accordion-body">
+              <ul>
+                <li>Pruning Tools and Labor: Cost of pruning shears, saws, and labor.</li>
+                <li>Shade Management: Costs associated with trimming shade trees.</li>
+                <li>Soil Testing and Amendments: Expenses for soil testing kits and soil amendments like lime and organic matter.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <b>  March - April</b>: Flowering, Irrigation, Fertilization
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#coffeeCalendarAccordion">
+            <div class="accordion-body">
+              <ul>
+                <li>Fertilizers: Cost of purchasing and applying fertilizers.</li>
+                <li>Irrigation: Installation and maintenance costs, water usage.</li>
+                <li>Pest Control: Expenses for pesticides and labor for application.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <b>May - June </b>: Berry Development, Weed Control
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#coffeeCalendarAccordion">
+            <div class="accordion-body">
+              <ul>
+                <li>Irrigation and Nutrients: Ongoing irrigation and nutrient management costs.</li>
+                <li>Weeding: Manual or chemical weed control expenses.</li>
+                <li>Mulching: Cost of mulch materials and application labor.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              <b>July - August</b>: Fruit Setting, Rain Management
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#coffeeCalendarAccordion">
+            <div class="accordion-body">
+              <ul>
+                <li>Nutrient Management: Continued application of fertilizers.</li>
+                <li>Drainage: Costs for maintaining proper drainage during monsoon.</li>
+                <li>Pest and Disease Management: Ongoing costs for pesticides and fungicides.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFive">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              <b>September - October</b>: Final Berry Development, Pre-Harvest Preparation
+            </button>
+          </h2>
+          <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#coffeeCalendarAccordion">
+            <div class="accordion-body">
+              <ul>
+                <li>Shade Management: Costs for maintaining optimal shade.</li>
+                <li>Pre-Harvest Supplies: Preparing drying yards and storage facilities.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingSix">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            <b>  November - December</b>: Harvesting, Post-Harvest Processing
+            </button>
+          </h2>
+          <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#coffeeCalendarAccordion">
+            <div class="accordion-body">
+              <ul>
+                <li>Harvesting: Labor costs for picking coffee cherries.</li>
+                <li>Processing: Costs for pulping, fermenting, washing, and drying beans.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
 </div>
