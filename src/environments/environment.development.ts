@@ -1,3 +1,4 @@
 export const environment = {
-  serviceUrl: 'https://internalportaldevapi.smbxl.com/api'
+  serviceURL: 'https://internalportaldevapi.smbxl.com',
+  env: 'dev',
 };

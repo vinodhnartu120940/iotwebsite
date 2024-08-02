@@ -2,14 +2,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Router } from '@angular/router';
+import { APIEndPoints } from '../utils/api-endpoint';
+import { ApiHttpService } from './api.http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private route: Router) { }
+  constructor(private http: ApiHttpService, private route: Router) {}
   signUp(data: any) {
-    return this.http.post(`${environment.serviceUrl}/controller/Register`, data);
+    return this.http.post(`${APIEndPoints.Authentication}/Register`, data);
+  }
+  public get getStorageToken(): string {
+    return localStorage.getItem('token') ?? '';
+  }
+  public get headerToken(): string {
+    return this.getStorageToken ? 'Bearer ' + this.getStorageToken : '';
   }
   storeTokenLocally(result: any) {
     if (result != null) {
@@ -32,16 +40,16 @@ export class AuthService {
   }
 
   sendOtp(mobileNumber: any) {
-    return this.http.post(`${environment.serviceUrl}/controller/SendSms`, mobileNumber);
+    return this.http.post(`${APIEndPoints.Intractions}/SendSms`, mobileNumber);
   }
 
   ValidateOtp(data: any) {
-    return this.http.post(`${environment.serviceUrl}/controller/ValidateOtp`, data);
+    return this.http.post(`${APIEndPoints.Intractions}/ValidateOtp`, data);
   }
 
   ValidateMobileNumber(phoneNumber: any) {
     return this.http.post(
-      `${environment.serviceUrl}/controller/ValidateMobileNumber`,
+      `${APIEndPoints.Authentication}/ValidateMobileNumber`,
       phoneNumber
     );
   }
@@ -51,12 +59,6 @@ export class AuthService {
   }
 
   SaveOnBoardData(data: any) {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(`${environment.serviceUrl}/Data/SaveOnBoardData`, data, {
-      headers: headers,
-    });
+    return this.http.post(`${APIEndPoints.Data}/SaveOnBoardData`, data);
   }
 }
