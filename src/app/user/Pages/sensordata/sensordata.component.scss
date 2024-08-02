@@ -27,6 +27,54 @@
   // background-color: #eae7dc;
 }
 
+.card_low {
+  background-color: #ffe5e5; /* light red */
+}
+
+.card_avg {
+  background-color: #ffecd9; /* light orange */
+}
+
+.card_good {
+  background-color: #e5ffe5; /* light green */
+}
+
+.label-legend {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.label-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border-radius: 3px;
+}
+
+
+.meter {
+  position: relative;
+  height: 20px;
+  background: linear-gradient(to right, red, orange, yellow, green);
+  border-radius: 10px;
+}
+
+.needle {
+  position: absolute;
+  top: -5px;
+  height: 30px;
+  width: 2px;
+  background: black;
+  transform-origin: bottom center;
+  transition: transform 0.5s ease;
+}
+
+.text-center span {
+  display: inline-block;
+  width: 80px;
+}
+
 .tabs .active {
   background-color: #4a6b47;
   color: white;

@@ -1,6 +1,6 @@
 <!-- Tabs View Started -->
 <div class="content_style">
-  <div class="tabs">
+  <div class="tabs mb-5">
     <div
       class="tab"
       [class.active]="currentTab === 'all'"
@@ -40,7 +40,7 @@
   @if (currentTab === 'all') {
   <div class="row">
     <div class="col-md-3 col-sm-6">
-      <div class="card_all  ">
+      <div class="card_all  " [ngClass]="{'card_low': sensorLatestData?.moisturePercentage < 25, 'card_avg': sensorLatestData?.moisturePercentage >= 25 && sensorLatestData?.moisturePercentage < 50, 'card_good': sensorLatestData?.moisturePercentage >= 50}">
         <div class="card-header">Soil Moisture</div>
         <div class="card-body">
           <i class="fa fa-tint icon"style="color: #ADD8E6;"></i>
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all ">
+      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.temperatureCelsius < 18, 'card_avg': sensorLatestData?.temperatureCelsius >= 18 && sensorLatestData?.temperatureCelsius < 24, 'card_good': sensorLatestData?.temperatureCelsius >= 24}">
         <div class="card-header">Temperature</div>
         <div class="card-body">
           <i class="fa fa-thermometer-half icon" style="color:#FF4500"></i>
@@ -72,7 +72,7 @@
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all ">
+      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.humidityPercentage < 60, 'card_avg': sensorLatestData?.humidityPercentage >= 60 && sensorLatestData?.humidityPercentage < 70, 'card_good': sensorLatestData?.humidityPercentage >= 70}">
         <div class="card-header">Humidity</div>
         <div class="card-body">
           <i class="fa fa-water icon" style="color:#00FFFF"></i>
@@ -96,7 +96,7 @@
   </div>
   <div class="row">
     <div class="col-md-3 col-sm-6">
-      <div class="card_all  ">
+      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.nitrogen < 10, 'card_avg': sensorLatestData?.nitrogen >= 10 && sensorLatestData?.nitrogen < 20, 'card_good': sensorLatestData?.nitrogen >= 20}">
         <div class="card-header">Nitrogen</div>
         <div class="card-body">
           <i class="fa fa-leaf icon" style="color: #32CD32"></i>
@@ -106,7 +106,7 @@
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all  ">
+      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.phosphorus < 5, 'card_avg': sensorLatestData?.phosphorus >= 5 && sensorLatestData?.phosphorus < 10, 'card_good': sensorLatestData?.phosphorus >= 10}">
         <div class="card-header">Phosphorus</div>
         <div class="card-body">
           <i class="fa fa-seedling icon" style="color: #228B22"></i>
@@ -116,7 +116,7 @@
       </div>
     </div>
     <div class="col-md-3 col-sm-6">
-      <div class="card_all  ">
+      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.potassium < 10, 'card_avg': sensorLatestData?.potassium >= 10 && sensorLatestData?.potassium < 20, 'card_good': sensorLatestData?.potassium >= 20}">
         <div class="card-header">Potassium</div>
         <div class="card-body">
           <i class="fa fa-carrot icon" style="color:#8B4513"></i>
@@ -124,6 +124,17 @@
           <!-- <p class="card-text">Optimal Range: 10-40 mg/kg</p> -->
         </div>
       </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="label-legend">
+      <div class="label-box" style="background-color: #ffe5e5;"></div> <span>Poor</span>
+    </div>
+    <div class="label-legend">
+      <div class="label-box" style="background-color: #ffecd9;"></div> <span>Average</span>
+    </div>
+    <div class="label-legend">
+      <div class="label-box" style="background-color: #e5ffe5;"></div> <span>Good</span>
     </div>
   </div>
 
@@ -152,11 +163,10 @@
         <div class="sensor-meter mt-4">
           <h4>Sensor Meter Readings:</h4>
           <p>
-            Based on the latest sensor data, your crop is receiving exactly what
-            it needs!
+            Based on the latest sensor data, your crop is receiving exactly what it needs!
           </p>
           <div class="meter">
-            <div class="needle"></div>
+            <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.temperatureCelsius, [18, 24, 30])}"></div>
           </div>
           <div class="text-center mt-2">
             <span class="text-danger">Poor</span>
@@ -164,6 +174,7 @@
             <span class="text-success ml-3">Good</span>
           </div>
         </div>
+        
       </div>
       <div class="detailed-card">
         <h3>Graph</h3>
@@ -198,11 +209,10 @@
       <div class="sensor-meter mt-4">
         <h4>Sensor Meter Readings:</h4>
         <p>
-          Based on the latest sensor data, your crop is receiving exactly what
-          it needs!
+          Based on the latest sensor data, your crop is receiving exactly what it needs!
         </p>
         <div class="meter">
-          <div class="needle"></div>
+          <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.moisture,[25, 50, 75])}"></div>
         </div>
         <div class="text-center mt-2">
           <span class="text-danger">Poor</span>
@@ -210,6 +220,7 @@
           <span class="text-success ml-3">Good</span>
         </div>
       </div>
+      
     </div>
     <div class="detailed-card">
       <h3>Graph</h3>
@@ -241,11 +252,10 @@
       <div class="sensor-meter mt-4">
         <h4>Sensor Meter Readings:</h4>
         <p>
-          Based on the latest sensor data, your crop is receiving exactly what
-          it needs!
+          Based on the latest sensor data, your crop is receiving exactly what it needs!
         </p>
         <div class="meter">
-          <div class="needle"></div>
+          <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.humidityPercentage, [60, 70, 80])}"></div>
         </div>
         <div class="text-center mt-2">
           <span class="text-danger">Poor</span>
@@ -253,6 +263,7 @@
           <span class="text-success ml-3">Good</span>
         </div>
       </div>
+      
     </div>
     <div class="detailed-card">
       <h3>Graph</h3>
@@ -277,4 +288,5 @@
     </div>
   </div>
   }
+  
 </div>

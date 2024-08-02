@@ -7,10 +7,13 @@ import {
 } from '@angular/core';
 import { UserService } from '../../user.service';
 import { Chart, registerables } from 'chart.js';
+import { NgClass, NgStyle } from '@angular/common';
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-sensordata',
+  standalone:true,
+  imports: [NgClass,NgStyle],
   templateUrl: './sensordata.component.html',
   styleUrls: ['./sensordata.component.scss'],
 })
@@ -160,5 +163,17 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
       labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
       datasets: data,
     };
+  }
+
+  getNeedlePosition(value: number, thresholds: number[]): number {
+    const min = thresholds[0];
+    const max = thresholds[thresholds.length - 1];
+    if (value < min) {
+      return 0;
+    }
+    if (value > max) {
+      return 100;
+    }
+    return ((value - min) / (max - min)) * 100;
   }
 }

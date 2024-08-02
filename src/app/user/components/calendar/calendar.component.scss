@@ -1,0 +1,34 @@
+
+.accordion-button {
+    background-color: #f8f9fa;
+    color: #495057;
+  }
+  
+  .accordion-button:not(.collapsed) {
+    color: #0056b3;
+    background-color: #e2e6ea;
+    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .125);
+  }
+  
+  .accordion-body {
+    background-color: #fff;
+  }
+  
+  .modal-header {
+    // background-color: #198754;
+    color: rgb(0, 0, 0);
+    border-bottom: 1px solid #007bff;
+  }
+  
+  .modal-title {
+    font-weight: bold;
+  }
+  
+  .btn-close {
+    background-color: #ffffff;
+  }
+  
+  .modal-footer {
+    background-color: #f8f9fa;
+  }
+  
