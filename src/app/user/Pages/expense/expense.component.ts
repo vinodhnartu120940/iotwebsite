@@ -1,25 +1,24 @@
-import { CurrencyPipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  FormControl,
-  Validators,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { ExpenseService } from './expense.service';
 import { NotificationService } from '../../../Services/notification.service';
+import { Router } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-expense',
-  standalone: true,
-  imports: [ReactiveFormsModule, NgFor, NgIf, KeyValuePipe, CurrencyPipe],
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.scss'],
+  imports: [ReactiveFormsModule, NgFor, NgIf],
+  standalone: true,
 })
 export class ExpenseComponent implements OnInit {
   expenseForm!: FormGroup;
-  categoryScreen: boolean = false;
   categories: any;
   subcategories: any;
   dynamicFormCards: {
@@ -27,16 +26,7 @@ export class ExpenseComponent implements OnInit {
     event: string;
     formGroups: FormGroup[];
   }[] = [];
-
-  gotoExpenseScreen(category: any) {
-    this.categoryScreen = true;
-    this.expenseForm.patchValue({
-      category: category.name,
-      categoryId: category.id,
-    });
-    this.subcategories = category.subCategory;
-  }
-
+  currentScreen: 'cards' | 'category' | 'expenseForm' = 'cards';
   activityEvents: any = {
     Workers: [
       {
@@ -165,11 +155,11 @@ export class ExpenseComponent implements OnInit {
       placeholder: 'Upload document',
     },
   };
-
   constructor(
     private fb: FormBuilder,
     private expenseService: ExpenseService,
-    private notificationServie: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
   ) {
     this.expenseService.GetExpensesCategories().subscribe((res) => {
       this.categories = res;
@@ -189,6 +179,23 @@ export class ExpenseComponent implements OnInit {
     this.expenseForm.get('event')!.valueChanges.subscribe(() => {
       this.addNewCard();
     });
+  }
+
+  goToCategoryScreen() {
+    this.currentScreen = 'category';
+  }
+
+  goToCardsScreen() {
+    this.currentScreen = 'cards';
+  }
+
+  gotoExpenseScreen(category: any) {
+    this.currentScreen = 'expenseForm';
+    this.expenseForm.patchValue({
+      category: category.name,
+      categoryId: category.id,
+    });
+    this.subcategories = category.subCategory;
   }
 
   getFields(event: string) {
@@ -222,23 +229,23 @@ export class ExpenseComponent implements OnInit {
     const formGroup = this.fb.group({});
 
     fields.forEach((field: any) => {
-      let control: FormControl;
+      let control;
 
       if (field.type === 'number') {
-        control = new FormControl('', [
+        control = this.fb.control('', [
           Validators.required,
           Validators.pattern('^[0-9]*$'),
         ]);
       } else if (field.type === 'date') {
-        control = new FormControl('', Validators.required);
+        control = this.fb.control('', Validators.required);
       } else if (field.type === 'text') {
-        control = new FormControl('', Validators.required);
+        control = this.fb.control('', Validators.required);
       } else if (field.type === 'dropdown') {
-        control = new FormControl('', Validators.required);
+        control = this.fb.control('', Validators.required);
       } else if (field.type === 'file') {
-        control = new FormControl(null, Validators.required);
+        control = this.fb.control(null, Validators.required);
       } else {
-        control = new FormControl('', Validators.required);
+        control = this.fb.control('', Validators.required);
       }
 
       formGroup.addControl(field.field, control);
@@ -268,7 +275,7 @@ export class ExpenseComponent implements OnInit {
   }
 
   onSubmit() {
-    let totalConsolidatedCost = 0; // Variable to accumulate total cost
+    let totalConsolidatedCost = 0;
 
     const formData = {
       ...this.expenseForm.value,
@@ -281,7 +288,7 @@ export class ExpenseComponent implements OnInit {
     };
 
     const apiPayload: any = {
-      categoryId: formData.categoryId, // Replace with actual data or logic
+      categoryId: formData.categoryId,
       categoryName: formData.category,
       categoryDate: formData.date,
       irrigationDuration: {
@@ -295,9 +302,7 @@ export class ExpenseComponent implements OnInit {
       workers: [],
       machinery: [],
       otherExpenses: [],
-      totalCost: formData.dynamicGroups
-        .reduce((sum: any, group: any) => sum + group.totalCost, 0)
-        .toString(),
+      totalCost: '0',
     };
 
     formData.dynamicGroups.forEach((group: any) => {
@@ -310,43 +315,47 @@ export class ExpenseComponent implements OnInit {
           Workers: {
             key: 'workers',
             data: {
-              noOfWorkers: item['NO of workers'],
-              costPerWorker: item['Cost per worker'],
-              totalCost: item['NO of workers'] * item['Cost per worker'],
+              noOfWorkers: parseFloat(item['NO of workers']) || 0,
+              costPerWorker: parseFloat(item['Cost per worker']) || 0,
+              totalCost:
+                (parseFloat(item['NO of workers']) || 0) *
+                (parseFloat(item['Cost per worker']) || 0),
             },
           },
           Machinery: {
             key: 'machinery',
             data: {
-              noOfMachines: item['NO of machines'],
-              costPerMachine: item['Cost per machine'],
-              totalCost: item['NO of machines'] * item['Cost per machine'],
+              noOfMachines: parseFloat(item['NO of machines']) || 0,
+              costPerMachine: parseFloat(item['Cost per machine']) || 0,
+              totalCost:
+                (parseFloat(item['NO of machines']) || 0) *
+                (parseFloat(item['Cost per machine']) || 0),
             },
           },
           'Other Expenses': {
             key: 'otherExpenses',
             data: {
               expense: item['expense name'],
-              cost: item['cost'],
-              totalCost: item['cost'],
+              cost: parseFloat(item['cost']) || 0,
+              totalCost: parseFloat(item['cost']) || 0,
             },
           },
           'Fertilizer Details': {
             key: 'categorySubExpenses',
             data: {
               name: item['fertilizer name'],
-              quantity: item['Quantity'],
+              quantity: parseFloat(item['Quantity']) || 0,
               units: item['units'],
-              cost: item['cost'],
+              cost: parseFloat(item['cost']) || 0,
             },
           },
           'Spray Details': {
             key: 'categorySubExpenses',
             data: {
               name: item['Spray name'],
-              quantity: item['Quantity'],
+              quantity: parseFloat(item['Quantity']) || 0,
               units: item['units'],
-              cost: item['cost'],
+              cost: parseFloat(item['cost']) || 0,
             },
           },
           Duration: {
@@ -364,32 +373,33 @@ export class ExpenseComponent implements OnInit {
             apiPayload.irrigationDuration = mapping[group.event].data;
           } else {
             addToPayload(mapping[group.event].key, mapping[group.event].data);
+            totalConsolidatedCost += mapping[group.event].data.totalCost;
           }
         }
-
-        // Accumulate total cost
-        totalConsolidatedCost += group.totalCost;
       });
     });
 
-    // Update the total consolidated cost in the payload
-    apiPayload.totalCost = totalConsolidatedCost.toString();
+    // Convert the totalConsolidatedCost to a string for the payload
+    apiPayload.totalCost = totalConsolidatedCost.toFixed(2);
 
     // Call the API with the constructed payload
-    this.expenseService.SaveExpensesNew(apiPayload).subscribe(
-      (response) => {
-        console.log('API Response:', response);
-        this.cancel(); // Clear the form after saving
+    this.expenseService.SaveExpensesNew(apiPayload).subscribe({
+      next: (response: any) => {
+        if (response?.status === 'Success') {
+          this.router.navigateByUrl('/user/dashboard/expenses');
+        }
+        console.log(response);
       },
-      (error) => {
-        console.error('API Error:', error);
-      }
-    );
+      error: (error: any) => {
+        console.error('Error occurred:', error);
+      },
+    });
   }
 
   cancel() {
     this.expenseForm.reset();
     this.dynamicFormCards = [];
+    this.currentScreen = 'category';
   }
 
   calculateTotalCost(card: any): number {
@@ -399,17 +409,29 @@ export class ExpenseComponent implements OnInit {
       Object.keys(formGroup.controls).forEach((field) => {
         const value = formGroup.get(field)?.value;
 
-        // Ensure that the field names and types match your form controls
-        if (['cost', 'Cost per worker', 'Cost per machine'].includes(field)) {
-          totalCost += parseFloat(value || 0);
-        } else if (field === 'NO of workers') {
-          const wage = parseFloat(formGroup.get('Cost per worker')?.value || 0);
-          totalCost += parseFloat(value || 0) * wage;
-        } else if (field === 'NO of machines') {
-          const machineCost = parseFloat(
-            formGroup.get('Cost per machine')?.value || 0
-          );
-          totalCost += parseFloat(value || 0) * machineCost;
+        if (value !== null && value !== undefined && value !== '') {
+          if (['cost', 'Cost per worker', 'Cost per machine'].includes(field)) {
+            const parsedValue = parseFloat(value);
+            if (!isNaN(parsedValue)) {
+              totalCost += parsedValue;
+            }
+          } else if (field === 'NO of workers') {
+            const wage = parseFloat(
+              formGroup.get('Cost per worker')?.value || '0'
+            );
+            const workerCount = parseFloat(value);
+            if (!isNaN(workerCount) && !isNaN(wage)) {
+              totalCost += workerCount * wage;
+            }
+          } else if (field === 'NO of machines') {
+            const machineCost = parseFloat(
+              formGroup.get('Cost per machine')?.value || '0'
+            );
+            const machineCount = parseFloat(value);
+            if (!isNaN(machineCount) && !isNaN(machineCost)) {
+              totalCost += machineCount * machineCost;
+            }
+          }
         }
       });
     });

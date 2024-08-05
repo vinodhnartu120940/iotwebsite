@@ -21,7 +21,13 @@ export class ExpenseService {
       data
     );
   }
-  GetExpenses(){
-    return this.http.get(`${APIEndPoints.ExpensesManagement}/GetExpenses`)
+  GetExpenses() {
+    return this.http.get(`${APIEndPoints.ExpensesManagement}/GetExpenses`);
+  }
+
+  GetToatlRevenueAndExpenses() {
+    return this.http.get(
+      `${APIEndPoints.ExpensesManagement}/GetToatlRevenueAndExpenses`
+    );
   }
 }

@@ -1,26 +1,66 @@
-<div class="back_button" *ngIf="categoryScreen">
-  <span class="backbtn_span d-flex align-items-center mb-4"
-    ><img
-      src="backbtn.svg"
-      alt="back-btn"
-      (click)="categoryScreen = !categoryScreen"
-    />Back</span
-  >
+<!-- Initial Card Group Screen -->
+<div class="container card-container" *ngIf="currentScreen === 'cards'">
+  <div class="card-group">
+    <div class="card">
+      <!-- <img
+        src="https://via.placeholder.com/150"
+        class="card-img-top"
+        alt="Card image 1"
+      /> -->
+      <div class="card-body">
+        <h5 class="card-title">Revenue</h5>
+        <!-- <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p> -->
+        <a class="btn btn-primary" (click)="goToCategoryScreen()">Go Revenue</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- <img
+        src="https://via.placeholder.com/150"
+        class="card-img-top"
+        alt="Card image 3"
+      /> -->
+      <div class="card-body">
+        <h5 class="card-title">Expense</h5>
+        <!-- <p class="card-text">
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </p> -->
+        <a class="btn btn-primary" (click)="goToCategoryScreen()">Go Expense</a>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="container mt-4" *ngIf="!categoryScreen">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col" *ngFor="let category of categories">
-      <div class="card" (click)="gotoExpenseScreen(category)">
-        <img src="Category/{{ category.name }}.png" alt="Irrigation" />
-        <div class="card-body">
-          <h5 class="card-title">{{ category?.name }}</h5>
+
+<!-- Category Screen -->
+<div *ngIf="currentScreen === 'category'">
+  <div class="back_button">
+    <span class="backbtn_span d-flex align-items-center mb-4">
+      <img src="backbtn.svg" alt="back-btn" (click)="goToCardsScreen()" />Back
+    </span>
+  </div>
+  <div class="container mt-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let category of categories">
+        <div class="card" (click)="gotoExpenseScreen(category)">
+          <img
+            src="Category/{{ category.name }}.png"
+            alt="{{ category.name }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ category?.name }}</h5>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container mt-5" *ngIf="categoryScreen">
+<!-- Expense Form Screen -->
+<div class="container mt-5" *ngIf="currentScreen === 'expenseForm'">
   <div class="row">
     <div class="col-md">
       <div class="card">
