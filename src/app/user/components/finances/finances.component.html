@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="container py-4" *ngIf="!isLoading; else loading">
   <div class="row mb-4">
     <div class="col-12 text-center">
       <h5 class="mb-0">Coffee Farm (No Device)</h5>
@@ -93,8 +93,8 @@
           <div class="card border-0 shadow">
             <div class="card-body text-center">
               <app-pie-chart
-                [chartData]="pieChartData"
-                [chartOptions]="pieChartOptions"
+                [chartData]="expensePieChartData"
+                [chartOptions]="expensePieChartOptions"
                 [height]="pieChartHeight"
                 [width]="pieChartWidth"
               ></app-pie-chart>
@@ -108,8 +108,8 @@
           <div class="card border-0 shadow">
             <div class="card-body text-center">
               <app-pie-chart
-                [chartData]="pieChartData"
-                [chartOptions]="pieChartOptions"
+                [chartData]="revenuePieChartData"
+                [chartOptions]="revenuePieChartOptions"
                 [height]="pieChartHeight"
                 [width]="pieChartWidth"
               ></app-pie-chart>
@@ -120,3 +120,13 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <div class="container py-4">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h5 class="mb-0">Loading...</h5>
+      </div>
+    </div>
+  </div>
+</ng-template>
