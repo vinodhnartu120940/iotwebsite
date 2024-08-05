@@ -62,18 +62,18 @@
       </ul>
       <p *ngIf="modalData?.event?.start">Start: {{ modalData.event?.start | date: 'medium' }}</p>
       <p *ngIf="modalData?.event?.end">End: {{ modalData.event?.end | date: 'medium' }}</p>
-      <hr>
+      <!-- <hr> -->
  
-      <h5>Expenses</h5>
+      <!-- <h5>Expenses</h5>
       <ul>
-        <!-- <li *ngIf="let expense ">
+        <li *ngIf="let expense ">
           Amount: {{ expense.amount }}, Date: {{ expense.date }}, Vendor: {{ expense.vendor }}, Notes: {{ expense.notes }}
-        </li> -->
+        </li>
       
-      </ul>
-      <hr>
-      <h5>Add Expense</h5>
-      <form [formGroup]="addExpenseForm" (ngSubmit)="addExpense(modal)" >
+      </ul> -->
+      <!-- <hr> -->
+      <!-- <h5>Add Expense</h5> -->
+      <!-- <form [formGroup]="addExpenseForm" (ngSubmit)="addExpense(modal)" >
         <div class="mb-3">
           <label for="expenseAmount" class="form-label">Amount</label>
           <input type="number" class="form-control" id="expenseAmount" required formControlName="amount"  name="amount">
@@ -95,7 +95,7 @@
           <input type="file" class="form-control" id="expenseReceipt" (change)="handleFileInput($event)">
         </div>
         <button type="submit" class="btn btn-primary">save</button>
-      </form>
+      </form> -->
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>

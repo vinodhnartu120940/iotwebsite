@@ -5,16 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CalendarService {
-  private apiUrl = 'https://internalportaldevapi.smbxl.com/'
+  private apiUrl = 'https://internalportaldevapi.smbxl.com'
   constructor(private http:HttpClient) {
     
   }
 
   addNewCalendarEvent(event:any){
-    return this.http.post(this.apiUrl,event);
+    return this.http.post(`${this.apiUrl}/api/Calendar/SaveUserCalendarEvents`,event);
   }
   getCalendarEvents(){
-    return this.http.get(this.apiUrl);
+    return this.http.get(`${this.apiUrl}/api/Calendar/GetCalendarEvents`);
   }
   deleteCalendarEvent(event:any){
     return this.http.delete(this.apiUrl,event);
