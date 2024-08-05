@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CalendarView, CalendarEvent, CalendarModule } from 'angular-calendar';
-import { startOfDay, endOfDay, addDays, addMonths, isWithinInterval } from 'date-fns';
+import { startOfDay, endOfDay, addDays, addMonths, isWithinInterval, startOfMonth } from 'date-fns';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators,  } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationService } from '../../../Services/notification.service';
 import { CalendarService } from '../../Services/calendar.service';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-calendar',
@@ -27,89 +28,39 @@ export class CalendarComponent {
   modalData!: { event: CalendarEvent; };
   newEvent: CalendarEvent = { start: new Date(), end: new Date(), title: '', color: { primary: '#ad2121', secondary: '#FAE3E3' }, meta: { details: [], expenses: [] } };
   expense = { amount: null, date: '', vendor: '', notes: '', receipt: null };
-  events: CalendarEvent[] = [
-    {
-      start: startOfDay(new Date(2024, 7, 1)),
-      end: addDays(startOfDay(new Date(2024, 7, 1)), 1),
-      title: 'Fruit Setting, Rain Management',
-      color: { primary: '#FF8C00', secondary: '#FFEFD5' },
-      allDay: true,
-      meta: {
-        details: [
-          'Nutrient Management: Continued application of fertilizers.',
-          'Drainage: Costs for maintaining proper drainage during monsoon.',
-          'Pest and Disease Management: Ongoing costs for pesticides and fungicides.'
-        ]
-      }
-    },
-  
-  ];
-
-  Coffe_crop_Calendar: any = [
-    {
-      start: startOfDay(new Date(2024, 0, 1)),
-      end: addDays(startOfDay(new Date(2024, 1, 28)), 1),
-      title: 'Pruning, Shade Management, Soil Preparation',
-     
-    },
-    {
-      start: startOfDay(new Date(2024, 2, 1)),
-      end: addDays(startOfDay(new Date(2024, 3, 30)), 1),
-      title: 'Flowering, Irrigation, Fertilization',
-      
-    },
-    {
-      start: startOfDay(new Date(2024, 4, 1)),
-      end: addDays(startOfDay(new Date(2024, 5, 30)), 1),
-      title: 'Berry Development, Weed Control',
-      
-    },
-    {
-      start: startOfDay(new Date(2024, 6, 1)),
-      end: addDays(startOfDay(new Date(2024, 7, 31)), 1),
-      title: 'Fruit Setting, Rain Management',
-      
-    },
-    {
-      start: startOfDay(new Date(2024, 8, 1)),
-      end: addDays(startOfDay(new Date(2024, 9, 31)), 1),
-      title: 'Final Berry Development, Pre-Harvest Preparation',
-     
-    },
-    {
-      start: startOfDay(new Date(2024, 10, 1)),
-      end: addDays(startOfDay(new Date(2024, 11, 31)), 1),
-      title: 'Harvesting, Post-Harvest Processing',
-      
-    },
-  ];
+  events: CalendarEvent[] = [];
+  calendarCommonEvents: CalendarEvent[] = [];
 
   CalendarView = CalendarView;
   addEventForm: FormGroup;
   addExpenseForm: FormGroup;
   currentMonthEventTitle: any;
+
   constructor(
     private calendarService: CalendarService,
     private modalService: NgbModal,
     private fb: FormBuilder, 
-    private notify:NotificationService ) { 
+    private notify: NotificationService,
+    private userService: UserService
+  ) { 
     this.addEventForm = this.fb.group({
-      title: ['',Validators.required],
-      start: ['',Validators.required],
-      end: ['',Validators.required],
+      title: ['', Validators.required],
+      start: ['', Validators.required],
+      end: ['', Validators.required],
       details: ['']
     });
 
     this.addExpenseForm = this.fb.group({
-      amount: ['',Validators.required],
-      date: ['',Validators.required],
-      vendor: ['',Validators.required],
-      notes: ['',Validators.required],
-      receipt: [null,Validators.required]
+      amount: ['', Validators.required],
+      date: ['', Validators.required],
+      vendor: ['', Validators.required],
+      notes: ['', Validators.required],
+      receipt: [null, Validators.required]
     });
   }
+
   ngOnInit() {
-    this.updateCurrentMonthEventTitle();
+    this.GetCalendarEvents();
   }
 
   changeView(view: CalendarView) {
@@ -118,10 +69,12 @@ export class CalendarComponent {
 
   setViewDate(months: number) {
     this.viewDate = addMonths(this.viewDate, months);
+    this.updateCurrentMonthEventTitle();
   }
 
   setToday() {
     this.viewDate = new Date();
+    this.updateCurrentMonthEventTitle();
   }
 
   handleEvent(action: string, event: CalendarEvent, content: any): void {
@@ -130,8 +83,7 @@ export class CalendarComponent {
   }
 
   addExpense(modal: any) {
-
-    if(!this.addExpenseForm.valid){
+    if (!this.addExpenseForm.valid) {
       this.notify.showWarning("Fill missing fields!");
       this.addEventForm.markAllAsTouched();
       return;
@@ -143,12 +95,9 @@ export class CalendarComponent {
     const expense = this.addExpenseForm.value;
     this.modalData.event.meta.expenses.push({ ...expense });
     modal.close('Save click');
-    console.log(expense);
     this.notify.showSuccess("Expenses added Successfully!");
-   
     this.addExpenseForm.reset();
   }
-
 
   handleFileInput(event: any) {
     const file = event.target.files[0];
@@ -158,8 +107,8 @@ export class CalendarComponent {
   }
 
   addEvent(modal: any) {
-    if(!this.addEventForm.valid){
-      this.notify.showWarning("Fill missing fields!")
+    if (!this.addEventForm.valid) {
+      this.notify.showWarning("Fill missing fields!");
       this.addEventForm.markAllAsTouched();
       return;
     }
@@ -171,28 +120,81 @@ export class CalendarComponent {
       color: { primary: '#ad2121', secondary: '#FAE3E3' },
       meta: { details: [this.addEventForm.value.details], expenses: [] }
     };
-    this.notify.showSuccess("Event Added Successfully!");
     
     this.events.push(newEvent);
-    console.log(this.events);
-    console.log(this.events);
+    const data = {
+      "start": new Date(this.addEventForm.value.start),
+      "end": new Date(this.addEventForm.value.end),
+      "title": this.addEventForm.value.title,
+      "metaDetails": [
+        this.addEventForm.value.details
+      ],
+      "userID": this.userService.userId
+    };
+    
+    this.calendarService.addNewCalendarEvent(data).subscribe(() => {
+      this.notify.showSuccess("Event Added Successfully!");
+    });
     this.setToday();
     modal.close();
     this.addEventForm.reset();
   }
 
+  GetCalendarEvents() {
+    this.calendarService.getCalendarEvents().subscribe((res: any) => {
+      this.calendarCommonEvents = this.getCommonEventsForFirstOfMonth(res.calendarCommonEvents);
+      
+      const userCalendarEvents = res.userCalendarEvents.map((event: any) => ({
+        start: new Date(event.start),
+        end: new Date(event.end),
+        title: event.title,
+        color: { primary: '#1e90ff', secondary: '#D1E8FF' }, // you can customize these colors if needed
+        allDay: true,
+        meta: { details: event.metaDetails, expenses: [] }
+      }));
+
+      this.events = [...this.calendarCommonEvents, ...userCalendarEvents];
+      console.log(this.events);
+      this.updateCurrentMonthEventTitle();
+    });
+  }
+
+  getCommonEventsForFirstOfMonth(events: any[]): CalendarEvent[] {
+    const commonEvents: CalendarEvent[] = [];
+
+    events.forEach(event => {
+      const startDate = new Date(event.start);
+      const endDate = new Date(event.end);
+      let current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+
+      while (current <= endDate) {
+        commonEvents.push({
+          start: new Date(current),
+          end: new Date(current),
+          title: event.title,
+          color: { primary: event.colorPrimary, secondary: event.colorSecondary },
+          allDay: true,
+          meta: { details: event.metaDetails, expenses: [] }
+        });
+        current = addMonths(current, 1);
+      }
+    });
+
+    return commonEvents;
+  }
+
   openAddEventModal(content: any) {
     this.modalService.open(content, { size: 'lg' });
   }
+
   openCoffeeCalendar(content: any) {
     this.modalService.open(content, { size: 'lg' });
   }
 
   updateCurrentMonthEventTitle() {
-    const currentDate = new Date();
-
-    const currentEvent = this.Coffe_crop_Calendar.find((event: any) =>
-      isWithinInterval(currentDate, { start: event.start, end: event.end })
+    const currentDate = new Date(this.viewDate);
+    const currentEvent = this.calendarCommonEvents.find((event: any) =>
+      event.start.getFullYear() === currentDate.getFullYear() && event.start.getMonth() === currentDate.getMonth()
     );
 
     this.currentMonthEventTitle = currentEvent ? currentEvent.title : 'No Event for this Month';

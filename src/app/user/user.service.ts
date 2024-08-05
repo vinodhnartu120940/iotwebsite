@@ -9,6 +9,7 @@ import { APIEndPoints } from '../utils/api-endpoint';
 })
 export class UserService {
   tenets: any;
+  userId:string ='';
   constructor(private http: ApiHttpService) {}
   get getDeviceId() {
     return localStorage.getItem('DeviceId');
@@ -28,6 +29,7 @@ export class UserService {
         this.tenets = res?.tenants;
         this.userInfo = res?.userInfo;
         console.log(this.userInfo);
+        this.userId = this.userInfo.id;
       });
   }
 }
