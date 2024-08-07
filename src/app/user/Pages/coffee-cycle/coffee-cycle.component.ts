@@ -17,6 +17,6 @@ export class CoffeeCycleComponent {
 
   tabs = [
     { id: 'calendar', title: 'Calendar', component: CalendarComponent },
-    { id: 'finances', title: 'Finances', component: FinancesComponent }
+    // { id: 'finances', title: 'Finances', component: FinancesComponent }
   ];
 }

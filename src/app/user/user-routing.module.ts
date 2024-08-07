@@ -9,6 +9,7 @@ import { Title } from 'chart.js';
 import { RevenueComponent } from './Pages/revenue/revenue.component';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
+import { FinancesComponent } from './components/finances/finances.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
         path: 'coffee-cycle',
         component: CoffeeCycleComponent,
         data: { title: 'Coffee-Cycle' },
+      },
+      {
+        path: 'finances',
+        component: FinancesComponent,
+        data: { title: 'Finances' },
       },
       {
         path: 'revenue',

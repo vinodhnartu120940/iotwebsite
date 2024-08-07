@@ -52,6 +52,13 @@
         <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" /> Coffee
         Cycle</a
       >
+      <a
+        routerLink="/user/dashboard/finances"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" /> Finances</a
+      >
       <!-- <a href="#"><i class="fas fa-user-friends icon"></i>Farmers</a>
       <a href="#"><i class="fas fa-tint icon"></i>Soil Moisture</a>
       <hr />
@@ -102,7 +109,7 @@
             aria-labelledby="accountMenuButton"
           >
             <span class="dropdown-item-text">{{
-              userService.userInfo?.email
+              userService.userInfo?.name
             }}</span>
             <a class="dropdown-item" routerLink="/user/dashboard/my-account"
               ><i class="fas fa-user"></i> My Account</a
