@@ -5,10 +5,10 @@ import { DashboardtwoComponent } from './Pages/dashboard/dashboardtwo.component'
 import { ProfileComponent } from './Pages/profile/profile.component';
 import { PredictDiseaseComponent } from './Pages/predict-disease/predict-disease.component';
 import { CoffeeCycleComponent } from './Pages/coffee-cycle/coffee-cycle.component';
-import { Title } from 'chart.js';
 import { RevenueComponent } from './Pages/revenue/revenue.component';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
+import { RevenueReportsComponent } from './Pages/expense/revenue-reports/revenue-reports.component';
 
 const routes: Routes = [
   {
@@ -35,11 +35,11 @@ const routes: Routes = [
         component: CoffeeCycleComponent,
         data: { title: 'Coffee-Cycle' },
       },
-      {
-        path: 'revenue',
-        component: RevenueComponent,
-        data: { title: 'Revenue' },
-      },
+      // {
+      //   path: 'revenue',
+      //   component: RevenueComponent,
+      //   data: { title: 'Revenue' },
+      // },
       {
         path: 'expense',
         component: ExpenseComponent,
@@ -49,6 +49,11 @@ const routes: Routes = [
         path: 'expenses',
         component: ExpenseReportComponent,
         data: { title: 'Expenses' },
+      },
+      {
+        path: 'revenue',
+        component: RevenueReportsComponent,
+        data: { title: 'Revenue' },
       },
     ],
   },

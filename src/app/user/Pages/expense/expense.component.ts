@@ -19,6 +19,8 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class ExpenseComponent implements OnInit {
   expenseForm!: FormGroup;
+  revenueForm!: FormGroup;
+  grandTotal: number = 0;
   categories: any;
   subcategories: any;
   dynamicFormCards: {
@@ -26,7 +28,12 @@ export class ExpenseComponent implements OnInit {
     event: string;
     formGroups: FormGroup[];
   }[] = [];
-  currentScreen: 'cards' | 'category' | 'expenseForm' = 'cards';
+  currentScreen:
+    | 'cards'
+    | 'category'
+    | 'expenseForm'
+    | 'revenuecategory'
+    | 'revenueForm' = 'cards';
   activityEvents: any = {
     Workers: [
       {
@@ -155,6 +162,8 @@ export class ExpenseComponent implements OnInit {
       placeholder: 'Upload document',
     },
   };
+  revunueCategories: any;
+  revenueFormType: boolean = false;
   constructor(
     private fb: FormBuilder,
     private expenseService: ExpenseService,
@@ -164,8 +173,17 @@ export class ExpenseComponent implements OnInit {
     this.expenseService.GetExpensesCategories().subscribe((res) => {
       this.categories = res;
     });
+    this.expenseService.GetRevenueCategories().subscribe((res) => {
+      this.revunueCategories = res;
+    });
   }
 
+  // Method to calculate grand total
+  calculateGrandTotal(): void {
+    const quantity = this.revenueForm.get('quanity')?.value || 0;
+    const price = this.revenueForm.get('price')?.value || 0;
+    this.grandTotal = quantity * price;
+  }
   ngOnInit(): void {
     this.expenseForm = this.fb.group({
       date: ['', Validators.required],
@@ -176,13 +194,31 @@ export class ExpenseComponent implements OnInit {
       categoryId: [''],
     });
 
+    this.revenueForm = this.fb.group({
+      categoryId: [''],
+      categoryName: [''],
+      date: ['', Validators.required],
+      quanity: ['', Validators.required],
+      price: ['', Validators.required],
+      revenueName: [''],
+      amount: [],
+    });
+
     this.expenseForm.get('event')!.valueChanges.subscribe(() => {
       this.addNewCard();
     });
+    // Calculate Grand Total whenever quantity or price changes
+    this.revenueForm.get('quanity')!.valueChanges.subscribe(() => {
+      this.calculateGrandTotal();
+    });
+
+    this.revenueForm.get('price')!.valueChanges.subscribe(() => {
+      this.calculateGrandTotal();
+    });
   }
 
-  goToCategoryScreen() {
-    this.currentScreen = 'category';
+  goToCategoryScreen(data: any) {
+    this.currentScreen = data;
   }
 
   goToCardsScreen() {
@@ -437,5 +473,75 @@ export class ExpenseComponent implements OnInit {
     });
 
     return totalCost;
+  }
+
+  goToRevenueScreen(category: any) {
+    debugger;
+    this.currentScreen = 'revenueForm';
+    this.revenueForm.patchValue({
+      categoryId: category.revenueId,
+      categoryName: category.revenueName,
+    });
+    if (category && category.revenueName == 'Revenue details') {
+      this.revenueFormType = true;
+    } else {
+      this.revenueFormType = false;
+    }
+
+    console.log(category);
+  }
+
+  onRevenueSave() {
+    // console.log(this.revenueForm.value);
+    // const data = [
+    //   {
+    //     revenueCategoryId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    //     revenueCategoryName: 'string',
+    //     name: 'string',
+    //     price: 0,
+    //     priceUnits: 'string',
+    //     quantity: 0,
+    //     quantityUnits: 'string',
+    //     date: new Date().toISOString(), // Use the current date and time
+    //     total: 0,
+    //     activityTotal: 0,
+    //   },
+    // ];
+    const {
+      categoryId,
+      categoryName,
+      date,
+      quanity,
+      price,
+      revenueName,
+      amount,
+    } = this.revenueForm.value;
+
+    const data = [
+      {
+        revenueCategoryId: categoryId,
+        revenueCategoryName: categoryName,
+        name: revenueName,
+        price: price,
+        priceUnits: 'your-price-unit-here', // You need to specify or derive this value
+        quantity: quanity,
+        quantityUnits: 'your-quantity-unit-here', // You need to specify or derive this value
+        date: new Date(date).toISOString(), // Convert date to ISO string
+        total: amount ?? 0,
+        activityTotal: this.grandTotal, // Or calculate differently if needed
+      },
+    ];
+
+    this.expenseService.SaveCustomerRevenue(data).subscribe(
+      (res) => {
+        // Handle the response here
+        console.log('Revenue saved successfully:', res);
+        this.notificationService.showSuccess('Revenue saved successfully');
+      },
+      (error) => {
+        // Handle any errors here
+        console.error('Error saving revenue:', error);
+      }
+    );
   }
 }

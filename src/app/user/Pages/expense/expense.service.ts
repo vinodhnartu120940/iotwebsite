@@ -30,4 +30,22 @@ export class ExpenseService {
       `${APIEndPoints.ExpensesManagement}/GetToatlRevenueAndExpenses`
     );
   }
+
+  GetRevenueCategories() {
+    return this.http.get(
+      `${APIEndPoints.ExpensesManagement}/GetRevenueCategories`
+    );
+  }
+
+  SaveCustomerRevenue(data: any) {
+    return this.http.post(
+      `${APIEndPoints.ExpensesManagement}/SaveCustomerRevenue`,
+      data
+    );
+  }
+  GetCustomerRevenues() {
+    return this.http.get(
+      `${APIEndPoints.ExpensesManagement}/GetCustomerRevenues`
+    );
+  }
 }

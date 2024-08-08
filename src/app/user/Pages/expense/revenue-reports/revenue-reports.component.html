@@ -1,0 +1,48 @@
+<div class="container my-4">
+  <!-- August 05, 2024 -->
+  <div class="date-header">August 05, 2024</div>
+
+  <!-- Revenue Details -->
+  <div class="card card-custom" *ngFor="let revenue of revenues">
+    <div class="card-body" *ngFor="let revenueData of revenue.revenues">
+      <div class="expense-item">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="expense-title">
+              {{ revenueData.revenueCategoryName }}
+            </div>
+            <div class="details">
+              Name: {{ revenue.name }}<br />
+              Price: ₹{{ revenue.price }}
+            </div>
+          </div>
+          <div class="amount">₹{{ revenue.total }}</div>
+        </div>
+        <!-- <div class="text-end mt-2">
+          <a href="#" class="edit-link">Edit</a>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Harvested Details
+  <div class="card card-custom">
+    <div class="card-body">
+      <div class="expense-item">
+        <div class="d-flex justify-content-between">
+          <div>
+            <div class="expense-title">Harvested and sold</div>
+            <div class="details">
+              Amount: ₹<br />
+              Quantity: kg
+            </div>
+          </div>
+          <div class="amount">Total</div>
+        </div>
+        <div class="text-end mt-2">
+          <a href="#" class="edit-link">Edit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
