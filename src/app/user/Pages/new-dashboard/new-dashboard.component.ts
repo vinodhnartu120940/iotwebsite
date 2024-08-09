@@ -4,14 +4,16 @@ import { PieChartComponent } from '../../../shared/pie-chart/pie-chart.component
 import { CalendarService } from '../../Services/calendar.service';
 import { formatISO, parseISO } from 'date-fns';
 import { ExpenseService } from '../expense/expense.service';
-import { NgIf } from '@angular/common';
-
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { UserService } from '../../user.service';
+import { thresholds } from '../../../utils/farm.data';
+import { Router, RouterLink } from '@angular/router';
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-new-dashboard',
   standalone: true,
-  imports: [PieChartComponent,NgIf],
+  imports: [PieChartComponent,NgIf,NgFor, CommonModule,RouterLink],
   templateUrl: './new-dashboard.component.html',
   styleUrls: ['./new-dashboard.component.scss']
 })
@@ -21,8 +23,28 @@ export class NewDashboardComponent implements OnInit {
   currentPhaseTitle: string = 'No current phase';
   isLoading: boolean = true;
   financialData: any;
+  pieChartHeight = 200;
+  pieChartWidth = 400;
+  sensorData: any;
+  //threshold values;
+  temperatureThresholds = thresholds.temperature;
+  humidityThresholds = thresholds.humidity;
+  moistureThresholds = thresholds.moisture;
+  nitrogenThresholds = thresholds.nitrogen;
+  phosphorusThresholds = thresholds.phosphorus;
+  potassiumThresholds = thresholds.potassium;
 
-  constructor(private expensiveService: ExpenseService, private cdr: ChangeDetectorRef, private calendarService:CalendarService) {
+  ngOnInit() {
+   this.getCalendarEvents();
+   this.GetAllSensorsLatestData();
+  }
+  constructor(
+    private expensiveService: ExpenseService, 
+    private calendarService:CalendarService,
+    private userService:UserService,
+    private cdr: ChangeDetectorRef, 
+    private router: Router
+  ) {
     this.expensiveService.GetToatlRevenueAndExpenses().subscribe((res) => {
       this.financialData = res;
 
@@ -56,7 +78,7 @@ export class NewDashboardComponent implements OnInit {
     datasets: [
       {
         data: [],
-        backgroundColor: ['#5E954E', '#D4E8CE', '#85C572'],
+        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8',],
       },
     ],
   };
@@ -66,7 +88,7 @@ export class NewDashboardComponent implements OnInit {
     datasets: [
       {
         data: [],
-        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8'],
+        backgroundColor: ['#5E954E', '#D4E8CE', '#85C572'],
       },
     ],
   };
@@ -113,17 +135,17 @@ export class NewDashboardComponent implements OnInit {
     },
   };
 
-  pieChartHeight = 200;
-  pieChartWidth = 400;
-
-
-  ngOnInit() {
+  getCalendarEvents(){
     this.calendarService.getCalendarEvents().subscribe((res:any) => {
       this.CoffeeCycle = res.calendarCommonEvents;
       this.updateCurrentMonthEventTitle();
     });
   }
-
+  GetAllSensorsLatestData(){
+    this.userService.GetAllSensorsLatestData().subscribe((res)=>{
+      this.sensorData = res;
+    });
+  }
   updateCurrentMonthEventTitle() {
     const currentDate = new Date();
 
@@ -137,4 +159,9 @@ export class NewDashboardComponent implements OnInit {
       }
     }
   }
+  goToDetailView(sensor: any): void {
+    this.router.navigate(['user/dashboard/sensor-data'], { state: { sensorData: sensor } });
+  }
+
+  
 }

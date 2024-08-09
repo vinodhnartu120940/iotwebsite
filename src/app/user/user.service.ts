@@ -20,7 +20,14 @@ export class UserService {
       `${APIEndPoints.Data}/GetSensorLatestData/${this.getDeviceId}`
     );
   }
+  GetAllSensorsLatestData(){
+    return this.http.get(`${APIEndPoints.Data}/GetAllSensorsLatestData`);
+  }
 
+  GetSensorWeeklyData(tenantId: any ,period: any){
+    return this.http.get(`${APIEndPoints.Data}/GetSensorWeeklyData/${tenantId}/${period}`)
+  }
+  
   userInfo: any;
   GetUserInfo() {
     return this.http

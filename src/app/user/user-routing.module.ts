@@ -17,11 +17,11 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardtwoComponent,
     children: [
-      // {
-      //   path: '',
-      //   component: SensordataComponent,
-      //   data: { title: 'Sensor Data' },
-      // },
+      {
+        path: 'sensor-data',
+        component: SensordataComponent,
+        data: { title: 'Sensor Data' },
+      },
       {
         path: '',
         component: NewDashboardComponent,
