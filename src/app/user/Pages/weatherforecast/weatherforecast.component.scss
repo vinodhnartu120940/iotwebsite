@@ -1,0 +1,44 @@
+.main-content {
+  margin-top: 20px;
+}
+
+.temperature-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.temperature-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.temperature-section .sun-icon {
+  width: 100px;
+  height: 100px;
+  background: yellow;
+  border-radius: 50%;
+  box-shadow: 0px 0px 20px 5px rgba(255, 223, 0, 0.7);
+}
+
+.card {
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.moisture-section,
+.temp-values-section {
+  background-color: #f8f9fa;
+}
+
+.moisture-section .icon {
+  font-size: 2rem;
+}
+
+.explore-btn {
+  background-color: #28a745;
+  color: white;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-weight: bold;
+}

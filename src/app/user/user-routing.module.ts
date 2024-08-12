@@ -10,6 +10,7 @@ import { RevenueComponent } from './Pages/revenue/revenue.component';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
 import { FinancesComponent } from './components/finances/finances.component';
+import { WeatherforecastComponent } from './Pages/weatherforecast/weatherforecast.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,9 @@ const routes: Routes = [
         component: ExpenseReportComponent,
         data: { title: 'Expenses' },
       },
+      {path:'weather',
+        component:WeatherforecastComponent
+      }
     ],
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
