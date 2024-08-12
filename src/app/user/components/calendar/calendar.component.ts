@@ -258,4 +258,7 @@ export class CalendarComponent {
 
     return [year, month, day].join('-');
   }
+  isCommonEvent(event: CustomCalendarEvent): boolean {
+    return this.calendarCommonEvents.some(commonEvent => commonEvent.eventID === event.eventID);
+}
 }

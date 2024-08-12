@@ -226,13 +226,14 @@
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   color: #4a6b47;
+  padding:20px 10px 0 10px;
 }
 .card-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   min-height: 162px;
   height: 100%;
   color: #4a6b47;
@@ -249,10 +250,7 @@
   margin-bottom: 15px;
 }
 
-.row {
-  justify-content: center;
-  margin-left: 0 !important;
-}
+
 
 thead,
 tbody tr {
@@ -282,9 +280,6 @@ thead th {
   color: white;
 }
 
-.row {
-  flex-wrap: nowrap !important;
-}
 .main {
   margin-left: 220px;
 }
@@ -384,6 +379,16 @@ h6 {
   font-size: 24px;
   cursor: pointer;
   margin: 20px;
+}
+.elements-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:20px;
+}
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: 75% auto;
+  gap: 20px;
 }
 @media (max-width: 768px) {
   .sidenav {
@@ -492,4 +497,11 @@ p {
   border-left: 2px solid #4a4a4a;
   height: 50px;
   margin: 0 20px;
+}
+.cardHt{
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-bottom: 20px;
+  height:53%;
 }

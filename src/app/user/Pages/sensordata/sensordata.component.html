@@ -38,98 +38,114 @@
     </div>
   </div>
   @if (currentTab === 'all') {
-  <div class="row">
-    <div class="col-md-3 col-sm-6">
-      <div class="card_all  " [ngClass]="{'card_low': sensorLatestData?.moisturePercentage < 25, 'card_avg': sensorLatestData?.moisturePercentage >= 25 && sensorLatestData?.moisturePercentage < 50, 'card_good': sensorLatestData?.moisturePercentage >= 50}">
-        <div class="card-header">Soil Moisture</div>
-        <div class="card-body">
-          <i class="fa fa-tint icon"style="color: #ADD8E6;"></i>
-          <!-- <h5 class="card-title">
-            Moisture : {{ this.sensorLatestData?.moisture }}
-          </h5> -->
-          <h5 class="card-title">
-            Moisture in % : {{ sensorLatestData?.moisturePercentage }} %
-          </h5>
-          <!-- <p class="card-text">Temperature: 25&#8451; / 30&#8451;</p> -->
+    <div class="grid-wrapper">
+      <div class="row-wrap1">
+        <div class="elements-grid">
+            <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.moisturePercentage < 25, 'card_avg': sensorLatestData?.moisturePercentage >= 25 && sensorLatestData?.moisturePercentage < 50, 'card_good': sensorLatestData?.moisturePercentage >= 50}">
+              <div class="card-header">Soil Moisture</div>
+              <div class="card-body">
+                <i class="fa fa-tint icon" style="color: #ADD8E6;"></i>
+                <h5 class="card-title">Moisture in % : {{ sensorLatestData?.moisturePercentage }} %</h5>
+              </div>
+            </div>
+            <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.temperatureCelsius < 18, 'card_avg': sensorLatestData?.temperatureCelsius >= 18 && sensorLatestData?.temperatureCelsius < 24, 'card_good': sensorLatestData?.temperatureCelsius >= 24}">
+              <div class="card-header">Temperature</div>
+              <div class="card-body">
+                <i class="fa fa-thermometer-half icon" style="color:#FF4500"></i>
+                <h5 class="card-title">{{ sensorLatestData?.temperatureFahrenheit }}<span> &deg;F</span></h5>
+                <h5 class="card-title">{{ sensorLatestData?.temperatureCelsius }}<span> &deg;C</span></h5>
+              </div>
+            </div>
+            <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.humidityPercentage < 60, 'card_avg': sensorLatestData?.humidityPercentage >= 60 && sensorLatestData?.humidityPercentage < 70, 'card_good': sensorLatestData?.humidityPercentage >= 70}">
+              <div class="card-header">Humidity</div>
+              <div class="card-body">
+                <i class="fa fa-water icon" style="color:#00FFFF"></i>
+                <h5 class="card-title">{{ sensorLatestData?.humidityPercentage }} %</h5>
+              </div>
+            </div>
+            <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.nitrogen < 10, 'card_avg': sensorLatestData?.nitrogen >= 10 && sensorLatestData?.nitrogen < 20, 'card_good': sensorLatestData?.nitrogen >= 20}">
+              <div class="card-header">Nitrogen</div>
+              <div class="card-body">
+                <i class="fa fa-leaf icon" style="color: #32CD32"></i>
+                <h5 class="card-title">{{ sensorLatestData?.nitrogen }}</h5>
+              </div>
+            </div>
+            <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.phosphorus < 5, 'card_avg': sensorLatestData?.phosphorus >= 5 && sensorLatestData?.phosphorus < 10, 'card_good': sensorLatestData?.phosphorus >= 10}">
+              <div class="card-header">Phosphorus</div>
+              <div class="card-body">
+                <i class="fa fa-seedling icon" style="color: #228B22"></i>
+                <h5 class="card-title">{{ sensorLatestData?.phosphorus }}</h5>
+              </div>
+            </div>
+            <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.potassium < 10, 'card_avg': sensorLatestData?.potassium >= 10 && sensorLatestData?.potassium < 20, 'card_good': sensorLatestData?.potassium >= 20}">
+              <div class="card-header">Potassium</div>
+              <div class="card-body">
+                <i class="fa fa-carrot icon" style="color:#8B4513"></i>
+                <h5 class="card-title">{{ sensorLatestData?.potassium }}</h5>
+              </div>
+            </div> 
+        </div>
+      </div>
+      <div class="row-wrap2">
+        <div class="d-flex flex-column" style="height: 100%;">
+          <div class="card_all flex-grow-1">
+            <div class="card-header ">Current Values & Thresholds</div>
+            <div class="card-body" style="height: 100%; overflow: hidden;">
+              <marquee direction="up" scrollamount="2">
+                <div>
+                  <p><strong>Temperature:</strong> {{ sensorLatestData?.temperatureCelsius }}°C<br>
+                    <strong>Threshold:</strong> 18°C - 24°C<br>
+                    {{ getTipAndStatus('Temperature', sensorLatestData?.temperatureCelsius, {min: 18, max: 24}).tip }}
+                  </p>
+      
+                  <p><strong>Humidity:</strong> {{ sensorLatestData?.humidityPercentage }}%<br>
+                    <strong>Threshold:</strong> 60% - 70%<br>
+                    {{ getTipAndStatus('Humidity', sensorLatestData?.humidityPercentage, {min: 60, max: 70}).tip }}
+                  </p>
+      
+                  <p><strong>Soil Moisture:</strong> {{ sensorLatestData?.moisturePercentage }}%<br>
+                    <strong>Threshold:</strong> 25% - 50%<br>
+                    {{ getTipAndStatus('Moisture', sensorLatestData?.moisturePercentage, {min: 25, max: 50}).tip }}
+                  </p>
+      
+                  <p><strong>Nitrogen:</strong> {{ sensorLatestData?.nitrogen }} mg/kg<br>
+                    <strong>Threshold:</strong> 10-30 mg/kg<br>
+                    {{ getTipAndStatus('Nitrogen', sensorLatestData?.nitrogen, {min: 10, max: 30}).tip }}
+                  </p>
+      
+                  <p><strong>Phosphorus:</strong> {{ sensorLatestData?.phosphorus }} mg/kg<br>
+                    <strong>Threshold:</strong> 5-20 mg/kg<br>
+                    {{ getTipAndStatus('Phosphorus', sensorLatestData?.phosphorus, {min: 5, max: 20}).tip }}
+                  </p>
+      
+                  <p><strong>Potassium:</strong> {{ sensorLatestData?.potassium }} mg/kg<br>
+                    <strong>Threshold:</strong> 10-40 mg/kg<br>
+                    {{ getTipAndStatus('Potassium', sensorLatestData?.potassium, {min: 10, max: 40}).tip }}
+                  </p>
+                </div>
+              </marquee>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.temperatureCelsius < 18, 'card_avg': sensorLatestData?.temperatureCelsius >= 18 && sensorLatestData?.temperatureCelsius < 24, 'card_good': sensorLatestData?.temperatureCelsius >= 24}">
-        <div class="card-header">Temperature</div>
-        <div class="card-body">
-          <i class="fa fa-thermometer-half icon" style="color:#FF4500"></i>
-          <h5 class="card-title">
-            {{ sensorLatestData?.temperatureFahrenheit
-            }}<span> &deg;F</span>
-          </h5>
-          <h5 class="card-title">
-            {{ sensorLatestData?.temperatureCelsius
-            }}<span> &deg;C</span>
-          </h5>
-          <!-- <p class="card-text">Humidity: 70% / 80%</p> -->
-        </div>
+    <div class="col-md-3 d-flex gap-3">
+      <div class="label-legend">
+        <div class="label-box" style="background-color: #ffe5e5;"></div> <span>Poor</span>
+      </div>
+      <div class="label-legend">
+        <div class="label-box" style="background-color: #ffecd9;"></div> <span>Average</span>
+      </div>
+      <div class="label-legend">
+        <div class="label-box" style="background-color: #e5ffe5;"></div> <span>Good</span>
       </div>
     </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.humidityPercentage < 60, 'card_avg': sensorLatestData?.humidityPercentage >= 60 && sensorLatestData?.humidityPercentage < 70, 'card_good': sensorLatestData?.humidityPercentage >= 70}">
-        <div class="card-header">Humidity</div>
-        <div class="card-body">
-          <i class="fa fa-water icon" style="color:#00FFFF"></i>
-          <h5 class="card-title">
-            {{ sensorLatestData?.humidityPercentage }} %
-          </h5>
-          <!-- <p class="card-text">pH Level: 6.5 / 7</p> -->
-        </div>
-      </div>
-    </div>
-    
-  </div>
-  <div class="row">
-    <div class="col-md-3 col-sm-6">
-      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.nitrogen < 10, 'card_avg': sensorLatestData?.nitrogen >= 10 && sensorLatestData?.nitrogen < 20, 'card_good': sensorLatestData?.nitrogen >= 20}">
-        <div class="card-header">Nitrogen</div>
-        <div class="card-body">
-          <i class="fa fa-leaf icon" style="color: #32CD32"></i>
-          <h5 class="card-title">{{ sensorLatestData?.nitrogen }}</h5>
-          <!-- <p class="card-text">Optimal Range: 10-30 mg/kg</p> -->
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.phosphorus < 5, 'card_avg': sensorLatestData?.phosphorus >= 5 && sensorLatestData?.phosphorus < 10, 'card_good': sensorLatestData?.phosphorus >= 10}">
-        <div class="card-header">Phosphorus</div>
-        <div class="card-body">
-          <i class="fa fa-seedling icon" style="color: #228B22"></i>
-          <h5 class="card-title">{{ sensorLatestData?.phosphorus }}</h5>
-          <!-- <p class="card-text">Optimal Range: 5-20 mg/kg</p> -->
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.potassium < 10, 'card_avg': sensorLatestData?.potassium >= 10 && sensorLatestData?.potassium < 20, 'card_good': sensorLatestData?.potassium >= 20}">
-        <div class="card-header">Potassium</div>
-        <div class="card-body">
-          <i class="fa fa-carrot icon" style="color:#8B4513"></i>
-          <h5 class="card-title">{{ sensorLatestData?.potassium }}</h5>
-          <!-- <p class="card-text">Optimal Range: 10-40 mg/kg</p> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="label-legend">
-      <div class="label-box" style="background-color: #ffe5e5;"></div> <span>Poor</span>
-    </div>
-    <div class="label-legend">
-      <div class="label-box" style="background-color: #ffecd9;"></div> <span>Average</span>
-    </div>
-    <div class="label-legend">
-      <div class="label-box" style="background-color: #e5ffe5;"></div> <span>Good</span>
-    </div>
-  </div>
-
-  } @if (currentTab === 'temp') {
+  }
+  
+  
+  
+  
+  @if (currentTab === 'temp') {
   <div class="content">
     <div class="content" id="moisture">
       <div class="detailed-card moisture-section">
@@ -264,18 +280,18 @@
   } 
   
   <div *ngIf="currentTab === 'npk'" class="content">
+    <!-- sensor-meter Readings -->
     <div class="detailed-card">
         <div class="header">NPK Values:</div>
         <div class="d-flex justify-content-around">
-        
             <!-- Nitrogen Sensor Meter -->
             <div class="text-center position-relative">
                 <p>Nitrogen: {{ sensorLatestData?.nitrogen }}/255</p>
                 <div class="progress position-relative" 
-                     style="height: 150px; width: 20px; background: linear-gradient(to bottom, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
+                     style="height: 150px; width: 20px; background: linear-gradient(to top, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
                     
                     <!-- Needle -->
-                    <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.nitrogen, [10, 20, 30])}"
+                    <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.nitrogen, [25, 50, 100])}"
                         style="position: absolute; left: 0; right: 0; margin: auto; width: 100%; height: 2px; background-color: black;">
                     </div>
                     
@@ -287,10 +303,10 @@
             <div class="text-center position-relative">
                 <p>Phosphorus: {{ sensorLatestData?.phosphorus }}/255</p>
                 <div class="progress position-relative" 
-                     style="height: 150px; width: 20px; background: linear-gradient(to bottom, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
+                     style="height: 150px; width: 20px; background: linear-gradient(to top, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
                     
                     <!-- Needle -->
-                    <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.phosphorus, [5, 10, 15])}"
+                    <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.phosphorus, [5, 15, 30])}"
                         style="position: absolute; left: 0; right: 0; margin: auto; width: 100%; height: 2px; background-color: black;">
                     </div>
                     
@@ -302,10 +318,10 @@
             <div class="text-center position-relative">
                 <p>Potassium: {{ sensorLatestData?.potassium }}/255</p>
                 <div class="progress position-relative" 
-                     style="height: 150px; width: 20px; background: linear-gradient(to bottom, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
+                     style="height: 150px; width: 20px; background: linear-gradient(to top, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
                     
                     <!-- Needle -->
-                    <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.potassium, [10, 20, 30])}"
+                    <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.potassium, [50, 150, 400])}"
                         style="position: absolute; left: 0; right: 0; margin: auto; width: 100%; height: 2px; background-color: black;">
                     </div>
                     
