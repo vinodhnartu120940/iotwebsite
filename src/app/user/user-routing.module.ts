@@ -10,6 +10,7 @@ import { RevenueComponent } from './Pages/revenue/revenue.component';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
 import { FinancesComponent } from './components/finances/finances.component';
+import { NewDashboardComponent } from './Pages/new-dashboard/new-dashboard.component';
 import { WeatherforecastComponent } from './Pages/weatherforecast/weatherforecast.component';
 
 const routes: Routes = [
@@ -18,9 +19,14 @@ const routes: Routes = [
     component: DashboardtwoComponent,
     children: [
       {
-        path: '',
+        path: 'sensor-data',
         component: SensordataComponent,
         data: { title: 'Sensor Data' },
+      },
+      {
+        path: '',
+        component: NewDashboardComponent,
+        data: { title: 'Dashboard' },
       },
       {
         path: 'predict',
@@ -63,6 +69,7 @@ const routes: Routes = [
     ],
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  
 ];
 
 @NgModule({

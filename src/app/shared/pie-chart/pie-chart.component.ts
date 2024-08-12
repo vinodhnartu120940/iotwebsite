@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { Chart, ChartData, ChartOptions } from 'chart.js';
+import { Chart, ChartData, ChartOptions, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-pie-chart',
@@ -20,6 +20,7 @@ export class PieChartComponent {
 
   ngOnInit(): void {
     this.createChart();
+    Chart.register(...registerables);
   }
 
   ngOnDestroy(): void {
