@@ -13,72 +13,25 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-new-dashboard',
   standalone: true,
-  imports: [PieChartComponent,NgIf,NgFor, CommonModule,RouterLink],
+  imports: [PieChartComponent, NgIf, NgFor, CommonModule, RouterLink],
   templateUrl: './new-dashboard.component.html',
   styleUrls: ['./new-dashboard.component.scss']
 })
 export class NewDashboardComponent implements OnInit {
-  chart: Chart | undefined;
+  isPageLoading: boolean = true;
+  isSensorDataLoading: boolean = true;
+  isFinancialDataLoading: boolean = true;
   CoffeeCycle: any;
   currentPhaseTitle: string = 'No current phase';
-  isLoading: boolean = true;
   financialData: any;
-  pieChartHeight = 200;
-  pieChartWidth = 400;
   sensorData: any;
-  //threshold values;
-  temperatureThresholds = thresholds.temperature;
-  humidityThresholds = thresholds.humidity;
-  moistureThresholds = thresholds.moisture;
-  nitrogenThresholds = thresholds.nitrogen;
-  phosphorusThresholds = thresholds.phosphorus;
-  potassiumThresholds = thresholds.potassium;
 
-  ngOnInit() {
-   this.getCalendarEvents();
-   this.GetAllSensorsLatestData();
-  }
-  constructor(
-    private expensiveService: ExpenseService, 
-    private calendarService:CalendarService,
-    private userService:UserService,
-    private cdr: ChangeDetectorRef, 
-    private router: Router
-  ) {
-    this.expensiveService.GetToatlRevenueAndExpenses().subscribe((res) => {
-      this.financialData = res;
-
-      // Update pie chart data for expenses
-      if (res.totalExpenses > 0) {
-        this.expensePieChartData.labels = Object.keys(res.categorisedExpenses);
-        this.expensePieChartData.datasets[0].data = Object.values(res.categorisedExpenses);
-      } else {
-        this.expensePieChartData.labels = ['No Data'];
-        this.expensePieChartData.datasets[0].data = [1];
-      }
-
-      // Update pie chart data for revenues
-      if (res.totalRevenue > 0) {
-        this.revenuePieChartData.labels = Object.keys(res.categorisedRevenues);
-        this.revenuePieChartData.datasets[0].data = Object.values(res.categorisedRevenues);
-      } else {
-        this.revenuePieChartData.labels = ['No Data'];
-        this.revenuePieChartData.datasets[0].data = [1];
-      }
-
-      // Set loading to false
-      this.isLoading = false;
-
-      // Detect changes
-      this.cdr.detectChanges();
-    });
-  }
   expensePieChartData: ChartData<'pie'> = {
     labels: [],
     datasets: [
       {
         data: [],
-        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8',],
+        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8'],
       },
     ],
   };
@@ -111,6 +64,7 @@ export class NewDashboardComponent implements OnInit {
       },
     },
   };
+
   revenuePieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -135,17 +89,71 @@ export class NewDashboardComponent implements OnInit {
     },
   };
 
-  getCalendarEvents(){
-    this.calendarService.getCalendarEvents().subscribe((res:any) => {
+  constructor(
+    private expensiveService: ExpenseService,
+    private calendarService: CalendarService,
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.getCalendarEvents();
+    this.GetAllSensorsLatestData();
+    this.loadFinancialData();
+  }
+
+  loadFinancialData() {
+    this.expensiveService.GetToatlRevenueAndExpenses().subscribe((res) => {
+      this.financialData = res;
+
+      // Update pie chart data for expenses
+      if (res.totalExpenses > 0) {
+        this.expensePieChartData.labels = Object.keys(res.categorisedExpenses);
+        this.expensePieChartData.datasets[0].data = Object.values(res.categorisedExpenses);
+      } else {
+        this.expensePieChartData.labels = ['No Data'];
+        this.expensePieChartData.datasets[0].data = [1];
+      }
+
+      // Update pie chart data for revenues
+      if (res.totalRevenue > 0) {
+        this.revenuePieChartData.labels = Object.keys(res.categorisedRevenues);
+        this.revenuePieChartData.datasets[0].data = Object.values(res.categorisedRevenues);
+      } else {
+        this.revenuePieChartData.labels = ['No Data'];
+        this.revenuePieChartData.datasets[0].data = [1];
+      }
+
+      // Set financial data loading to false
+      this.isFinancialDataLoading = false;
+      this.checkIfPageLoadingComplete();
+    });
+  }
+
+  GetAllSensorsLatestData() {
+    this.userService.GetAllSensorsLatestData().subscribe((res) => {
+      this.sensorData = res;
+      // Set sensor data loading to false
+      this.isSensorDataLoading = false;
+      this.checkIfPageLoadingComplete();
+    });
+  }
+
+  checkIfPageLoadingComplete() {
+    if (!this.isFinancialDataLoading && !this.isSensorDataLoading) {
+      this.isPageLoading = false;
+      this.cdr.detectChanges();
+    }
+  }
+
+  getCalendarEvents() {
+    this.calendarService.getCalendarEvents().subscribe((res: any) => {
       this.CoffeeCycle = res.calendarCommonEvents;
       this.updateCurrentMonthEventTitle();
     });
   }
-  GetAllSensorsLatestData(){
-    this.userService.GetAllSensorsLatestData().subscribe((res)=>{
-      this.sensorData = res;
-    });
-  }
+
   updateCurrentMonthEventTitle() {
     const currentDate = new Date();
 
@@ -159,9 +167,8 @@ export class NewDashboardComponent implements OnInit {
       }
     }
   }
+
   goToDetailView(sensor: any): void {
     this.router.navigate(['user/dashboard/sensor-data'], { state: { sensorData: sensor } });
   }
-
-  
 }
