@@ -12,6 +12,7 @@ import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-r
 import { FinancesComponent } from './components/finances/finances.component';
 import { NewDashboardComponent } from './Pages/new-dashboard/new-dashboard.component';
 import { PestManagementComponent } from './Pages/pest-management/pest-management.component';
+import { CropEducationComponent } from './Pages/crop-education/crop-education.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,11 @@ const routes: Routes = [
         path: 'pest-management',
         component: PestManagementComponent,
         data: { title: 'Pest Management' },
+      },
+      {
+        path: 'crop-education',
+        component: CropEducationComponent,
+        data: { title: 'Crop Education' },
       },
     ],
     
