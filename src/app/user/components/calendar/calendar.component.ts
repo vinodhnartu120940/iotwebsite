@@ -195,6 +195,20 @@ export class CalendarComponent {
       this.updateCurrentMonthEventTitle();
     });
   }
+  DeleteCalendarEvent(eventID: any) {
+    console.log(eventID);
+    this.calendarService.deleteCalendarEvent(eventID).subscribe((res) => {
+      this.notify.showSuccess("Event Deleted Successfully!");
+      // Remove the deleted event from the events array
+      this.events = this.events.filter(event => event.eventID !== eventID);
+  
+      if (this.activeModalRef) {
+        this.activeModalRef.close();
+        this.activeModalRef = null;
+      }
+    });
+  }
+  
 
   getCommonEventsForFirstOfMonth(events: any[]): CustomCalendarEvent[] {
     const commonEvents: CustomCalendarEvent[] = [];

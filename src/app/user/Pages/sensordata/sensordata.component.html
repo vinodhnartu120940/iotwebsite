@@ -39,19 +39,19 @@
   </div>
   @if (currentTab === 'all') {
     <div class="grid-wrapper">
-      <div class="row-wrap1">
+      <div class="row-wrap1 text-white">
         <div class="elements-grid">
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.moisturePercentage < 25, 'card_avg': sensorLatestData?.moisturePercentage >= 25 && sensorLatestData?.moisturePercentage < 50, 'card_good': sensorLatestData?.moisturePercentage >= 50}">
               <div class="card-header">Soil Moisture</div>
               <div class="card-body">
-                <i class="fa fa-tint icon" style="color: #ADD8E6;"></i>
-                <h5 class="card-title">Moisture in % : {{ sensorLatestData?.moisturePercentage }} %</h5>
+                <i class="fa fa-tint icon" style="color: #f5f5f5;"></i>
+                <h5 class="card-title"> {{ sensorLatestData?.moisturePercentage }} %</h5>
               </div>
             </div>
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.temperatureCelsius < 18, 'card_avg': sensorLatestData?.temperatureCelsius >= 18 && sensorLatestData?.temperatureCelsius < 24, 'card_good': sensorLatestData?.temperatureCelsius >= 24}">
               <div class="card-header">Temperature</div>
               <div class="card-body">
-                <i class="fa fa-thermometer-half icon" style="color:#FF4500"></i>
+                <i class="fa fa-thermometer-half icon" style="color:#fafafa"></i>
                 <h5 class="card-title">{{ sensorLatestData?.temperatureFahrenheit }}<span> &deg;F</span></h5>
                 <h5 class="card-title">{{ sensorLatestData?.temperatureCelsius }}<span> &deg;C</span></h5>
               </div>
@@ -59,28 +59,28 @@
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.humidityPercentage < 60, 'card_avg': sensorLatestData?.humidityPercentage >= 60 && sensorLatestData?.humidityPercentage < 70, 'card_good': sensorLatestData?.humidityPercentage >= 70}">
               <div class="card-header">Humidity</div>
               <div class="card-body">
-                <i class="fa fa-water icon" style="color:#00FFFF"></i>
+                <i class="fa fa-water icon" style="color:#f8f9f9"></i>
                 <h5 class="card-title">{{ sensorLatestData?.humidityPercentage }} %</h5>
               </div>
             </div>
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.nitrogen < 10, 'card_avg': sensorLatestData?.nitrogen >= 10 && sensorLatestData?.nitrogen < 20, 'card_good': sensorLatestData?.nitrogen >= 20}">
               <div class="card-header">Nitrogen</div>
               <div class="card-body">
-                <i class="fa fa-leaf icon" style="color: #32CD32"></i>
+                <i class="fa fa-leaf icon" style="color: #000000"></i>
                 <h5 class="card-title">{{ sensorLatestData?.nitrogen }}</h5>
               </div>
             </div>
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.phosphorus < 5, 'card_avg': sensorLatestData?.phosphorus >= 5 && sensorLatestData?.phosphorus < 10, 'card_good': sensorLatestData?.phosphorus >= 10}">
               <div class="card-header">Phosphorus</div>
               <div class="card-body">
-                <i class="fa fa-seedling icon" style="color: #228B22"></i>
+                <i class="fa fa-seedling icon" style="color: #ffffff"></i>
                 <h5 class="card-title">{{ sensorLatestData?.phosphorus }}</h5>
               </div>
             </div>
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.potassium < 10, 'card_avg': sensorLatestData?.potassium >= 10 && sensorLatestData?.potassium < 20, 'card_good': sensorLatestData?.potassium >= 20}">
               <div class="card-header">Potassium</div>
               <div class="card-body">
-                <i class="fa fa-carrot icon" style="color:#8B4513"></i>
+                <i class="fa fa-carrot icon" style="color:#ffffff"></i>
                 <h5 class="card-title">{{ sensorLatestData?.potassium }}</h5>
               </div>
             </div> 
@@ -91,7 +91,7 @@
           <div class="card_all flex-grow-1">
             <div class="card-header ">Current Values & Thresholds</div>
             <div class="card-body" style="height: 100%; overflow: hidden;">
-              <marquee direction="up" scrollamount="2">
+              <marquee direction="up" scrollamount="1">
                 <div>
                   <p><strong>Temperature:</strong> {{ sensorLatestData?.temperatureCelsius }}°C<br>
                     <strong>Threshold:</strong> 18°C - 24°C<br>
@@ -131,13 +131,13 @@
     </div>
     <div class="col-md-3 d-flex gap-3">
       <div class="label-legend">
-        <div class="label-box" style="background-color: #ffe5e5;"></div> <span>Poor</span>
+        <div class="label-box card_low" ></div> <span>Poor</span>
       </div>
       <div class="label-legend">
-        <div class="label-box" style="background-color: #ffecd9;"></div> <span>Average</span>
+        <div class="label-box card_avg" ></div> <span>Average</span>
       </div>
       <div class="label-legend">
-        <div class="label-box" style="background-color: #e5ffe5;"></div> <span>Good</span>
+        <div class="label-box card_good" ></div> <span>Good</span>
       </div>
     </div>
   }

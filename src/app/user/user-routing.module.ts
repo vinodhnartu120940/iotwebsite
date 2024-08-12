@@ -11,6 +11,7 @@ import { ExpenseComponent } from './Pages/expense/expense.component';
 import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
 import { FinancesComponent } from './components/finances/finances.component';
 import { NewDashboardComponent } from './Pages/new-dashboard/new-dashboard.component';
+import { PestManagementComponent } from './Pages/pest-management/pest-management.component';
 
 const routes: Routes = [
   {
@@ -58,11 +59,12 @@ const routes: Routes = [
         data: { title: 'Expense' },
       },
       {
-        path: 'expenses',
-        component: ExpenseReportComponent,
-        data: { title: 'Expenses' },
+        path: 'pest-management',
+        component: PestManagementComponent,
+        data: { title: 'Pest Management' },
       },
     ],
+    
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   
