@@ -1,9 +1,7 @@
-// src/app/store/weather/weather.effects.ts
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
-import { mergeMap, map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
+import { of, from } from 'rxjs';
 import {
   loadWeather,
   loadWeatherFailure,
@@ -16,9 +14,16 @@ export class WeatherEffects {
   loadWeather$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadWeather),
-      mergeMap(() =>
-        this.weatherService.getWeatherData().pipe(
-          map((weather) => loadWeatherSuccess({ weather })),
+      switchMap(() =>
+        from(this.weatherService.getCurrentPosition()).pipe(
+          switchMap((location) =>
+            this.weatherService
+              .getWeatherData(location.latitude, location.longitude)
+              .pipe(
+                map((weather) => loadWeatherSuccess({ weather })),
+                catchError((error) => of(loadWeatherFailure({ error })))
+              )
+          ),
           catchError((error) => of(loadWeatherFailure({ error })))
         )
       )

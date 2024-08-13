@@ -64,7 +64,8 @@ const routes: Routes = [
         data: { title: 'Expenses' },
       },
       {path:'weather',
-        component:WeatherforecastComponent
+        component:WeatherforecastComponent,
+        data:{title:'Weather Data'}
       }
     ],
   },

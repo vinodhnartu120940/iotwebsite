@@ -5,4 +5,5 @@ export enum APIEndPoints {
   Authentication = '/api/controller',
   Intractions = '/api/controller',
   WeatherForecast = '/WeatherForecast',
+  Calander = '/api/Calendar',
 }

@@ -8,14 +8,17 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { UserService } from '../../user.service';
 import { thresholds } from '../../../utils/farm.data';
 import { Router, RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectLatestWeather } from '../../Store/selector/weather.selector';
+import { map } from 'rxjs';
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-new-dashboard',
   standalone: true,
-  imports: [PieChartComponent,NgIf,NgFor, CommonModule,RouterLink],
+  imports: [PieChartComponent, NgIf, NgFor, CommonModule, RouterLink],
   templateUrl: './new-dashboard.component.html',
-  styleUrls: ['./new-dashboard.component.scss']
+  styleUrls: ['./new-dashboard.component.scss'],
 })
 export class NewDashboardComponent implements OnInit {
   chart: Chart | undefined;
@@ -33,17 +36,21 @@ export class NewDashboardComponent implements OnInit {
   nitrogenThresholds = thresholds.nitrogen;
   phosphorusThresholds = thresholds.phosphorus;
   potassiumThresholds = thresholds.potassium;
+  latestWeather$ = this.store
+    .select(selectLatestWeather);
+    
 
   ngOnInit() {
-   this.getCalendarEvents();
-   this.GetAllSensorsLatestData();
+    this.getCalendarEvents();
+    this.GetAllSensorsLatestData();
   }
   constructor(
-    private expensiveService: ExpenseService, 
-    private calendarService:CalendarService,
-    private userService:UserService,
-    private cdr: ChangeDetectorRef, 
-    private router: Router
+    private expensiveService: ExpenseService,
+    private calendarService: CalendarService,
+    private userService: UserService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private store: Store
   ) {
     this.expensiveService.GetToatlRevenueAndExpenses().subscribe((res) => {
       this.financialData = res;
@@ -51,7 +58,9 @@ export class NewDashboardComponent implements OnInit {
       // Update pie chart data for expenses
       if (res.totalExpenses > 0) {
         this.expensePieChartData.labels = Object.keys(res.categorisedExpenses);
-        this.expensePieChartData.datasets[0].data = Object.values(res.categorisedExpenses);
+        this.expensePieChartData.datasets[0].data = Object.values(
+          res.categorisedExpenses
+        );
       } else {
         this.expensePieChartData.labels = ['No Data'];
         this.expensePieChartData.datasets[0].data = [1];
@@ -60,7 +69,9 @@ export class NewDashboardComponent implements OnInit {
       // Update pie chart data for revenues
       if (res.totalRevenue > 0) {
         this.revenuePieChartData.labels = Object.keys(res.categorisedRevenues);
-        this.revenuePieChartData.datasets[0].data = Object.values(res.categorisedRevenues);
+        this.revenuePieChartData.datasets[0].data = Object.values(
+          res.categorisedRevenues
+        );
       } else {
         this.revenuePieChartData.labels = ['No Data'];
         this.revenuePieChartData.datasets[0].data = [1];
@@ -78,7 +89,7 @@ export class NewDashboardComponent implements OnInit {
     datasets: [
       {
         data: [],
-        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8',],
+        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8'],
       },
     ],
   };
@@ -135,14 +146,14 @@ export class NewDashboardComponent implements OnInit {
     },
   };
 
-  getCalendarEvents(){
-    this.calendarService.getCalendarEvents().subscribe((res:any) => {
+  getCalendarEvents() {
+    this.calendarService.getCalendarEvents().subscribe((res: any) => {
       this.CoffeeCycle = res.calendarCommonEvents;
       this.updateCurrentMonthEventTitle();
     });
   }
-  GetAllSensorsLatestData(){
-    this.userService.GetAllSensorsLatestData().subscribe((res)=>{
+  GetAllSensorsLatestData() {
+    this.userService.GetAllSensorsLatestData().subscribe((res) => {
       this.sensorData = res;
     });
   }
@@ -160,8 +171,17 @@ export class NewDashboardComponent implements OnInit {
     }
   }
   goToDetailView(sensor: any): void {
-    this.router.navigate(['user/dashboard/sensor-data'], { state: { sensorData: sensor } });
+    this.router.navigate(['user/dashboard/sensor-data'], {
+      state: { sensorData: sensor },
+    });
   }
 
-  
+  date = new Date();
+  formattedDate = this.date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+  });
 }

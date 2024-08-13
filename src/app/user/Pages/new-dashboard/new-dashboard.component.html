@@ -1,216 +1,288 @@
 <div class="container-fluid bg-light p-4">
-    <!-- 1st Row -->
-    <div class="row mb-4">
-        <div class="col-lg-6 col-md-12 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title d-flex align-items-center">
-                        <i class="fas fa-seedling me-2"></i> Coffee Cycle
-                    </h5>
-                    <p class="card-text">{{ currentPhaseTitle }}</p>
-                </div>
-            </div>
+  <!-- 1st Row -->
+  <div class="row mb-4">
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title d-flex align-items-center">
+            <i class="fas fa-seedling me-2"></i> Coffee Cycle
+          </h5>
+          <p class="card-text">{{ currentPhaseTitle }}</p>
         </div>
-        <div class="col-lg-6 col-md-12 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title d-flex align-items-center">
-                        <i class="fas fa-cloud-sun me-2"></i> Weather Info
-                    </h5>
-                    <p class="card-text">Temp 28°C</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    
-    <!-- Devices Sub-Heading -->
-    <div class="row mb-3">
-        <div class="col">
-            <h4>Devices</h4>
+    <!-- <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title d-flex align-items-center">
+            <i class="fas fa-cloud-sun me-2"></i> Weather Info
+          </h5>
+          <p class="card-text">Temp {{ latestWeather$ | async }}°C</p>
         </div>
-    </div>
+      </div>
+    </div> -->
+    <!-- <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body d-flex justify-content-between align-items-start">
+          <div>
+            <h5 class="card-title d-flex align-items-center">
+              <i class="fas fa-map-marker-alt me-2"></i>
+              {{ (latestWeather$ | async)?.location }},
+              {{ (latestWeather$ | async)?.country }}
+            </h5>
+            <p>
+              {{ (latestWeather$ | async)?.description }}
+              {{ (latestWeather$ | async)?.maxTemp }} °C/{{
+                (latestWeather$ | async)?.minTemp
+              }}
+              °C
+            </p>
+          </div>
+          <div class="text-end">
+            <p class="card-temp mb-0">
+              {{ (latestWeather$ | async)?.temprature }}°C
+            </p>
+            <p class="card-date">{{ formattedDate }}</p>
+          </div>
+        </div>
+      </div>
+    </div> -->
 
-    <!-- 2nd Row sensor-data with Loading Effect -->
-    <div class="row mb-4">
-        <ng-container *ngIf="isLoading; else deviceCards">
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let i of [1, 2, 3]">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <div class="placeholder-glow">
-                            <div class="placeholder-title placeholder"></div>
-                        </div>
-                        <div class="row text-center">
-                            <div class="col-4 metric">
-                                <div class="placeholder-icon placeholder"></div>
-                                <div class="placeholder-glow">
-                                    <div class="placeholder-text placeholder"></div>
-                                    <div class="placeholder-text placeholder"></div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div class="placeholder-icon placeholder"></div>
-                                <div class="placeholder-glow">
-                                    <div class="placeholder-text placeholder"></div>
-                                    <div class="placeholder-text placeholder"></div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div class="placeholder-icon placeholder"></div>
-                                <div class="placeholder-glow">
-                                    <div class="placeholder-text placeholder"></div>
-                                    <div class="placeholder-text placeholder"></div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div class="placeholder-icon placeholder"></div>
-                                <div class="placeholder-glow">
-                                    <div class="placeholder-text placeholder"></div>
-                                    <div class="placeholder-text placeholder"></div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div class="placeholder-icon placeholder"></div>
-                                <div class="placeholder-glow">
-                                    <div class="placeholder-text placeholder"></div>
-                                    <div class="placeholder-text placeholder"></div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div class="placeholder-icon placeholder"></div>
-                                <div class="placeholder-glow">
-                                    <div class="placeholder-text placeholder"></div>
-                                    <div class="placeholder-text placeholder"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-container>
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body d-flex justify-content-between align-items-start">
+          <div>
+            <h5 class="card-title d-flex align-items-center">
+              <i class="fas fa-map-marker-alt me-2"></i>
+              {{ (latestWeather$ | async)?.location }},
+              {{ (latestWeather$ | async)?.country }}
+            </h5>
+            <p>
+              {{ (latestWeather$ | async)?.description }}
+              {{ (latestWeather$ | async)?.maxTemp }} °C/{{
+                (latestWeather$ | async)?.minTemp
+              }}
+              °C
+            </p>
+          </div>
+          <div class="text-end">
+            <p class="card-temp mb-0">
+              {{ (latestWeather$ | async)?.temprature }}°C
+            </p>
+            <p class="card-date">{{ formattedDate }}</p>
+          </div>
+          <div class="view-more-container">
+            <a routerLink="/user/dashboard/weather" class="view-more-link"
+              >View More <i class="fas fa-arrow-right ms-1"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Device Cards -->
-        <ng-template #deviceCards>
-            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let data of sensorData; let i = index">
-                <div class="card shadow-sm h-100" (click)="goToDetailView(data)">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="card-title">Device {{ i + 1 }}</h5>
-                            <span class="badge bg-success">Active</span>
-                        </div>
-                        <div class="row text-center">
-                            <div class="col-4 metric">
-                                <div>
-                                    <i class="fas fa-thermometer-half fa-lg"></i>
-                                    <div>
-                                        <span class="metric-value d-block">{{ data.temperatureCelsius }}°C</span>
-                                        <span>Temperature</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div>
-                                    <i class="fas fa-tint fa-lg"></i>
-                                    <div>
-                                        <span class="metric-value d-block">{{ data.humidityPercentage }}%</span>
-                                        <span>Humidity</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div>
-                                    <i class="fas fa-water fa-lg"></i>
-                                    <div>
-                                        <span class="metric-value d-block">{{ data.moisturePercentage }}%</span>
-                                        <span>Soil Moisture</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div>
-                                    <i class="fas fa-flask fa-lg"></i>
-                                    <div>
-                                        <span class="metric-value d-block">{{ data.nitrogen }} ppm</span>
-                                        <span>Nitrogen</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div>
-                                    <i class="fas fa-atom fa-lg"></i>
-                                    <div>
-                                        <span class="metric-value d-block">{{ data.phosphorus }} ppm</span>
-                                        <span>Phosphorus</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 metric">
-                                <div>
-                                    <i class="fas fa-cube fa-lg"></i>
-                                    <div>
-                                        <span class="metric-value d-block">{{ data.potassium }} ppm</span>
-                                        <span>Potassium</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
+  <!-- Devices Sub-Heading -->
+  <div class="row mb-3">
+    <div class="col">
+      <h4>Devices</h4>
     </div>
-    
-    <!-- 3rd Row -->
-    <div class="row" *ngIf="!isLoading; else loading">
-        <div class="col-lg-6 col-md-12 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                    <app-pie-chart
-                        [chartData]="expensePieChartData"
-                        [chartOptions]="expensePieChartOptions"
-                        [height]="150"
-                        [width]="400"
-                    ></app-pie-chart>
-                    <div id="legend" class="custom-legend"></div>
-                </div>
+  </div>
+
+  <!-- 2nd Row sensor-data with Loading Effect -->
+  <div class="row mb-4">
+    <ng-container *ngIf="isLoading; else deviceCards">
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let i of [1, 2, 3]">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <div class="placeholder-glow">
+              <div class="placeholder-title placeholder"></div>
             </div>
-        </div>
-        <div class="col-lg-6 col-md-12 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                    <app-pie-chart
-                        [chartData]="revenuePieChartData"
-                        [chartOptions]="revenuePieChartOptions"
-                        [height]="150"
-                        [width]="400"
-                    ></app-pie-chart>
-                    <div id="legend" class="custom-legend"></div>
+            <div class="row text-center">
+              <div class="col-4 metric">
+                <div class="placeholder-icon placeholder"></div>
+                <div class="placeholder-glow">
+                  <div class="placeholder-text placeholder"></div>
+                  <div class="placeholder-text placeholder"></div>
                 </div>
+              </div>
+              <div class="col-4 metric">
+                <div class="placeholder-icon placeholder"></div>
+                <div class="placeholder-glow">
+                  <div class="placeholder-text placeholder"></div>
+                  <div class="placeholder-text placeholder"></div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div class="placeholder-icon placeholder"></div>
+                <div class="placeholder-glow">
+                  <div class="placeholder-text placeholder"></div>
+                  <div class="placeholder-text placeholder"></div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div class="placeholder-icon placeholder"></div>
+                <div class="placeholder-glow">
+                  <div class="placeholder-text placeholder"></div>
+                  <div class="placeholder-text placeholder"></div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div class="placeholder-icon placeholder"></div>
+                <div class="placeholder-glow">
+                  <div class="placeholder-text placeholder"></div>
+                  <div class="placeholder-text placeholder"></div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div class="placeholder-icon placeholder"></div>
+                <div class="placeholder-glow">
+                  <div class="placeholder-text placeholder"></div>
+                  <div class="placeholder-text placeholder"></div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </ng-container>
+
+    <!-- Device Cards -->
+    <ng-template #deviceCards>
+      <div
+        class="col-lg-4 col-md-6 mb-4"
+        *ngFor="let data of sensorData; let i = index"
+      >
+        <div class="card shadow-sm h-100" (click)="goToDetailView(data)">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title">Device {{ i + 1 }}</h5>
+              <span class="badge bg-success">Active</span>
+            </div>
+            <div class="row text-center">
+              <div class="col-4 metric">
+                <div>
+                  <i class="fas fa-thermometer-half fa-lg"></i>
+                  <div>
+                    <span class="metric-value d-block"
+                      >{{ data.temperatureCelsius }}°C</span
+                    >
+                    <span>Temperature</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div>
+                  <i class="fas fa-tint fa-lg"></i>
+                  <div>
+                    <span class="metric-value d-block"
+                      >{{ data.humidityPercentage }}%</span
+                    >
+                    <span>Humidity</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div>
+                  <i class="fas fa-water fa-lg"></i>
+                  <div>
+                    <span class="metric-value d-block"
+                      >{{ data.moisturePercentage }}%</span
+                    >
+                    <span>Soil Moisture</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div>
+                  <i class="fas fa-flask fa-lg"></i>
+                  <div>
+                    <span class="metric-value d-block"
+                      >{{ data.nitrogen }} ppm</span
+                    >
+                    <span>Nitrogen</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div>
+                  <i class="fas fa-atom fa-lg"></i>
+                  <div>
+                    <span class="metric-value d-block"
+                      >{{ data.phosphorus }} ppm</span
+                    >
+                    <span>Phosphorus</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 metric">
+                <div>
+                  <i class="fas fa-cube fa-lg"></i>
+                  <div>
+                    <span class="metric-value d-block"
+                      >{{ data.potassium }} ppm</span
+                    >
+                    <span>Potassium</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- 3rd Row -->
+  <div class="row" *ngIf="!isLoading; else loading">
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <app-pie-chart
+            [chartData]="expensePieChartData"
+            [chartOptions]="expensePieChartOptions"
+            [height]="150"
+            [width]="400"
+          ></app-pie-chart>
+          <div id="legend" class="custom-legend"></div>
+        </div>
+      </div>
     </div>
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <app-pie-chart
+            [chartData]="revenuePieChartData"
+            [chartOptions]="revenuePieChartOptions"
+            [height]="150"
+            [width]="400"
+          ></app-pie-chart>
+          <div id="legend" class="custom-legend"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #loading>
-    <div class="row">
-        <div class="col-lg-6 col-md-12 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                    <div class="placeholder-glow">
-                        <div class="placeholder-circle"></div>
-                        <div class="placeholder-text placeholder mt-3"></div>
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="placeholder-glow">
+            <div class="placeholder-circle"></div>
+            <div class="placeholder-text placeholder mt-3"></div>
+          </div>
         </div>
-        <div class="col-lg-6 col-md-12 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body text-center">
-                    <div class="placeholder-glow">
-                        <div class="placeholder-circle"></div>
-                        <div class="placeholder-text placeholder mt-3"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="placeholder-glow">
+            <div class="placeholder-circle"></div>
+            <div class="placeholder-text placeholder mt-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-template>
-
