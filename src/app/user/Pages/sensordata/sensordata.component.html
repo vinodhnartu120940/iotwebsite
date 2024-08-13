@@ -299,7 +299,7 @@
                 <div class="meter">
                   <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.nitrogen, [25, 50, 100])}"></div>
                 </div>
-                <p class="mt-2">Nitrogen</p>
+                <!-- <p class="mt-2">Nitrogen</p> -->
             </div>
         
             <!-- Phosphorus Sensor Meter -->
@@ -318,7 +318,7 @@
                   <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.phosphorus, [5, 15, 30])}"></div>
                 </div>
 
-                <p class="mt-2">Phosphorus</p>
+                <!-- <p class="mt-2">Phosphorus</p> -->
             </div>
         
             <!-- Potassium Sensor Meter -->
@@ -335,10 +335,22 @@
                 <div class="meter">
                   <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.potassium, [50, 150, 400])}"></div>
                 </div>
-                <p class="mt-2">Potassium</p>
+                <!-- <p class="mt-2">Potassium</p> -->
             </div>
         
         </div>
+        <div class="col-md-3 d-flex gap-3 mx-5 labels">
+          <div class="label-legend">
+            <div class="label-box card_low" ></div> <span>Poor</span>
+          </div>
+          <div class="label-legend">
+            <div class="label-box card_avg" ></div> <span>Average</span>
+          </div>
+          <div class="label-legend">
+            <div class="label-box card_good" ></div> <span>Good</span>
+          </div>
+        </div>
+        
     </div>
     <div class="detailed-card">
         <h3>Graph</h3>
