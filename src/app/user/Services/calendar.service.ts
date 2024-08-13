@@ -3,18 +3,19 @@ import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../../Services/api.http.service';
 import { APIEndPoints } from '../../utils/api-endpoint';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CalendarService {
   //private apiUrl = 'https://localhost:7090'
-  constructor(private http:ApiHttpService) {
-    
-  }
+  constructor(private http: ApiHttpService) {}
 
-  addNewCalendarEvent(event:any){
-    return this.http.post(`${APIEndPoints.Calander}/SaveUserCalendarEvents`,event);
+  addNewCalendarEvent(event: any) {
+    return this.http.post(
+      `${APIEndPoints.Calander}/SaveUserCalendarEvents`,
+      event
+    );
   }
-  getCalendarEvents(){
+  getCalendarEvents() {
     return this.http.get(`${APIEndPoints.Calander}/GetCalendarEvents`);
   }
   deleteCalendarEvent(eventId:any){

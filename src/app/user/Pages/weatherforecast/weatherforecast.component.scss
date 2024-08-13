@@ -1,0 +1,152 @@
+.main-content {
+  margin-top: 20px;
+}
+
+.card {
+  border-radius: 15px;
+  margin-top: 20px;
+  background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.temperature-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sun-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sun-icon {
+  width: 100px;
+  height: 100px;
+  background: yellow;
+  border-radius: 50%;
+  box-shadow: 0px 0px 20px 5px rgba(255, 223, 0, 0.7);
+  margin-left: auto;
+}
+
+.sun-times {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.sun-times p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.section-heading {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.moisture-section {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.moisture-section .col {
+  flex: 1 1 auto;
+  max-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  overflow: hidden;
+}
+
+.moisture-section .col:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.moisture-section .col i {
+  font-size: 2rem;
+  color: #ff9800;
+  margin-bottom: 10px;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.moisture-section .col:hover i {
+  color: #ff5722;
+}
+
+.moisture-section .col p {
+  font-size: 1rem;
+  color: #333;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.condition-card {
+  flex: 1 1 20%;
+  min-width: 150px; /* Minimum width for responsiveness */
+  padding: 20px;
+}
+
+.temp-values-section .weather-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+// .temp-values-section {
+//   height: 650px;
+// }
+
+.temp-values-section .weather-row:last-child {
+  border-bottom: none;
+}
+
+.temp-values-section .col i {
+  font-size: 2rem;
+  color: #ff9800;
+  margin-bottom: 10px;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.temp-values-section .col p {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+}
+.gap-10 {
+  gap: 10px;
+}
+.col {
+  padding: 0;
+}
+.weather-row {
+  text-align: center;
+}
