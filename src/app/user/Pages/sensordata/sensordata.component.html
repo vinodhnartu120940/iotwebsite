@@ -44,14 +44,14 @@
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.moisturePercentage < 25, 'card_avg': sensorLatestData?.moisturePercentage >= 25 && sensorLatestData?.moisturePercentage < 50, 'card_good': sensorLatestData?.moisturePercentage >= 50}">
               <div class="card-header">Soil Moisture</div>
               <div class="card-body">
-                <i class="fa fa-tint icon" style="color: #f5f5f5;"></i>
+                <i class="fa fa-tint icon" style="color: white;"></i>
                 <h5 class="card-title"> {{ sensorLatestData?.moisturePercentage }} %</h5>
               </div>
             </div>
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.temperatureCelsius < 18, 'card_avg': sensorLatestData?.temperatureCelsius >= 18 && sensorLatestData?.temperatureCelsius < 24, 'card_good': sensorLatestData?.temperatureCelsius >= 24}">
               <div class="card-header">Temperature</div>
               <div class="card-body">
-                <i class="fa fa-thermometer-half icon" style="color:#fafafa"></i>
+                <i class="fa fa-thermometer-half icon" style="color:white"></i>
                 <h5 class="card-title">{{ sensorLatestData?.temperatureFahrenheit }}<span> &deg;F</span></h5>
                 <h5 class="card-title">{{ sensorLatestData?.temperatureCelsius }}<span> &deg;C</span></h5>
               </div>
@@ -59,14 +59,14 @@
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.humidityPercentage < 60, 'card_avg': sensorLatestData?.humidityPercentage >= 60 && sensorLatestData?.humidityPercentage < 70, 'card_good': sensorLatestData?.humidityPercentage >= 70}">
               <div class="card-header">Humidity</div>
               <div class="card-body">
-                <i class="fa fa-water icon" style="color:#f8f9f9"></i>
+                <i class="fa fa-water icon" style="color:white"></i>
                 <h5 class="card-title">{{ sensorLatestData?.humidityPercentage }} %</h5>
               </div>
             </div>
             <div class="card_all" [ngClass]="{'card_low': sensorLatestData?.nitrogen < 10, 'card_avg': sensorLatestData?.nitrogen >= 10 && sensorLatestData?.nitrogen < 20, 'card_good': sensorLatestData?.nitrogen >= 20}">
               <div class="card-header">Nitrogen</div>
               <div class="card-body">
-                <i class="fa fa-leaf icon" style="color: #000000"></i>
+                <i class="fa fa-leaf icon" style="color: white"></i>
                 <h5 class="card-title">{{ sensorLatestData?.nitrogen }}</h5>
               </div>
             </div>
@@ -89,9 +89,9 @@
       <div class="row-wrap2">
         <div class="d-flex flex-column" style="height: 100%;">
           <div class="card_all flex-grow-1">
-            <div class="card-header ">Current Values & Thresholds</div>
-            <div class="card-body" style="height: 100%; overflow: hidden;">
-              <marquee direction="up" scrollamount="3">
+            <div class="card-header text-dark ">Current Values & Thresholds</div>
+            <div class="card-body" style="overflow: hidden;">
+              <marquee direction="up" scrollamount="5">
                 <div>
                   <p><strong>Temperature:</strong> {{ sensorLatestData?.temperatureCelsius }}°C<br>
                     <strong>Threshold:</strong> 18°C - 24°C<br>
@@ -129,7 +129,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-3 d-flex gap-3">
+    <div class="col-md-3 d-flex gap-3 mx-5">
       <div class="label-legend">
         <div class="label-box card_low" ></div> <span>Poor</span>
       </div>
@@ -287,14 +287,17 @@
             <!-- Nitrogen Sensor Meter -->
             <div class="text-center position-relative">
                 <p>Nitrogen: {{ sensorLatestData?.nitrogen }}/255</p>
-                <div class="progress position-relative" 
+                <!-- <div class="progress position-relative" 
                      style="height: 150px; width: 20px; background: linear-gradient(to top, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
                     
-                    <!-- Needle -->
+                    Needle
                     <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.nitrogen, [25, 50, 100])}"
                         style="position: absolute; left: 0; right: 0; margin: auto; width: 100%; height: 2px; background-color: black;">
                     </div>
                     
+                </div> -->
+                <div class="meter">
+                  <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.nitrogen, [25, 50, 100])}"></div>
                 </div>
                 <p class="mt-2">Nitrogen</p>
             </div>
@@ -302,30 +305,35 @@
             <!-- Phosphorus Sensor Meter -->
             <div class="text-center position-relative">
                 <p>Phosphorus: {{ sensorLatestData?.phosphorus }}/255</p>
-                <div class="progress position-relative" 
+                <!-- <div class="progress position-relative" 
                      style="height: 150px; width: 20px; background: linear-gradient(to top, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
                     
-                    <!-- Needle -->
+                    Needle
                     <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.phosphorus, [5, 15, 30])}"
                         style="position: absolute; left: 0; right: 0; margin: auto; width: 100%; height: 2px; background-color: black;">
                     </div>
                     
+                </div> -->
+                <div class="meter">
+                  <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.phosphorus, [5, 15, 30])}"></div>
                 </div>
+
                 <p class="mt-2">Phosphorus</p>
             </div>
         
             <!-- Potassium Sensor Meter -->
             <div class="text-center position-relative">
                 <p>Potassium: {{ sensorLatestData?.potassium }}/255</p>
-                <div class="progress position-relative" 
+                <!-- <div class="progress position-relative" 
                      style="height: 150px; width: 20px; background: linear-gradient(to top, #d9534f, #f0ad4e, #5cb85c); border-radius: 10px;">
                     
-                    <!-- Needle -->
+                    Needle
                     <div [ngStyle]="{'bottom.%': getNeedlePosition(sensorLatestData?.potassium, [50, 150, 400])}"
                         style="position: absolute; left: 0; right: 0; margin: auto; width: 100%; height: 2px; background-color: black;">
                     </div>
-                    
-                  
+                </div> -->
+                <div class="meter">
+                  <div class="needle" [ngStyle]="{'left.%': getNeedlePosition(sensorLatestData?.potassium, [50, 150, 400])}"></div>
                 </div>
                 <p class="mt-2">Potassium</p>
             </div>
