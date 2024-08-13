@@ -70,10 +70,17 @@ export class CalendarComponent {
     this.view = view;
   }
 
-  setViewDate(months: number) {
-    this.viewDate = addMonths(this.viewDate, months);
+  setViewDate(amount: number) {
+    if (this.view === CalendarView.Week) {
+      this.viewDate = addDays(this.viewDate, amount * 7);
+    } else if (this.view === CalendarView.Day) {
+      this.viewDate = addDays(this.viewDate, amount);
+    } else {
+      this.viewDate = addMonths(this.viewDate, amount);
+    }
     this.updateCurrentMonthEventTitle();
   }
+  
 
   setToday() {
     this.viewDate = new Date();
