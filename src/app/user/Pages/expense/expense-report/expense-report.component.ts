@@ -11,6 +11,8 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class ExpenseReportComponent {
   expenses: any;
+
+
   constructor(private expenseService: ExpenseService) {
     this.expenseService.GetExpenses().subscribe((res) => {
       console.log(res);
@@ -37,7 +39,10 @@ export class ExpenseReportComponent {
       ) || 0
     );
   }
-
+  
+  hasExpenses(): boolean {
+    return this.expenses.some((exp: { expenses: { totalCost: number; }; }) => exp.expenses.totalCost > 0);
+  }
   // Method to calculate total other expenses cost
   getTotalOtherExpensesCost(exp: any): number {
     return (

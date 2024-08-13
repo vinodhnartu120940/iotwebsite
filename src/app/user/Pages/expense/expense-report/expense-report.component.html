@@ -1,6 +1,9 @@
 <div class="container my-4">
   <!-- August 01, 2024 -->
+
+  <ng-container *ngIf="hasExpenses(); else noExpenses">
   <div class="date-header">August 05, 2024</div>
+
 
   <div class="card card-custom" *ngFor="let exp of expenses">
     <div class="card-body">
@@ -39,7 +42,10 @@
       </div>
     </div>
   </div>
-
+  </ng-container>
+  <ng-template #noExpenses>
+    <p>You don't have any expenses.</p>
+  </ng-template>
   <!-- Fertigation Card -->
   <!-- <div class="card card-custom">
     <div class="card-body">

@@ -18,7 +18,7 @@ export class CalendarService {
   getCalendarEvents() {
     return this.http.get(`${APIEndPoints.Calander}/GetCalendarEvents`);
   }
-  deleteCalendarEvent(event: any) {
-    return this.http.delete(APIEndPoints.Calander, event);
+  deleteCalendarEvent(eventId:any){
+    return this.http.delete(`${APIEndPoints.Calander}/DeleteCalendarEvent/${eventId}`,eventId);
   }
 }

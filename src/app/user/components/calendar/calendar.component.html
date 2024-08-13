@@ -64,8 +64,9 @@
       <p *ngIf="modalData?.event?.end">End: {{ modalData.event?.end | date: 'medium' }}</p>
     </div>
     <div class="modal-footer">
+      <button type="button" class="btn btn-danger me-auto" (click)="DeleteCalendarEvent(modalData.event.eventID)" [disabled]="isCommonEvent(modalData.event)">Delete</button>
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-      <button type="button" class="btn btn-primary" (click)="editEvent(modalData.event, addEventContent)">Edit</button>
+      <button type="button" class="btn btn-primary" (click)="editEvent(modalData.event, addEventContent)" [disabled]="isCommonEvent(modalData.event)">Edit</button>
     </div>
   </ng-template>
   

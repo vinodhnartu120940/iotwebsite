@@ -61,39 +61,65 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
     if (!this.chartCanvas || this.chart) {
       return;
     }
-
+  
     const canvasElement = this.chartCanvas.nativeElement;
     const ctx = canvasElement.getContext('2d');
-
+  
     const chartData = this.getChartData();
-
+  
+    let yAxisTitle = 'Value'; // Default value
+    let yAxisCallback: any;
+  
+    // Customize the Y-axis title and callback based on the current tab
+    switch (this.currentTab) {
+      case 'temp':
+        yAxisTitle = 'Celsius (°C)';
+        yAxisCallback = (value: number) => `${value}°C`;
+        break;
+      case 'moisture':
+        yAxisTitle = 'Soil Moisture (%)';
+        yAxisCallback = (value: number) => `${value}%`;
+        break;
+      case 'humidity':
+        yAxisTitle = 'Humidity (%)';
+        yAxisCallback = (value: number) => `${value}%`;
+        break;
+      case 'npk':
+        yAxisTitle = 'Concentration (%)';
+        yAxisCallback = (value: number) => `${value}%`;
+        break;
+      default:
+        yAxisTitle = 'Value';
+        yAxisCallback = (value: number) => value;
+        break;
+    }
+  
     this.chart = new Chart(ctx, {
       type: 'line',
       data: chartData,
       options: {
         responsive: true,
         scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Weeks',
-            },
-          },
+          // x: {
+          //   title: {
+          //     display: true,
+          //     text: 'Weeks',
+          //   },
+          // },
           y: {
             title: {
               display: true,
-              text: 'Percentage',
+              text: yAxisTitle,
             },
             ticks: {
-              callback: function (value) {
-                return value + '%';
-              },
+              callback: yAxisCallback,
             },
           },
         },
       },
     });
   }
+  
 
   getChartData() {
     let data;
@@ -187,7 +213,60 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
     }
     return ((value - min) / (max - min)) * 100;
   }
+  getTipAndStatus(title: string, value: number, thresholds: { min: number; max: number }): { status: string, tip: string } {
+    let status = '';
+    let tip = '';
+  
+    if (value < thresholds.min) {
+      status = 'Poor';
+      if (title === 'Temperature') {
+        tip = 'Temperature is too low; Consider providing a warm environment or insulating the crop area to increase temperature.';
+      } else if (title === 'Moisture') {
+        tip = 'Soil moisture is too low; increase irrigation or consider mulching.';
+      } else if (title === 'Humidity') {
+        tip = 'Humidity is too low; consider increasing it through misting or a humidifier.';
+      } else if (title === 'Nitrogen') {
+        tip = 'Nitrogen levels are low; apply nitrogen-rich fertilizers.';
+      } else if (title === 'Phosphorus') {
+        tip = 'Phosphorus is too low; apply phosphorus-rich fertilizers.';
+      } else if (title === 'Potassium') {
+        tip = 'Potassium is too low; apply potassium-rich fertilizers.';
+      }
+    } else if (value >= thresholds.min && value < thresholds.max) {
+      status = 'Average';
+      if (title === 'Temperature') {
+        tip = 'Temperature is slightly below optimal; consider minor adjustments like increasing sunlight exposure.';
+      } else if (title === 'Moisture') {
+        tip = 'Moisture is slightly below optimal; monitor and adjust watering schedule.';
+      } else if (title === 'Humidity') {
+        tip = 'Humidity is slightly below optimal; consider small adjustments.';
+      } else if (title === 'Nitrogen') {
+        tip = 'Nitrogen is slightly below optimal; monitor and adjust as needed.';
+      } else if (title === 'Phosphorus') {
+        tip = 'Phosphorus levels are slightly below optimal; consider minor adjustments.';
+      } else if (title === 'Potassium') {
+        tip = 'Potassium levels are slightly below optimal; monitor and adjust as needed.';
+      }
+    } else {
+      status = 'Good';
+      if (title === 'Temperature') {
+        tip = 'Optimal growing conditions; maintain the current environment.';
+      } else if (title === 'Moisture') {
+        tip = 'Moisture levels are adequate; continue regular watering schedule.';
+      } else if (title === 'Humidity') {
+        tip = 'Humidity is within the ideal range; no changes needed.';
+      } else if (title === 'Nitrogen') {
+        tip = 'Nitrogen levels are optimal; maintain current fertilization practices.';
+      } else if (title === 'Phosphorus') {
+        tip = 'Phosphorus levels are ideal; continue with balanced fertilization.';
+      } else if (title === 'Potassium') {
+        tip = 'Potassium levels are sufficient; maintain current practices.';
+      }
+    }
+  
+    return { status, tip };
+  }
+  
 
- 
 
 }

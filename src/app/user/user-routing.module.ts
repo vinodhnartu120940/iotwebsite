@@ -11,7 +11,8 @@ import { ExpenseComponent } from './Pages/expense/expense.component';
 import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
 import { FinancesComponent } from './components/finances/finances.component';
 import { NewDashboardComponent } from './Pages/new-dashboard/new-dashboard.component';
-import { WeatherforecastComponent } from './Pages/weatherforecast/weatherforecast.component';
+import { PestManagementComponent } from './Pages/pest-management/pest-management.component';
+import { CropEducationComponent } from './Pages/crop-education/crop-education.component';
 
 const routes: Routes = [
   {
@@ -63,11 +64,18 @@ const routes: Routes = [
         component: ExpenseReportComponent,
         data: { title: 'Expenses' },
       },
-      {path:'weather',
-        component:WeatherforecastComponent,
-        data:{title:'Weather Data'}
-      }
+      {
+        path: 'pest-management',
+        component: PestManagementComponent,
+        data: { title: 'Pest Management' },
+      },
+      {
+        path: 'crop-education',
+        component: CropEducationComponent,
+        data: { title: 'Crop Education' },
+      },
     ],
+    
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   

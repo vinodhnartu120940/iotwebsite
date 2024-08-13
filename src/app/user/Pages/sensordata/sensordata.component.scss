@@ -17,7 +17,7 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  color: #4a6b47;
+  color: #030303;
 }
 
 .tabs div {
@@ -27,17 +27,20 @@
   border-radius: 8px 8px 0 0;
   // background-color: #eae7dc;
 }
+marquee {
+  height:375px;
+}
 
 .card_low {
-  background-color: #ffe5e5; /* light red */
+  background-color: #D13F3F; /* light red */
 }
 
 .card_avg {
-  background-color: #ffecd9; /* light orange */
+  background-color: #FFA727; /* light orange */
 }
 
 .card_good {
-  background-color: #e5ffe5; /* light green */
+  background-color: #3C9734; /* light green */
 }
 
 .label-legend {
@@ -225,20 +228,21 @@
   font-weight: bold;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  color: #4a6b47;
+  color: white;
+  padding:20px 10px 0 10px;
 }
 .card-body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
   min-height: 162px;
-  height: 100%;
-  color: #4a6b47;
+
+  color: white;
 }
 .card-title {
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 .card-text {
@@ -249,10 +253,7 @@
   margin-bottom: 15px;
 }
 
-.row {
-  justify-content: center;
-  margin-left: 0 !important;
-}
+
 
 thead,
 tbody tr {
@@ -282,9 +283,6 @@ thead th {
   color: white;
 }
 
-.row {
-  flex-wrap: nowrap !important;
-}
 .main {
   margin-left: 220px;
 }
@@ -385,6 +383,16 @@ h6 {
   cursor: pointer;
   margin: 20px;
 }
+.elements-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:20px;
+}
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: 75% auto;
+  gap: 20px;
+}
 @media (max-width: 768px) {
   .sidenav {
     transform: translateX(-250px);
@@ -436,7 +444,7 @@ h6 {
 .sensor-meter .needle {
   position: absolute;
   width: 2px;
-  height: 100%;
+  height: 50%;
   background: black;
   top: 0;
   left: 60%;
@@ -492,4 +500,11 @@ p {
   border-left: 2px solid #4a4a4a;
   height: 50px;
   margin: 0 20px;
+}
+.cardHt{
+  border-radius: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-bottom: 20px;
+  height:53%;
 }
