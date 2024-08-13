@@ -95,7 +95,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
     }
   
     this.chart = new Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: chartData,
       options: {
         responsive: true,
