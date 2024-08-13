@@ -60,6 +60,11 @@ const routes: Routes = [
         data: { title: 'Expense' },
       },
       {
+        path: 'expenses',
+        component: ExpenseReportComponent,
+        data: { title: 'Expenses' },
+      },
+      {
         path: 'pest-management',
         component: PestManagementComponent,
         data: { title: 'Pest Management' },
