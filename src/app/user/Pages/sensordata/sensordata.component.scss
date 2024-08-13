@@ -55,19 +55,23 @@ marquee {
   margin-right: 5px;
   border-radius: 3px;
 }
-
+.labels{
+  top:45%;
+}
 
 .meter {
   position: relative;
   height: 20px;
+  margin:3px;
+  top:40%;
   background: linear-gradient(to right, red, orange, yellow, green);
   border-radius: 10px;
 }
 
 .needle {
   position: absolute;
-  top: -5px;
-  height: 30px;
+  top: 0px;
+  height: 20px;
   width: 2px;
   background: black;
   transform-origin: bottom center;
@@ -444,7 +448,7 @@ h6 {
 .sensor-meter .needle {
   position: absolute;
   width: 2px;
-  height: 50%;
+  height: 100%;
   background: black;
   top: 0;
   left: 60%;
