@@ -1,0 +1,209 @@
+<div class="back_button">
+  <span class="backbtn_span d-flex align-items-center mb-4">
+    <img src="backbtn.svg" alt="back-btn" (click)="goToCardsScreen()" />Back
+  </span>
+</div>
+<div *ngIf="!showLogCashOut">
+  <div class="container mt-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let category of categories">
+        <div class="card" (click)="gotoExpenseScreen(category)">
+          <img
+            src="Category/{{ category.name }}.png"
+            alt="{{ category.name }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ category?.name }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Expense Form Screen -->
+<div class="container mt-5" *ngIf="showLogCashOut">
+  <div class="row">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-header text-center">
+          <h5>Log Expense</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="expenseForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="category" class="form-label">Category</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="category"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="event" class="form-label">Event</label>
+                  <select
+                    class="form-select"
+                    id="event"
+                    formControlName="event"
+                  >
+                    <option
+                      *ngFor="let event of subcategories"
+                      [value]="event?.subCategoryName"
+                    >
+                      {{ event.subCategoryName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div
+              *ngFor="let card of dynamicFormCards; let i = index"
+              class="mt-3"
+            >
+              <div class="card">
+                <div class="card-header">
+                  <h5>{{ card.category }} → {{ card.event }}</h5>
+                </div>
+                <div class="card-body">
+                  <div
+                    class="row align-items-center"
+                    *ngFor="let formGroup of card.formGroups; let j = index"
+                  >
+                    <ng-container [formGroup]="formGroup">
+                      <div class="col-md-11">
+                        <div class="row">
+                          <div
+                            class="col-md-3"
+                            *ngFor="let field of getFields(card.event)"
+                          >
+                            <div class="mb-3">
+                              <label [for]="field.field" class="form-label">{{
+                                field.field
+                              }}</label>
+                              <input
+                                *ngIf="
+                                  field.type !== 'dropdown' &&
+                                  field.type !== 'file'
+                                "
+                                [type]="field.type"
+                                class="form-control"
+                                [id]="field.field"
+                                [formControlName]="field.field"
+                                [placeholder]="field.placeholder"
+                              />
+
+                              <select
+                                *ngIf="field.type === 'dropdown'"
+                                class="form-select"
+                                [id]="field.field"
+                                [formControlName]="field.field"
+                              >
+                                <option
+                                  *ngFor="let option of field.options"
+                                  [value]="option"
+                                >
+                                  {{ option }}
+                                </option>
+                              </select>
+
+                              <input
+                                *ngIf="field.type === 'file'"
+                                type="file"
+                                class="form-control"
+                                [id]="field.field"
+                                (change)="onFileSelected($event)"
+                                [placeholder]="field.placeholder"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-1 text-end" *ngIf="j > 0">
+                        <button
+                          type="button"
+                          class="btn btn-danger mt-3"
+                          (click)="removeFormGroup(i, j)"
+                        >
+                          (-)
+                        </button>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div class="col-md-12 text-end">
+                    <button
+                      *ngIf="card.event !== 'Duration'"
+                      type="button"
+                      class="btn btn-primary mt-3"
+                      (click)="addFormGroup(card.category, card.event)"
+                    >
+                      Add (+)
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-md">
+                <div class="mb-3">
+                  <label for="notes" class="form-label">Date</label>
+                  <input type="date" class="form-control" formControlName="date" />
+                </div>
+              </div>
+              <div class="col-md">
+                <div class="mb-3">
+                  <label for="receipt" class="form-label">Receipt Upload</label>
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="receipt"
+                    (change)="onFileSelected($event)"
+                    placeholder="Upload your receipt"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="notes" class="form-label">Notes</label>
+                  <textarea
+                    class="form-control"
+                    id="notes"
+                    rows="3"
+                    formControlName="notes"
+                    placeholder="Enter any additional notes"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-end">
+              <button
+                type="submit"
+                class="btn btn-success me-2"
+                (click)="onSubmit()"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="cancel()"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

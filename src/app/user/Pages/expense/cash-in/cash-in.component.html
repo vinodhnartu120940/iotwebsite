@@ -1,0 +1,138 @@
+<div>
+  <div class="back_button">
+    <span class="backbtn_span d-flex align-items-center mb-4">
+      <img src="backbtn.svg" alt="back-btn" (click)="goToCardsScreen()" />Back
+    </span>
+  </div>
+  <div class="container mt-4" *ngIf="!showLogCashIn">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <div class="col" *ngFor="let category of revunueCategories">
+        <div class="card" (click)="goToRevenueScreen(category)">
+          <img
+            src=" Category/Harvesting.png"
+            alt="{{ category.revenueName }}"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ category?.revenueName }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5" *ngIf="showLogCashIn">
+  <div class="row">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-header text-center">
+          <h5>Log Cash-In</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="revenueForm">
+            <div
+              class="harvesteandsold-screen"
+              *ngIf="selectedCategory.revenueName === 'Harvested and sold'"
+            >
+              <div class="form-group">
+                <label for="date">Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="date"
+                  formControlName="date"
+                />
+              </div>
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantity"
+                    placeholder="Quantity"
+                    formControlName="quanity"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">kg</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="price">Price</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    placeholder="Price"
+                    formControlName="price"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text">per kg</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Grand Total: ₹{{ grandTotal }}</label>
+              </div>
+            </div>
+            <div
+              class="revenue-details"
+              *ngIf="selectedCategory.revenueName === 'Revenue details'"
+            >
+              <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="date"
+                  formControlName="date"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="revenueName" class="form-label">Revenue Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="revenueName"
+                  placeholder="Revenue Name"
+                  formControlName="revenueName"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="amount" class="form-label">Amount</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="amount"
+                  placeholder="Amount"
+                  formControlName="amount"
+                />
+              </div>
+              <!-- <div class="mb-3">
+                <p class="fw-bold">Grand Total: ₹{{ grandTotal }}</p>
+              </div> -->
+            </div>
+            <div class="text-end">
+              <button
+                type="submit"
+                class="btn btn-success me-2"
+                (click)="onRevenueSave()"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="showLogCashIn = false"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

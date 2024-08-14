@@ -1,112 +1,47 @@
 <div class="container my-4">
   <!-- August 01, 2024 -->
 
-  <ng-container *ngIf="hasExpenses(); else noExpenses">
-  <div class="date-header">August 05, 2024</div>
-
-
-  <div class="card card-custom" *ngFor="let exp of expenses">
-    <div class="card-body">
-      <div class="expense-item">
-        <div class="d-flex">
-          <img
-            src="https://via.placeholder.com/24x24"
-            alt="Icon"
-            class="icon"
-          />
-          <div>
-            <div class="expense-title">{{ exp.expenses.categoryName }}</div>
-            <div class="details">
-              <!-- Only show the section if the data exists -->
-              <span *ngIf="exp.workers.length > 0">Workers</span><br />
-              <span *ngIf="exp.machinery.length > 0">Machinery</span><br />
-              <span *ngIf="exp.otherExpenses.length > 0">Other</span>
+  <ng-container *ngIf="expenses?.length > 0; else noExpenses">
+    <div class="date-header">August 05, 2024</div>
+    <div class="card card-custom" *ngFor="let exp of expenses">
+      <div class="card-body">
+        <div class="expense-item">
+          <div class="d-flex">
+            <img
+              src="https://via.placeholder.com/24x24"
+              alt="Icon"
+              class="icon"
+            />
+            <div>
+              <div class="expense-title">{{ exp.expenses.categoryName }}</div>
+              <div class="details">
+                <!-- Only show the section if the data exists -->
+                <span *ngIf="exp.workers.length > 0">Workers</span><br />
+                <span *ngIf="exp.machinery.length > 0">Machinery</span><br />
+                <span *ngIf="exp.otherExpenses.length > 0">Other</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="amount">
-          ₹{{ exp.expenses.totalCost }}
-          <span>
-            <!-- Dynamically bind worker, machinery, and other expenses -->
-            <span *ngIf="exp.workers.length > 0"
-              >₹{{ getTotalWorkerCost(exp) }}</span
-            ><br />
-            <span *ngIf="exp.machinery.length > 0"
-              >₹{{ getTotalMachineryCost(exp) }}</span
-            ><br />
-            <span *ngIf="exp.otherExpenses.length > 0"
-              >₹{{ getTotalOtherExpensesCost(exp) }}</span
-            >
-          </span>
+          <div class="amount">
+            ₹{{ exp.expenses.totalCost }}
+            <span>
+              <!-- Dynamically bind worker, machinery, and other expenses -->
+              <span *ngIf="exp.workers.length > 0"
+                >₹{{ getTotalWorkerCost(exp) }}</span
+              ><br />
+              <span *ngIf="exp.machinery.length > 0"
+                >₹{{ getTotalMachineryCost(exp) }}</span
+              ><br />
+              <span *ngIf="exp.otherExpenses.length > 0"
+                >₹{{ getTotalOtherExpensesCost(exp) }}</span
+              >
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </ng-container>
   <ng-template #noExpenses>
     <p>You don't have any expenses.</p>
   </ng-template>
-  <!-- Fertigation Card -->
-  <!-- <div class="card card-custom">
-    <div class="card-body">
-      <div class="expense-item">
-        <div class="d-flex">
-          <img
-            src="https://via.placeholder.com/24x24"
-            alt="Icon"
-            class="icon"
-          />
-          <div>
-            <div class="expense-title">Fertigation</div>
-            <div class="details">Machinery</div>
-          </div>
-        </div>
-        <div class="amount">₹300<span>₹300</span></div>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- <div class="card card-custom">
-    <div class="card-body">
-      <div class="expense-item">
-        <div class="d-flex">
-          <img
-            src="https://via.placeholder.com/24x24"
-            alt="Icon"
-            class="icon"
-          />
-          <div>
-            <div class="expense-title">Fertigation</div>
-            <div class="details">Machinery</div>
-          </div>
-        </div>
-        <div class="amount">₹400<span>₹400</span></div>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- July 29, 2024 -->
-  <!-- <div class="date-header">July 29, 2024</div> -->
-
-  <!-- Fertigation Card -->
-  <!-- <div class="card card-custom">
-    <div class="card-body">
-      <div class="expense-item">
-        <div class="d-flex">
-          <img
-            src="https://via.placeholder.com/24x24"
-            alt="Icon"
-            class="icon"
-          />
-          <div>
-            <div class="expense-title">Fertigation</div>
-            <div class="details">Fertilizers<br />Workers</div>
-          </div>
-        </div>
-        <div class="amount">
-          ₹7250<span>₹6350<br />₹900</span>
-        </div>
-      </div>
-    </div>
-  </div> -->
 </div>

@@ -7,31 +7,31 @@
     <div class="sidenav" [ngClass]="{ show: isMenuVisible }" id="sidenav">
       <span class="close-btn" (click)="toggleMenu()">&times;</span>
       <div class="text-center mb-4">
-        <h3>Agri Central</h3>
+        <h3>AgriCentral.io</h3>
       </div>
       <a
         routerLink="/user/dashboard"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
-        >
+      >
         <!-- <i class="fas fa-tachometer-alt icon"></i> -->
         <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-6 h-6 mr-2"
-      >
-        <rect width="7" height="9" x="3" y="3" rx="1"></rect>
-        <rect width="7" height="5" x="14" y="3" rx="1"></rect>
-        <rect width="7" height="9" x="14" y="12" rx="1"></rect>
-        <rect width="7" height="5" x="3" y="16" rx="1"></rect>
-      </svg>
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="w-6 h-6 mr-2"
+        >
+          <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+          <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+          <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+          <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+        </svg>
         Dashboard</a
       >
       <!-- <a href="#"><i class="fas fa-database icon"></i>Sensor Data</a> -->
@@ -39,9 +39,9 @@
         routerLink="/user/dashboard/predict"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
-        >
+      >
         <i class="fas fa-seedling icon"></i>
-        
+
         Disease Management</a
       >
       <a
@@ -53,7 +53,7 @@
         Cycle</a
       >
       <a
-        routerLink="/user/dashboard/finances"
+        routerLink="/user/dashboard/finance"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
       >

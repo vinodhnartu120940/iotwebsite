@@ -84,6 +84,7 @@ export class FinancesComponent implements AfterViewInit {
   ) {
     this.expensiveService.GetToatlRevenueAndExpenses().subscribe((res) => {
       this.financialData = res;
+      console.log(res);
 
       // Update pie chart data for expenses
       if (res.totalExpenses > 0) {
