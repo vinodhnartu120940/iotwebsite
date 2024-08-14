@@ -19,7 +19,7 @@ export class AppComponent {
   ) {}
   title = 'Trees-RaysWeb';
   ngOnInit(): void {
-    debugger;
+    // debugger
     this.googleTranslate.loadGoogleTranslate();
     this.store.dispatch(loadWeather());
   }
