@@ -85,6 +85,7 @@
         <div class="d-flex justify-content-between gap-10">
           <div class="col" *ngFor="let hourlyWeather of hourlyWeather$ | async">
             <p>{{ hourlyWeather.date }}</p>
+            <p>{{hourlyWeather.time}}</p>
             <i class="{{ hourlyWeather.icon }}"></i>
             <p>{{ hourlyWeather.temp }}°C</p>
             <p>{{ hourlyWeather.pop }}</p>

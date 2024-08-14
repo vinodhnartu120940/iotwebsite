@@ -89,18 +89,20 @@ export const selectHourlyWeather = createSelector(
           });
         }
 
+        // Extract time in 'HH:MM AM/PM' format
+        const time = date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+
         const tempMaxCelsius = weather.main.temp - 273.15;
-        const tempMinCelsius = weather.main.temp_min - 273.15;
 
         processedWeather.push({
-          date: formattedDate, // Use the formatted date (Today, Tomorrow, or full date)
-          temp: tempMaxCelsius.toFixed(2), // Convert to Celsius and format
-          temp_min: tempMinCelsius.toFixed(2), // Convert to Celsius and format
+          date: formattedDate,
+          time: time, // Add the time property
+          temp: tempMaxCelsius.toFixed(2),
           icon: mapWeatherToFontAwesomeIcon(weather.weather[0].main),
-          pop: (weather.pop * 100).toFixed(0) + '%', // Convert to percentage
-          description: weather.weather[0].description,
-          wind_speed: weather.wind.speed,
-          humidity: weather.main.humidity,
+          pop: (weather.pop * 100).toFixed(0) + '%',
         });
       }
     });
@@ -108,6 +110,7 @@ export const selectHourlyWeather = createSelector(
     return processedWeather;
   }
 );
+
 
 export const selectDailyWeather = createSelector(
   selectWeather,

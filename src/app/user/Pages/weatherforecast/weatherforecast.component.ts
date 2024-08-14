@@ -20,7 +20,7 @@ export class WeatherforecastComponent {
   latestWeather$ = this.store.select(selectLatestWeather);
   constructor(private store: Store) {
     const hourlyWeather$ = this.store
-      .select(selectLatestWeather)
+      .select(selectHourlyWeather)
       .subscribe((res) => console.log(res));
   }
 
