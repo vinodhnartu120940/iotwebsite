@@ -12,11 +12,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './coffee-cycle.component.scss'
 })
 export class CoffeeCycleComponent {
-  @ViewChild('calendar', { static: true }) calendar!: TemplateRef<any>;
-  @ViewChild('finances', { static: true }) finances!: TemplateRef<any>;
+  // @ViewChild('calendar', { static: true }) calendar!: TemplateRef<any>;
+  // @ViewChild('finances', { static: true }) finances!: TemplateRef<any>;
 
-  tabs = [
-    { id: 'calendar', title: 'Calendar', component: CalendarComponent },
-    { id: 'finances', title: 'Finances', component: FinancesComponent }
-  ];
+  // tabs = [
+  //   { id: 'calendar', title: 'Calendar', component: CalendarComponent },
+  //   // { id: 'finances', title: 'Finances', component: FinancesComponent }
+  // ];
 }

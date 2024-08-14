@@ -9,12 +9,13 @@ import { ExpenseService } from './expense.service';
 import { NotificationService } from '../../../Services/notification.service';
 import { Router } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
+import { ExpenseReportComponent } from "./expense-report/expense-report.component";
 
 @Component({
   selector: 'app-expense',
   templateUrl: './expense.component.html',
   styleUrls: ['./expense.component.scss'],
-  imports: [ReactiveFormsModule, NgFor, NgIf],
+  imports: [ReactiveFormsModule, NgFor, NgIf, ExpenseReportComponent],
   standalone: true,
 })
 export class ExpenseComponent implements OnInit {
@@ -23,6 +24,7 @@ export class ExpenseComponent implements OnInit {
   grandTotal: number = 0;
   categories: any;
   subcategories: any;
+  financeData:any;
   dynamicFormCards: {
     category: string;
     event: string;
@@ -173,6 +175,9 @@ export class ExpenseComponent implements OnInit {
     this.expenseService.GetExpensesCategories().subscribe((res) => {
       this.categories = res;
     });
+    this.expenseService.GetToatlRevenueAndExpenses().subscribe((res)=>{
+      this.financeData = res;
+    })
     this.expenseService.GetRevenueCategories().subscribe((res) => {
       this.revunueCategories = res;
     });

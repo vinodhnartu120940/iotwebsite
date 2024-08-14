@@ -1,5 +1,5 @@
 <!-- dashboard.component.html -->
-<div class="container-fluid">
+<div class="container-fluid bg-light">
   <div class="row">
     <span class="menu-toggle" (click)="toggleMenu()"
       ><i class="fas fa-bars"></i
@@ -52,6 +52,27 @@
         <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" /> Coffee
         Cycle</a
       >
+      <a
+        routerLink="/user/dashboard/finances"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" />Farm Finances</a
+      >
+      <a
+        routerLink="/user/dashboard/pest-management"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+      <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" />Pest Management</a
+      >
+      <a
+        routerLink="/user/dashboard/crop-education"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+      <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" />Crop Education</a
+      >
       <!-- <a href="#"><i class="fas fa-user-friends icon"></i>Farmers</a>
       <a href="#"><i class="fas fa-tint icon"></i>Soil Moisture</a>
       <hr />
@@ -102,7 +123,7 @@
             aria-labelledby="accountMenuButton"
           >
             <span class="dropdown-item-text">{{
-              userService.userInfo?.email
+              userService.userInfo?.name
             }}</span>
             <a class="dropdown-item" routerLink="/user/dashboard/my-account"
               ><i class="fas fa-user"></i> My Account</a

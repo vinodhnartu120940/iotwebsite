@@ -7,13 +7,14 @@ import {
 } from '@angular/core';
 import { UserService } from '../../user.service';
 import { Chart, registerables } from 'chart.js';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-sensordata',
   standalone:true,
-  imports: [NgClass,NgStyle],
+  imports: [NgClass,NgStyle,NgIf],
   templateUrl: './sensordata.component.html',
   styleUrls: ['./sensordata.component.scss'],
 })
@@ -22,10 +23,19 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
   currentTab: string = 'all';
   sensorLatestData: any;
   chart: Chart | undefined;
+  sensorDataMonthly:any=[];
 
-  constructor(private userService: UserService) {
-    this.userService.GetSensorLatestData().subscribe((res: any) => {
-      this.sensorLatestData = res;
+  constructor(private userService: UserService, private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state) {
+      this.sensorLatestData = navigation.extras.state['sensorData'];
+    } else {
+      // Handle the case where there's no passed data
+      console.error('No sensor data was passed!');
+    }
+    this.userService.GetSensorWeeklyData(this.sensorLatestData.tenantId,"month").subscribe((res: any) => {
+      this.sensorDataMonthly = res;
+      console.log(this.sensorDataMonthly);
     });
   }
 
@@ -51,39 +61,65 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
     if (!this.chartCanvas || this.chart) {
       return;
     }
-
+  
     const canvasElement = this.chartCanvas.nativeElement;
     const ctx = canvasElement.getContext('2d');
-
+  
     const chartData = this.getChartData();
-
+  
+    let yAxisTitle = 'Value'; // Default value
+    let yAxisCallback: any;
+  
+    // Customize the Y-axis title and callback based on the current tab
+    switch (this.currentTab) {
+      case 'temp':
+        yAxisTitle = 'Celsius (°C)';
+        yAxisCallback = (value: number) => `${value}°C`;
+        break;
+      case 'moisture':
+        yAxisTitle = 'Soil Moisture (%)';
+        yAxisCallback = (value: number) => `${value}%`;
+        break;
+      case 'humidity':
+        yAxisTitle = 'Humidity (%)';
+        yAxisCallback = (value: number) => `${value}%`;
+        break;
+      case 'npk':
+        yAxisTitle = 'Concentration (%)';
+        yAxisCallback = (value: number) => `${value}%`;
+        break;
+      default:
+        yAxisTitle = 'Value';
+        yAxisCallback = (value: number) => value;
+        break;
+    }
+  
     this.chart = new Chart(ctx, {
       type: 'line',
       data: chartData,
       options: {
         responsive: true,
         scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Weeks',
-            },
-          },
+          // x: {
+          //   title: {
+          //     display: true,
+          //     text: 'Weeks',
+          //   },
+          // },
           y: {
             title: {
               display: true,
-              text: 'Percentage',
+              text: yAxisTitle,
             },
             ticks: {
-              callback: function (value) {
-                return value + '%';
-              },
+              callback: yAxisCallback,
             },
           },
         },
       },
     });
   }
+  
 
   getChartData() {
     let data;
@@ -92,7 +128,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
         data = [
           {
             label: 'Temperature',
-            data: [22, 30, 15, 32, 25],
+            data: this.sensorDataMonthly.map((entry: any) => entry.avgTemperature),
             backgroundColor: 'red',
             borderColor: 'red',
             fill: false,
@@ -103,7 +139,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
         data = [
           {
             label: 'Moisture',
-            data: [30, 15, 38, 40, 27],
+            data: this.sensorDataMonthly.map((entry: any) => entry.avgSoilMoisturePercent),
             backgroundColor: 'blue',
             borderColor: 'blue',
             fill: false,
@@ -114,7 +150,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
         data = [
           {
             label: 'Humidity',
-            data: [70, 40, 29, 45, 65],
+            data: this.sensorDataMonthly.map((entry: any) => entry.avgHumidity),
             backgroundColor: 'green',
             borderColor: 'green',
             fill: false,
@@ -125,21 +161,21 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
         data = [
           {
             label: 'Nitrogen',
-            data: [10, 5, 16, 32, 23],
+            data: this.sensorDataMonthly.map((entry: any) => entry.avgNitrogen),
             backgroundColor: 'orange',
             borderColor: 'orange',
             fill: false,
           },
           {
             label: 'Phosphorus',
-            data: [20, 15, 18, 38, 25],
+            data: this.sensorDataMonthly.map((entry: any) => entry.avgPhosphorous),
             backgroundColor: 'purple',
             borderColor: 'purple',
             fill: false,
           },
           {
             label: 'Potassium',
-            data: [30, 35, 32, 38],
+            data: this.sensorDataMonthly.map((entry: any) => entry.avgPotassium),
             backgroundColor: 'brown',
             borderColor: 'brown',
             fill: false,
@@ -160,10 +196,11 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
     }
 
     return {
-      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+      labels: this.sensorDataMonthly.map((entry: any) => `Week ${entry.week}`),
       datasets: data,
     };
-  }
+}
+
 
   getNeedlePosition(value: number, thresholds: number[]): number {
     const min = thresholds[0];
@@ -176,4 +213,60 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
     }
     return ((value - min) / (max - min)) * 100;
   }
+  getTipAndStatus(title: string, value: number, thresholds: { min: number; max: number }): { status: string, tip: string } {
+    let status = '';
+    let tip = '';
+  
+    if (value < thresholds.min) {
+      status = 'Poor';
+      if (title === 'Temperature') {
+        tip = 'Temperature is too low; Consider providing a warm environment or insulating the crop area to increase temperature.';
+      } else if (title === 'Moisture') {
+        tip = 'Soil moisture is too low; increase irrigation or consider mulching.';
+      } else if (title === 'Humidity') {
+        tip = 'Humidity is too low; consider increasing it through misting or a humidifier.';
+      } else if (title === 'Nitrogen') {
+        tip = 'Nitrogen levels are low; apply nitrogen-rich fertilizers.';
+      } else if (title === 'Phosphorus') {
+        tip = 'Phosphorus is too low; apply phosphorus-rich fertilizers.';
+      } else if (title === 'Potassium') {
+        tip = 'Potassium is too low; apply potassium-rich fertilizers.';
+      }
+    } else if (value >= thresholds.min && value < thresholds.max) {
+      status = 'Average';
+      if (title === 'Temperature') {
+        tip = 'Temperature is slightly below optimal; consider minor adjustments like increasing sunlight exposure.';
+      } else if (title === 'Moisture') {
+        tip = 'Moisture is slightly below optimal; monitor and adjust watering schedule.';
+      } else if (title === 'Humidity') {
+        tip = 'Humidity is slightly below optimal; consider small adjustments.';
+      } else if (title === 'Nitrogen') {
+        tip = 'Nitrogen is slightly below optimal; monitor and adjust as needed.';
+      } else if (title === 'Phosphorus') {
+        tip = 'Phosphorus levels are slightly below optimal; consider minor adjustments.';
+      } else if (title === 'Potassium') {
+        tip = 'Potassium levels are slightly below optimal; monitor and adjust as needed.';
+      }
+    } else {
+      status = 'Good';
+      if (title === 'Temperature') {
+        tip = 'Optimal growing conditions; maintain the current environment.';
+      } else if (title === 'Moisture') {
+        tip = 'Moisture levels are adequate; continue regular watering schedule.';
+      } else if (title === 'Humidity') {
+        tip = 'Humidity is within the ideal range; no changes needed.';
+      } else if (title === 'Nitrogen') {
+        tip = 'Nitrogen levels are optimal; maintain current fertilization practices.';
+      } else if (title === 'Phosphorus') {
+        tip = 'Phosphorus levels are ideal; continue with balanced fertilization.';
+      } else if (title === 'Potassium') {
+        tip = 'Potassium levels are sufficient; maintain current practices.';
+      }
+    }
+  
+    return { status, tip };
+  }
+  
+
+
 }

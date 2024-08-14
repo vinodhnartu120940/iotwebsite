@@ -24,7 +24,7 @@ export class ApiHttpService {
     console.log('Request URL', requestUrl);
     return this._httpClient.get(requestUrl, options);
   }
-  public delete<T>(requestUrl: string): Observable<any> {
+  public delete<T>(requestUrl: string, event: any): Observable<any> {
     let options: any = this.getHeaders();
     return this._httpClient.delete(
       environment.serviceURL + requestUrl,

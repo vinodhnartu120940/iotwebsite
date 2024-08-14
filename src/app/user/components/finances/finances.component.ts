@@ -33,7 +33,7 @@ export class FinancesComponent implements AfterViewInit {
       },
       title: {
         display: true,
-        text: 'Coffee Crop Expenses',
+        text: 'Cash Out',
         font: {
           size: 36,
           weight: 'bold',
@@ -57,7 +57,7 @@ export class FinancesComponent implements AfterViewInit {
       },
       title: {
         display: true,
-        text: 'Coffee Crop Revenue',
+        text: 'Cash In',
         font: {
           size: 36,
           weight: 'bold',
@@ -103,7 +103,7 @@ export class FinancesComponent implements AfterViewInit {
     datasets: [
       {
         data: [],
-        backgroundColor: ['#5E954E', '#D4E8CE', '#85C572'],
+        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8'],
       },
     ],
   };
@@ -114,7 +114,7 @@ export class FinancesComponent implements AfterViewInit {
     datasets: [
       {
         data: [],
-        backgroundColor: ['#8A382B', '#B84A3A', '#FCB3A8'],
+        backgroundColor: ['#5E954E', '#D4E8CE', '#85C572',],
       },
     ],
   };

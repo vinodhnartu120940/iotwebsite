@@ -1,0 +1,123 @@
+<div class="container main-content">
+  <div class="row">
+    <div class="col-md-8">
+      <div
+        class="temperature-section d-flex justify-content-between align-items-center"
+      >
+        <div>
+          <h1>{{ (latestWeather$ | async)?.temprature }}°C</h1>
+          <h5>
+            {{ (latestWeather$ | async)?.rainy }} | Feels like
+            {{ (latestWeather$ | async)?.feelslikeTemprature }}°C
+          </h5>
+          <h6>
+            {{ (latestWeather$ | async)?.location }} ,
+            {{ (latestWeather$ | async)?.country }}
+          </h6>
+        </div>
+        <div class="sun-container">
+          <div class="sun-icon"></div>
+          <div class="sun-times">
+            <p>
+              <img
+                class="me-2"
+                src="weather/sunrise.png"
+                width="30"
+                height="30"
+              />Sunrise :
+              {{ (latestWeather$ | async)?.sunrise }}
+            </p>
+            <p>
+              <img
+                class="me-2"
+                src="weather/sunset.png"
+                width="30"
+                height="30"
+              />Sunset :
+              {{ (latestWeather$ | async)?.sunset }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+    
+
+      <h3 class="section-heading">Weather Conditions</h3>
+      <div class="card temp-values-section p-4 mt-4">
+        <div class="row">
+          <div class="moisture-section d-flex justify-content-between">
+            <!-- Rain Card -->
+            <div class="col condition-card text-center">
+              <i class="fas fa-cloud-showers-heavy"></i>
+              <p>{{ (latestWeather$ | async)?.rain }} mm</p>
+              <p>Rain</p>
+            </div>
+            <!-- Humidity Card -->
+            <div class="col condition-card text-center">
+              <i class="fas fa-tint"></i>
+              <p>{{ (latestWeather$ | async)?.humidity }}%</p>
+              <p>Humidity</p>
+            </div>
+            <!-- Wind Card -->
+            <div class="col condition-card text-center">
+              <i class="fas fa-wind"></i>
+              <p>{{ (latestWeather$ | async)?.wind_speed }} m/s</p>
+              <p>Wind Speed</p>
+            </div>
+            <!-- Visibility Card -->
+            <div class="col condition-card text-center">
+              <i class="fas fa-eye"></i>
+              <p>{{ (latestWeather$ | async)?.visibility }} km</p>
+              <p>Visibility</p>
+            </div>
+            <!-- Cloudiness Card -->
+            <div class="col condition-card text-center">
+              <i class="fas fa-cloud"></i>
+              <p>{{ (latestWeather$ | async)?.cloudness }}%</p>
+              <p>Cloudiness</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-heading">Hourly Data</h3>
+      <div class="card moisture-section p-4">
+        <div class="d-flex justify-content-between gap-10">
+          <div class="col" *ngFor="let hourlyWeather of hourlyWeather$ | async">
+            <p>{{ hourlyWeather.date }}</p>
+            <p>{{hourlyWeather.time}}</p>
+            <i class="{{ hourlyWeather.icon }}"></i>
+            <p>{{ hourlyWeather.temp }}°C</p>
+            <p>{{ hourlyWeather.pop }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right-side column -->
+    <div class="col-md-4">
+      <h3 class="section-heading">Weekly Forecast</h3>
+      <div class="card temp-values-section p-4">
+        <div class="mt-4">
+          <div
+            class="row weather-row"
+            *ngFor="let weather of dailyWeather$ | async"
+          >
+            <div class="col">
+              <p id="date-value">{{ weather?.date }}</p>
+            </div>
+            <div class="col">
+              <i id="icon-value" class="{{ weather?.icon }}"></i>
+            </div>
+            <div class="col">
+              <p id="temp-value">{{ weather?.temp_max }}°C</p>
+            </div>
+            <div class="col">
+              <p id="percent-value">{{ weather?.pop }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,6 +9,11 @@ import { RevenueComponent } from './Pages/revenue/revenue.component';
 import { ExpenseComponent } from './Pages/expense/expense.component';
 import { ExpenseReportComponent } from './Pages/expense/expense-report/expense-report.component';
 import { RevenueReportsComponent } from './Pages/expense/revenue-reports/revenue-reports.component';
+import { FinancesComponent } from './components/finances/finances.component';
+import { NewDashboardComponent } from './Pages/new-dashboard/new-dashboard.component';
+import { PestManagementComponent } from './Pages/pest-management/pest-management.component';
+import { CropEducationComponent } from './Pages/crop-education/crop-education.component';
+import { WeatherforecastComponent } from './Pages/weatherforecast/weatherforecast.component';
 
 const routes: Routes = [
   {
@@ -16,9 +21,14 @@ const routes: Routes = [
     component: DashboardtwoComponent,
     children: [
       {
-        path: '',
+        path: 'sensor-data',
         component: SensordataComponent,
         data: { title: 'Sensor Data' },
+      },
+      {
+        path: '',
+        component: NewDashboardComponent,
+        data: { title: 'Dashboard' },
       },
       {
         path: 'predict',
@@ -34,6 +44,11 @@ const routes: Routes = [
         path: 'coffee-cycle',
         component: CoffeeCycleComponent,
         data: { title: 'Coffee-Cycle' },
+      },
+      {
+        path: 'finances',
+        component: FinancesComponent,
+        data: { title: 'Finances' },
       },
       // {
       //   path: 'revenue',
@@ -55,9 +70,25 @@ const routes: Routes = [
         component: RevenueReportsComponent,
         data: { title: 'Revenue' },
       },
+      {
+        path: 'pest-management',
+        component: PestManagementComponent,
+        data: { title: 'Pest Management' },
+      },
+      {
+        path: 'crop-education',
+        component: CropEducationComponent,
+        data: { title: 'Crop Education' },
+      },
+      {path:'weather',
+        component:WeatherforecastComponent,
+        data:{title:'Weather Data'}
+      }
     ],
+    
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  
 ];
 
 @NgModule({

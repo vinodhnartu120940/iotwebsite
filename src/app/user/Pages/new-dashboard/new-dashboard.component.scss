@@ -1,0 +1,146 @@
+.container-fluid {
+  background-color: #f8f9fa;
+  padding-top: 20px;
+}
+
+.card {
+  border-radius: 15px;
+  border: none;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-text {
+  color: #6c757d;
+}
+
+.card-temp {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #495057;
+}
+
+.card-date {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.view-more-container {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
+.view-more-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.view-more-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.metric {
+  margin-bottom: 1rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.metric i {
+  font-size: 1.25rem;
+  color: #6c757d;
+}
+
+.badge-active {
+  padding: 0.5em 0.75em;
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 0.5rem;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-temp {
+    font-size: 1.25rem;
+  }
+
+  .view-more-link {
+    font-size: 0.75rem;
+  }
+
+  .view-more-container {
+    position: static;
+    text-align: right;
+    margin-top: 10px;
+  }
+}
+
+/* Placeholder Animation */
+.placeholder {
+  background: linear-gradient(90deg, #f4f4f4 25%, #eaeaea 50%, #f4f4f4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.placeholder-glow .placeholder {
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.placeholder-icon {
+  height: 40px;
+  width: 40px;
+  background-color: #eaeaea;
+  border-radius: 50%;
+}
+
+.placeholder-title {
+  height: 25px;
+  width: 70%;
+  margin-bottom: 20px;
+}
+
+.placeholder-text {
+  height: 20px;
+  width: 60%;
+  margin-bottom: 5px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
