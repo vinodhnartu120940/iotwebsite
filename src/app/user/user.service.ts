@@ -42,4 +42,7 @@ export class UserService {
   GetAgronomicPractices(){
     return this.http.get(`${APIEndPoints.Data}/GetAgronomicPractices`);
   }
+  SaveEstimatedYield(data:any){
+    return this.http.post(`${APIEndPoints.Data}/SaveEstimatedYield`,data);
+  }
 }

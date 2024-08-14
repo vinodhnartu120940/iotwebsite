@@ -1,0 +1,112 @@
+<div class="container mt-5 bg-light">
+    <div class="card shadow">
+      <div class="card-body">
+        <form [formGroup]="yieldForm" (ngSubmit)="onSubmit()">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="coffeeVariant" class="form-label fw-semibold">Coffee Variant:</label>
+              <select formControlName="coffeeVariant" id="coffeeVariant" class="form-select">
+                <option value="robusta">Robusta</option>
+                <option value="arabica">Arabica</option>
+              </select>
+              <div *ngIf="yieldForm.get('coffeeVariant')?.touched && yieldForm.get('coffeeVariant')?.invalid" class="text-danger">
+                Coffee Variant is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="area" class="form-label fw-semibold">Total Area (in acres):</label>
+              <input
+                type="number"
+                formControlName="area"
+                id="area"
+                class="form-control"
+                placeholder="Enter area in acres"
+              />
+              <div *ngIf="yieldForm.get('area')?.touched && yieldForm.get('area')?.invalid" class="text-danger">
+                <div *ngIf="yieldForm.get('area')?.errors && yieldForm.get('area')?.errors?.['required']">Area is required.</div>
+                <div *ngIf="yieldForm.get('area')?.errors?.['min']">Area must be greater than 0.</div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row g-3 mt-3">
+            <div class="col-md-6">
+              <label for="soilMoisture" class="form-label fw-semibold">Soil Moisture (%):</label>
+              <input
+                type="number"
+                formControlName="soilMoisture"
+                id="soilMoisture"
+                class="form-control"
+                placeholder="Enter soil moisture percentage"
+              />
+              <div *ngIf="yieldForm.get('soilMoisture')?.touched && yieldForm.get('soilMoisture')?.invalid" class="text-danger">
+                <div *ngIf="yieldForm.get('soilMoisture')?.errors?.['required']">Soil Moisture is required.</div>
+                <div *ngIf="yieldForm.get('soilMoisture')?.errors?.['min'] || yieldForm.get('soilMoisture')?.errors?.['max']">
+                  Soil Moisture must be between 30% and 100%.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="temperature" class="form-label fw-semibold">Temperature (°C):</label>
+              <input
+                type="number"
+                formControlName="temperature"
+                id="temperature"
+                class="form-control"
+                placeholder="Enter temperature in Celsius"
+              />
+              <div *ngIf="yieldForm.get('temperature')?.touched && yieldForm.get('temperature')?.invalid" class="text-danger">
+                <div *ngIf="yieldForm.get('temperature')?.errors?.['required']">Temperature is required.</div>
+                <div *ngIf="yieldForm.get('temperature')?.errors?.['min'] || yieldForm.get('temperature')?.errors?.['max']">
+                  Temperature must be between 10°C and 40°C.
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row g-3 mt-3">
+            <div class="col-md-6">
+              <label for="rainfall" class="form-label fw-semibold">Rainfall (mm):</label>
+              <input
+                type="number"
+                formControlName="rainfall"
+                id="rainfall"
+                class="form-control"
+                placeholder="Enter rainfall in mm"
+              />
+              <div *ngIf="yieldForm.get('rainfall')?.touched && yieldForm.get('rainfall')?.invalid" class="text-danger">
+                <div *ngIf="yieldForm.get('rainfall')?.errors?.['required']">Rainfall is required.</div>
+                <div *ngIf="yieldForm.get('rainfall')?.errors?.['min']">Rainfall must be greater than 0.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="pestPresence" class="form-label fw-semibold">Pest Presence (%):</label>
+              <input
+                type="number"
+                formControlName="pestPresence"
+                id="pestPresence"
+                class="form-control"
+                placeholder="Enter pest presence percentage"
+              />
+              <div *ngIf="yieldForm.get('pestPresence')?.touched && yieldForm.get('pestPresence')?.invalid" class="text-danger">
+                <div *ngIf="yieldForm.get('pestPresence')?.errors?.['required']">Pest Presence is required.</div>
+                <div *ngIf="yieldForm.get('pestPresence')?.errors?.['min'] || yieldForm.get('pestPresence')?.errors?.['max']">
+                  Pest Presence must be between 0% and 100%.
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="d-grid gap-2 mt-4">
+            <button type="submit" class="btn btn-lg btn-success shadow-sm" [disabled]="yieldForm.invalid">Calculate Yield</button>
+          </div>
+        </form>
+  
+        <div *ngIf="yieldResult !== null" class="result alert alert-info mt-4 text-center shadow-sm">
+          <h5 class="alert-heading">Estimated Yield:</h5>
+          <p class="fs-4 fw-bold">{{ yieldResult }} tons</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

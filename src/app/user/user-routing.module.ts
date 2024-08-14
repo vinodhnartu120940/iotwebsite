@@ -14,6 +14,7 @@ import { NewDashboardComponent } from './Pages/new-dashboard/new-dashboard.compo
 import { PestManagementComponent } from './Pages/pest-management/pest-management.component';
 import { CropEducationComponent } from './Pages/crop-education/crop-education.component';
 import { WeatherforecastComponent } from './Pages/weatherforecast/weatherforecast.component';
+import { YieldCalculatorComponent } from './Pages/yield-calculator/yield-calculator.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
       {path:'weather',
         component:WeatherforecastComponent,
         data:{title:'Weather Data'}
+      },
+      {path:'coffee-yield-calculator',
+        component:YieldCalculatorComponent,
+        data:{title:'Coffee Yield Calculator'}
       }
     ],
     
