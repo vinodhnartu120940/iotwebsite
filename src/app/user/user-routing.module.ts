@@ -80,15 +80,14 @@ const routes: Routes = [
         component: CropEducationComponent,
         data: { title: 'Crop Education' },
       },
-      {path:'weather',
-        component:WeatherforecastComponent,
-        data:{title:'Weather Data'}
-      }
+      {
+        path: 'weather',
+        component: WeatherforecastComponent,
+        data: { title: 'Weather Data' },
+      },
     ],
-    
   },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  
 ];
 
 @NgModule({
