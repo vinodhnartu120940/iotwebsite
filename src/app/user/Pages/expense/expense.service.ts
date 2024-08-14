@@ -48,4 +48,10 @@ export class ExpenseService {
       `${APIEndPoints.ExpensesManagement}/GetCustomerRevenues`
     );
   }
+  SaveCustomerBudget(budget:number){
+    const data = {'budget':budget}
+    return this.http.post(
+      `${APIEndPoints.ExpensesManagement}/SaveCustomerBudget`,data
+    );
+  }
 }

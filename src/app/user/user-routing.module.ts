@@ -16,6 +16,7 @@ import { CropEducationComponent } from './Pages/crop-education/crop-education.co
 import { WeatherforecastComponent } from './Pages/weatherforecast/weatherforecast.component';
 import { CashInComponent } from './Pages/expense/cash-in/cash-in.component';
 import { CashOutComponent } from './Pages/expense/cash-out/cash-out.component';
+import { YieldCalculatorComponent } from './Pages/yield-calculator/yield-calculator.component';
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
         path: 'weather',
         component: WeatherforecastComponent,
         data: { title: 'Weather Data' },
+      },
+      {path:'coffee-yield-calculator',
+        component:YieldCalculatorComponent,
+        data:{title:'Coffee Yield Calculator'}
       },
       {
         path: 'cash-in',

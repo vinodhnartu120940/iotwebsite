@@ -14,8 +14,16 @@
         <div class="col-6">
           <div class="card border-0 shadow">
             <div class="card-body text-center">
-              <p class="mb-2">Integrate the AgriCentral.io device to your plot</p>
-              <button class="btn btn-outline-success">Add Device</button>
+              <p class="mb-2">Manage budget limitation for your crop.</p>
+              <div *ngIf="!financialData?.budget">
+                <button class="btn btn-outline-success" (click)="openModal(budgetModal, 'Add')">Add Budget</button>
+              </div>
+              <div *ngIf="financialData?.budget">
+                Budget: <b class="fs-4">₹{{financialData.budget}}</b>
+                <button class="btn btn-outline-primary btn-sm ms-2" (click)="openModal(budgetModal, 'Edit')">
+                  <i class="fas fa-pencil-alt"></i>
+                  Edit Budget</button>
+              </div>
             </div>
           </div>
         </div>
@@ -25,10 +33,7 @@
               <p class="mb-2">
                 Add your expenses and revenues to track your profits
               </p>
-              <button
-                class="btn btn-outline-success"
-                routerLink="/user/dashboard/expense"
-              >
+              <button class="btn btn-outline-success" routerLink="/user/dashboard/expense">
                 Add+
               </button>
             </div>
@@ -38,31 +43,20 @@
 
       <div class="row mb-3">
         <div class="col-6">
-          <div
-            class="card border-0 shadow"
-            routerLink="/user/dashboard/expenses"
-          >
+          <div class="card border-0 shadow" routerLink="/user/dashboard/expenses">
             <div class="card-body text-center">
-              <img
-                src="../images/expense-icon.svg"
-                alt="Expense Icon"
-                class="mb-2"
-              />
+              <img src="../images/expense-icon.svg" alt="Expense Icon" class="mb-2" />
               <p class="mb-0">Expense</p>
-              <h5>₹{{ financialData?.totalExpenses }}</h5>
+              <h5>₹{{ financialData.totalExpenses }}</h5>
             </div>
           </div>
         </div>
         <div class="col-6">
           <div class="card border-0 shadow">
             <div class="card-body text-center">
-              <img
-                src="../images/revenue-icon.svg"
-                alt="Revenue Icon"
-                class="mb-2"
-              />
+              <img src="../images/revenue-icon.svg" alt="Revenue Icon" class="mb-2" />
               <p class="mb-0">Revenue</p>
-              <h5>₹{{ financialData?.totalRevenue }}</h5>
+              <h5>₹{{ financialData.totalRevenue }}</h5>
             </div>
           </div>
         </div>
@@ -72,11 +66,7 @@
         <div class="col-12">
           <div class="card border-0 shadow">
             <div class="card-body text-center">
-              <img
-                src="../images/profit-icon.svg"
-                alt="Profit Icon"
-                class="mb-2"
-              />
+              <img src="../images/profit-icon.svg" alt="Profit Icon" class="mb-2" />
               <p class="mb-0">Your Current Crop</p>
               <h5 class="mb-0">Coffee</h5>
               <p class="text-muted">Your estimated total profit</p>
@@ -92,12 +82,8 @@
         <div class="col-12">
           <div class="card border-0 shadow">
             <div class="card-body text-center">
-              <app-pie-chart
-                [chartData]="expensePieChartData"
-                [chartOptions]="expensePieChartOptions"
-                [height]="pieChartHeight"
-                [width]="pieChartWidth"
-              ></app-pie-chart>
+              <app-pie-chart [chartData]="expensePieChartData" [chartOptions]="expensePieChartOptions"
+                [height]="pieChartHeight" [width]="pieChartWidth"></app-pie-chart>
               <div id="legend" class="custom-legend"></div>
             </div>
           </div>
@@ -107,12 +93,8 @@
         <div class="col-12">
           <div class="card border-0 shadow">
             <div class="card-body text-center">
-              <app-pie-chart
-                [chartData]="revenuePieChartData"
-                [chartOptions]="revenuePieChartOptions"
-                [height]="pieChartHeight"
-                [width]="pieChartWidth"
-              ></app-pie-chart>
+              <app-pie-chart [chartData]="revenuePieChartData" [chartOptions]="revenuePieChartOptions"
+                [height]="pieChartHeight" [width]="pieChartWidth"></app-pie-chart>
             </div>
           </div>
         </div>
@@ -128,5 +110,26 @@
         <h5 class="mb-0">Loading...</h5>
       </div>
     </div>
+  </div>
+</ng-template>
+
+
+<ng-template #budgetModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ modalTitle }}</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="saveBudget(modal)">
+      <div class="mb-3">
+        <label for="budgetInput" class="form-label">Enter Budget Amount</label>
+        <input type="number" class="form-control" id="budgetInput" [(ngModel)]="budgetAmount" name="budgetAmount"
+          placeholder="Enter amount" required>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Close click')">Close</button>
+        <button type="submit" class="btn btn-success">{{ modalTitle }}</button>
+      </div>
+    </form>
   </div>
 </ng-template>

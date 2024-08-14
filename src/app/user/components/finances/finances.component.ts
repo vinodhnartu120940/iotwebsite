@@ -1,23 +1,32 @@
-import { AfterViewInit, Component, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { PieChartComponent } from '../../../shared/pie-chart/pie-chart.component';
 import { RouterLink } from '@angular/router';
 import { ExpenseService } from '../../Pages/expense/expense.service';
 import { NgFor, NgIf } from '@angular/common';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, NgModel } from '@angular/forms';
+import { NotificationService } from '../../../Services/notification.service';
 @Component({
   selector: 'app-finances',
   standalone: true,
-  imports: [PieChartComponent, RouterLink, NgIf,NgFor],
+  imports: [PieChartComponent, RouterLink, NgIf,NgFor,FormsModule],
   templateUrl: './finances.component.html',
   styleUrls: ['./finances.component.scss'],
 })
 export class FinancesComponent implements AfterViewInit {
-  financialData: any;
+  financialData = {
+    totalExpenses:0,
+    totalRevenue:0,
+    budget: 0 
+  };
   pieChartWidth: number = 400;
   pieChartHeight: number = 300;
   isLoading: boolean = true;
+  budgetAmount: number=0;
+  originalBudgetAmount!: number;
 
+  @ViewChild('budgetModal') budgetModal: ElementRef | undefined;
   expensePieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -65,8 +74,14 @@ export class FinancesComponent implements AfterViewInit {
       },
     },
   };
+  modalTitle: string | undefined;
 
-  constructor(private expensiveService: ExpenseService, private cdr: ChangeDetectorRef) {
+  constructor(
+    private expensiveService: ExpenseService, 
+    private cdr: ChangeDetectorRef, 
+    private modalService: NgbModal,
+    private notify:NotificationService
+  ) {
     this.expensiveService.GetToatlRevenueAndExpenses().subscribe((res) => {
       this.financialData = res;
       console.log(res);
@@ -125,4 +140,35 @@ export class FinancesComponent implements AfterViewInit {
       window.dispatchEvent(new Event('resize'));
     }, 500);
   }
+  openModal(content: any, action: string) {
+    if (action === 'Edit') {
+      this.budgetAmount = this.financialData.budget;
+      this.originalBudgetAmount = this.financialData.budget;
+      this.modalTitle = 'Edit Budget';
+    } else {
+      this.budgetAmount = 0;
+      this.modalTitle = 'Add Budget';
+    }
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  saveBudget(modal: any) {
+    if (!this.budgetAmount || this.budgetAmount <= 0) {
+      this.notify.showWarning('Input should not be empty or zero!');
+      return;
+    }
+
+    if (this.modalTitle === 'Edit Budget' && this.budgetAmount === this.originalBudgetAmount) {
+      this.notify.showWarning('No changes made to the budget!');
+      return;
+    }
+    this.financialData.budget = this.budgetAmount;
+    this.expensiveService.SaveCustomerBudget(this.budgetAmount).subscribe((res)=>{
+      this.notify.showSuccess("Budget Amount Added successfully!");
+    });
+    console.log('Budget Amount:', this.budgetAmount);
+    modal.close();
+  }
+
+  
 }
