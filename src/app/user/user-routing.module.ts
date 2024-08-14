@@ -14,6 +14,8 @@ import { NewDashboardComponent } from './Pages/new-dashboard/new-dashboard.compo
 import { PestManagementComponent } from './Pages/pest-management/pest-management.component';
 import { CropEducationComponent } from './Pages/crop-education/crop-education.component';
 import { WeatherforecastComponent } from './Pages/weatherforecast/weatherforecast.component';
+import { CashInComponent } from './Pages/expense/cash-in/cash-in.component';
+import { CashOutComponent } from './Pages/expense/cash-out/cash-out.component';
 
 const routes: Routes = [
   {
@@ -46,15 +48,10 @@ const routes: Routes = [
         data: { title: 'Coffee-Cycle' },
       },
       {
-        path: 'finances',
+        path: 'finance',
         component: FinancesComponent,
         data: { title: 'Finances' },
       },
-      // {
-      //   path: 'revenue',
-      //   component: RevenueComponent,
-      //   data: { title: 'Revenue' },
-      // },
       {
         path: 'expense',
         component: ExpenseComponent,
@@ -85,8 +82,19 @@ const routes: Routes = [
         component: WeatherforecastComponent,
         data: { title: 'Weather Data' },
       },
+      {
+        path: 'cash-in',
+        component: CashInComponent,
+        data: { title: 'Cash-In' },
+      },
+      {
+        path: 'cash-out',
+        component: CashOutComponent,
+        data: { title: 'Cash-Out' },
+      },
     ],
   },
+
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 ];
 

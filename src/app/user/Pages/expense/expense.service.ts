@@ -37,9 +37,9 @@ export class ExpenseService {
     );
   }
 
-  SaveCustomerRevenue(data: any) {
+  SaveCustomerRevenueNew(data: any) {
     return this.http.post(
-      `${APIEndPoints.ExpensesManagement}/SaveCustomerRevenue`,
+      `${APIEndPoints.ExpensesManagement}/SaveCustomerRevenueNew`,
       data
     );
   }

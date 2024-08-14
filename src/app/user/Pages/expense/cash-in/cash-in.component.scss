@@ -1,3 +1,60 @@
+//Revenue Styles
+
+.form-container {
+  max-width: 450px;
+  margin: 80px auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.form-container h3 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #4a4a4a;
+}
+.btn-custom {
+  background-color: #4caf50;
+  color: white;
+  // width: 48%;
+}
+.btn-custom:hover {
+  background-color: #45a049;
+}
+.btn-secondary-custom {
+  background-color: #556b2f;
+  color: white;
+  // width: 48%;
+}
+.btn-secondary-custom:hover {
+  background-color: #4f6226;
+}
+.text-center .btn + .btn {
+  margin-left: 10px;
+}
+.form-group label {
+  display: flex;
+  font-weight: 500;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.btn-custom {
+  background-color: #4d654a;
+  color: white;
+}
+
+.revenue-details label {
+  display: flex;
+  font-weight: 500;
+}
+
 //Category Screen Styles
 
 .card {
@@ -91,13 +148,7 @@
   font-weight: bold;
 }
 
-// .card:hover {
-//   transform: scale(1.02);
-//   transition: transform 0.2s ease-in-out;
-// }
-
 .btn-lg {
   padding: 0.75rem 1.5rem;
   font-size: 1.25rem;
 }
-

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ExpenseService } from '../expense.service';
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-revenue-reports',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf,DatePipe],
   templateUrl: './revenue-reports.component.html',
   styleUrl: './revenue-reports.component.scss',
 })

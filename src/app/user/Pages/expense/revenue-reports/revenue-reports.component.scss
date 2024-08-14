@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
 }
 .navbar {
-  background-color: #496a48; /* Navbar green color */
+  background-color: #496a48;
 }
 .nav-link,
 .navbar-brand {
@@ -11,56 +11,63 @@ body {
   font-weight: bold;
 }
 .nav-link.active {
-  background-color: #324c32; /* Darker shade for active tab */
+  background-color: #324c32;
   border-radius: 5px;
 }
 .card-custom {
   border: none;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.card-custom:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 .card-custom .card-body {
-  padding: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 .expense-title {
   font-weight: bold;
-  font-size: 1rem;
-  color: #496a48; /* Dark green color */
+  font-size: 1.2rem;
+  color: #496a48;
 }
-.expense-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-}
-.expense-item .details {
-  font-size: 0.9rem;
+.details {
+  font-size: 0.95rem;
   color: #666;
-  line-height: 1.5;
+  margin-top: 10px;
+  line-height: 1.6;
 }
-.expense-item .amount {
-  font-weight: bold;
-  color: #ff4d4f;
-  font-size: 1rem;
+.revenue-info {
   text-align: right;
+  color: #496a48;
 }
-.amount span {
-  display: block;
-  font-weight: normal;
-  font-size: 0.9rem;
-  color: #666;
-}
-.date-header {
+.revenue-amount {
   font-weight: bold;
-  color: #496a48; /* Dark green color */
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
+  color: #007bff;
 }
-.icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
+.revenue-name,
+.revenue-date,
+.harvest-date,
+.harvest-quantity,
+.harvest-price {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 5px;
+}
+.btn-edit {
+  background-color: #496a48;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-edit:hover {
+  background-color: #324c32;
 }
