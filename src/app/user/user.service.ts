@@ -39,4 +39,7 @@ export class UserService {
         this.userId = this.userInfo.id;
       });
   }
+  GetAgronomicPractices(){
+    return this.http.get(`${APIEndPoints.Data}/GetAgronomicPractices`);
+  }
 }

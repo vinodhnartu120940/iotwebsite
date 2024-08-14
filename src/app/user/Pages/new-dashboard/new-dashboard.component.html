@@ -63,60 +63,22 @@
 
         <!-- 2nd Row sensor-data -->
         <div class="row mb-4">
-            <ng-container *ngIf="isSensorDataLoading; else deviceCards">
-                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let i of [1, 2, 3]">
-                    <div class="card shadow-sm h-100">
+            <ng-container *ngIf=" sensorData.length === 0; else deviceCards">
+               
+                    <div class="card shadow-sm text-center p-4">
                         <div class="card-body">
-                            <div class="placeholder-glow">
-                                <div class="placeholder-title placeholder"></div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="col-4 metric">
-                                    <div class="placeholder-icon placeholder"></div>
-                                    <div class="placeholder-glow">
-                                        <div class="placeholder-text placeholder"></div>
-                                        <div class="placeholder-text placeholder"></div>
-                                    </div>
-                                </div>
-                                <div class="col-4 metric">
-                                    <div class="placeholder-icon placeholder"></div>
-                                    <div class="placeholder-glow">
-                                        <div class="placeholder-text placeholder"></div>
-                                        <div class="placeholder-text placeholder"></div>
-                                    </div>
-                                </div>
-                                <div class="col-4 metric">
-                                    <div class="placeholder-icon placeholder"></div>
-                                    <div class="placeholder-glow">
-                                        <div class="placeholder-text placeholder"></div>
-                                        <div class="placeholder-text placeholder"></div>
-                                    </div>
-                                </div>
-                                <div class="col-4 metric">
-                                    <div class="placeholder-icon placeholder"></div>
-                                    <div class="placeholder-glow">
-                                        <div class="placeholder-text placeholder"></div>
-                                        <div class="placeholder-text placeholder"></div>
-                                    </div>
-                                </div>
-                                <div class="col-4 metric">
-                                    <div class="placeholder-icon placeholder"></div>
-                                    <div class="placeholder-glow">
-                                        <div class="placeholder-text placeholder"></div>
-                                        <div class="placeholder-text placeholder"></div>
-                                    </div>
-                                </div>
-                                <div class="col-4 metric">
-                                    <div class="placeholder-icon placeholder"></div>
-                                    <div class="placeholder-glow">
-                                        <div class="placeholder-text placeholder"></div>
-                                        <div class="placeholder-text placeholder"></div>
-                                    </div>
-                                </div>
-                            </div>
+                            <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+                            <h5 class="card-title">No active device detected.</h5>
+                            <p class="card-text">
+                                Please purchase the required kit to get sensor-related data.
+                            </p>
+                            <p class="text-muted">
+                                For more information, contact support at: <br>
+                                agritech&commat;smbxl.com <br>
+                                or call +123456789
+                            </p>
                         </div>
                     </div>
-                </div>
             </ng-container>
 
             <!-- Device Cards -->
