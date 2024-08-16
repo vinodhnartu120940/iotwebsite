@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Pipe } from '@angular/core';
 import { Chart, ChartData, ChartOptions, registerables } from 'chart.js';
 import { PieChartComponent } from '../../../shared/pie-chart/pie-chart.component';
 import { CalendarService } from '../../Services/calendar.service';
@@ -10,13 +10,14 @@ import { thresholds } from '../../../utils/farm.data';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectLatestWeather } from '../../Store/selector/weather.selector';
-import { map } from 'rxjs';
+import { TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-new-dashboard',
   standalone: true,
-  imports: [PieChartComponent, NgIf, NgFor, CommonModule, RouterLink],
+  imports: [PieChartComponent, NgIf, NgFor, CommonModule, RouterLink,FormsModule,TranslateModule],
   templateUrl: './new-dashboard.component.html',
   styleUrls: ['./new-dashboard.component.scss'],
 })
@@ -29,7 +30,8 @@ export class NewDashboardComponent implements OnInit {
   financialData: any;
   sensorData: any;
   latestWeather$ = this.store.select(selectLatestWeather);
-
+  selectedLanguage: string = 'en';  
+  
   expensePieChartData: ChartData<'pie'> = {
     labels: [],
     datasets: [
@@ -99,8 +101,11 @@ export class NewDashboardComponent implements OnInit {
     private userService: UserService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private store: Store
-  ) {}
+    private store: Store,
+    private translate: TranslateService
+  ) {
+    this.translate.setDefaultLang(this.selectedLanguage);
+  }
 
   ngOnInit() {
     this.getCalendarEvents();
@@ -191,4 +196,9 @@ export class NewDashboardComponent implements OnInit {
     hour: 'numeric',
     minute: 'numeric',
   });
+
+
+  changeLanguage() {
+    this.translate.use(this.selectedLanguage);
+  }
 }

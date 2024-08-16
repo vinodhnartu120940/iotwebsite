@@ -1,4 +1,14 @@
 <div class="container-fluid bg-light p-4">
+    <!-- Language Dropdown -->
+    <div class="mb-3">
+        <select class="form-select" [(ngModel)]="selectedLanguage" (change)="changeLanguage()">
+            <option value="en">English</option>
+            <option value="kn">Kannada</option>
+            <option value="ta">Tamil</option>
+        </select>
+    </div>
+    
+    <!-- Existing Content -->
     <ng-container *ngIf="isPageLoading; else content">
         <div class="loader-container text-center">
             <div class="spinner-border text-primary" role="status">
@@ -7,15 +17,16 @@
             <p>Loading Dashboard...</p>
         </div>
     </ng-container>
-    
+
     <ng-template #content>
+        <!-- Content with Translations -->
         <!-- 1st Row -->
         <div class="row mb-4">
             <div class="col-lg-6 col-md-12 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
                         <h5 class="card-title d-flex align-items-center">
-                            <i class="fas fa-seedling me-2"></i> Coffee Cycle
+                            <i class="fas fa-seedling me-2"></i> {{ 'COFFEE_CYCLE' | translate }}
                         </h5>
                         <p class="card-text">{{ currentPhaseTitle }}</p>
                     </div>
@@ -46,18 +57,18 @@
                     </div>
                     <div class="view-more-container">
                       <a routerLink="/user/dashboard/weather" class="view-more-link"
-                        >View More <i class="fas fa-arrow-right ms-1"></i
+                        >{{ 'VIEW_MORE' | translate }} <i class="fas fa-arrow-right ms-1"></i
                       ></a>
                     </div>
                   </div>
                 </div>
-        </div>
+            </div>
         </div>
         
         <!-- Devices Sub-Heading -->
         <div class="row mb-3">
             <div class="col">
-                <h4>Devices</h4>
+                <h4>{{ 'DEVICES' | translate }}</h4>
             </div>
         </div>
 
@@ -68,14 +79,14 @@
                     <div class="card shadow-sm text-center p-4">
                         <div class="card-body">
                             <i class="fas fa-lock fa-3x text-warning mb-3"></i>
-                            <h5 class="card-title">No active device detected.</h5>
+                            <h5 class="card-title">{{ 'NO_DEVICE_DETECTED' | translate }}</h5>
                             <p class="card-text">
-                                Please purchase the required kit to get sensor-related data.
+                                {{ 'PURCHASE_KIT' | translate }}
                             </p>
                             <p class="text-muted">
-                                For more information, contact support at: <br>
+                                {{ 'CONTACT_SUPPORT' | translate }} <br>
                                 agritech&commat;smbxl.com <br>
-                                or call +123456789
+                                {{ 'CALL_SUPPORT' | translate }} +123456789
                             </p>
                         </div>
                     </div>
@@ -87,8 +98,8 @@
                     <div class="card shadow-sm h-100" (click)="goToDetailView(data)">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h5 class="card-title">Device {{ i + 1 }}</h5>
-                                <span class="badge bg-success">Active</span>
+                                <h5 class="card-title">{{ 'DEVICE' | translate }} {{ i + 1 }}</h5>
+                                <span class="badge bg-success">{{ 'ACTIVE' | translate }}</span>
                             </div>
                             <div class="row text-center">
                                 <div class="col-4 metric">
@@ -96,7 +107,7 @@
                                         <i class="fas fa-thermometer-half fa-lg"></i>
                                         <div>
                                             <span class="metric-value d-block">{{ data.temperatureCelsius }}°C</span>
-                                            <span>Temperature</span>
+                                            <span>{{ 'TEMPERATURE' | translate }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +116,7 @@
                                         <i class="fas fa-tint fa-lg"></i>
                                         <div>
                                             <span class="metric-value d-block">{{ data.humidityPercentage }}%</span>
-                                            <span>Humidity</span>
+                                            <span>{{ 'HUMIDITY' | translate }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -114,7 +125,7 @@
                                         <i class="fas fa-water fa-lg"></i>
                                         <div>
                                             <span class="metric-value d-block">{{ data.moisturePercentage }}%</span>
-                                            <span>Soil Moisture</span>
+                                            <span>{{ 'SOIL_MOISTURE' | translate }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +134,7 @@
                                         <i class="fas fa-flask fa-lg"></i>
                                         <div>
                                             <span class="metric-value d-block">{{ data.nitrogen }} ppm</span>
-                                            <span>Nitrogen</span>
+                                            <span>{{ 'NITROGEN' | translate }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +143,7 @@
                                         <i class="fas fa-atom fa-lg"></i>
                                         <div>
                                             <span class="metric-value d-block">{{ data.phosphorus }} ppm</span>
-                                            <span>Phosphorus</span>
+                                            <span>{{ 'PHOSPHORUS' | translate }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +152,7 @@
                                         <i class="fas fa-cube fa-lg"></i>
                                         <div>
                                             <span class="metric-value d-block">{{ data.potassium }} ppm</span>
-                                            <span>Potassium</span>
+                                            <span>{{ 'POTASSIUM' | translate }}</span>
                                         </div>
                                     </div>
                                 </div>
