@@ -160,7 +160,12 @@
 // }
 
 // new style css
-
+.agricentralnav.navbar {
+  padding:5px;
+}
+.agricentral-logo {
+  margin-left:15px;
+}
 .navbar-brand {
   font-weight: bold;
 }
@@ -261,7 +266,7 @@
   height: auto;
 }
 .logo_img {
-  border-radius: 45px;
+  // border-radius: 45px;
   margin-right: 10px;
 }
 .carousel-inner {

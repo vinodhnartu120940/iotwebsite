@@ -7,7 +7,20 @@
     <div class="sidenav" [ngClass]="{ show: isMenuVisible }" id="sidenav">
       <span class="close-btn" (click)="toggleMenu()">&times;</span>
       <div class="text-center mb-4">
-        <h3>AgriCentral.io</h3>
+        <!-- <h3>AgriCentral.io</h3> -->
+        <img
+        class="logo_img "
+        src="dashboard-logo.svg"
+        alt="logo"
+        height="90"
+        width="90"
+      />
+      <img
+        class="mt-1"
+        src="AgriCentral.svg"
+        alt="logo"
+        width="160px"
+      />
       </div>
       <a
         routerLink="/user/dashboard"
