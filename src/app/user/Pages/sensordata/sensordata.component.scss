@@ -1,5 +1,5 @@
 .content_style {
-  // background: linear-gradient(to right, #d4a373, #4a6b47);
+  // background: linear-gradient(to right, #d4a373, #0F5C05);
   // background: #eaecea;
   background-color: #fffefe;
   padding: 20px 10px 10px 10px;
@@ -84,14 +84,14 @@ marquee {
 }
 
 .tabs .active {
-  background-color: #4a6b47;
+  background-color: #0F5C05;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .tabs div:hover {
-  background-color: #4a6b47;
+  background-color: #0F5C05;
   color: white;
 }
 
@@ -335,7 +335,7 @@ thead th {
   padding: 10px 15px;
   text-decoration: none;
   font-size: 18px;
-  color: #4a6b47;
+  color: #0F5C05;
   display: flex;
   align-items: center;
 }
@@ -343,7 +343,7 @@ thead th {
   background-color: #ccc;
 }
 .sidenav .active {
-  background-color: #4a6b47;
+  background-color: #0F5C05;
   color: white;
 }
 .sidenav .profile-section {
@@ -358,10 +358,10 @@ thead th {
 }
 .sidenav .profile-section p {
   margin: 10px 0 5px;
-  color: #4a6b47;
+  color: #0F5C05;
 }
 .sidenav .profile-section a {
-  color: #4a6b47;
+  color: #0F5C05;
 }
 
 .sidenav .icon {
@@ -371,7 +371,7 @@ thead th {
 .text-center h3 {
   font-family: "Arial", sans-serif;
   font-weight: bold;
-  color: #4a6b47;
+  color: #0F5C05;
 }
 hr {
   border-top: 1px solid #d4d4d4;
@@ -379,7 +379,7 @@ hr {
 h6 {
   font-size: 16px;
   font-weight: bold;
-  color: #4a6b47;
+  color: #0F5C05;
 }
 .menu-toggle {
   display: none;
