@@ -53,15 +53,15 @@
   <!-- Add expense popup -->
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h5 class="modal-title">{{ modalData?.event?.title }} - {{ modalData?.event?.start | date: 'MMMM' }}</h5>
+      <h5 class="modal-title">{{ modalData.event.title }} - {{ modalData.event.start | date: 'MMMM' }}</h5>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
       <ul>
         <li *ngFor="let detail of modalData?.event?.meta?.details">{{ detail }}</li>
       </ul>
-      <p *ngIf="modalData?.event?.start">Start: {{ modalData.event?.start | date: 'medium' }}</p>
-      <p *ngIf="modalData?.event?.end">End: {{ modalData.event?.end | date: 'medium' }}</p>
+      <p *ngIf="modalData?.event?.start">Start: {{ modalData.event.start | date: 'medium' }}</p>
+      <p *ngIf="modalData?.event?.end">End: {{ modalData.event.end | date: 'medium' }}</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-danger me-auto" (click)="DeleteCalendarEvent(modalData.event.eventID)" [disabled]="isCommonEvent(modalData.event)">Delete</button>
