@@ -147,6 +147,7 @@
   }
 }
 
-.form-select{
-  width: 50;
+.form-select {
+  width: auto; 
+  max-width: 200px; 
 }
