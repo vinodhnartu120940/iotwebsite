@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap');
 // /* Reset and base styles */
 // * {
 //   margin: 0;
@@ -160,13 +161,18 @@
 // }
 
 // new style css
-
+.agricentralnav.navbar {
+  padding:5px;
+}
+.agricentral-logo {
+  margin-left:15px;
+}
 .navbar-brand {
   font-weight: bold;
 }
 
 .jumbotron {
-  background-color: #f6ead2;
+  background-color: #E4E2B9;
   color: #333;
   padding: 3rem 2rem;
   margin: 0px 20px 20px 20px;
@@ -190,12 +196,12 @@
 }
 
 .stats {
-  background-color: #f7c35e;
+  background-color: #0f5c05;
   padding: 20px 0;
 }
 
 .stats .stats_sub {
-  background-color: #f6ead2;
+  background-color: #E4E2B9;
   padding: 50px 50px 34px 50px;
   border-radius: 5px;
   width: 100%;
@@ -261,7 +267,7 @@
   height: auto;
 }
 .logo_img {
-  border-radius: 45px;
+  // border-radius: 45px;
   margin-right: 10px;
 }
 .carousel-inner {
@@ -275,4 +281,26 @@
 .col-md-2 p {
   font-weight: 600;
   font-size: 18px;
+}
+
+
+
+.navbar-brand {
+  font-family: 'Sen', sans-serif;
+  font-weight: 700;
+ 
+  font-size: 36px;
+  
+  color: #0f5c05;
+
+  text-decoration: none;
+}
+
+// .navbar-brand:hover {
+//   color: #555;
+//   /* Optional: Change color on hover */
+// }
+
+.fs-2{
+  font-weight: 400;
 }

@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  Injectable,
   isDevMode,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -8,6 +9,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import {
   HTTP_INTERCEPTORS,
+  HttpClient,
   provideHttpClient,
   withInterceptors,
   withInterceptorsFromDi,
@@ -21,6 +23,19 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { weatherReducer } from './user/Store/reducer/weather.reducer';
 import { WeatherEffects } from './user/Store/effects/weather.effects';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { map, Observable } from 'rxjs';
+
+@Injectable()
+export class SingleJsonLoader implements TranslateLoader {
+  constructor(private http: HttpClient) {}
+
+  getTranslation(lang: string): Observable<any> {
+    return this.http
+      .get('/i18n/translations.json')
+      .pipe(map((res: any) => res[lang]));
+  }
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,5 +57,17 @@ export const appConfig: ApplicationConfig = {
       traceLimit: 75, // maximum stack trace frames to be stored (in case trace option was provided as true)
       connectInZone: true, // If set to true, the connection is established within the Angular zone
     }),
+    {
+      provide: TranslateLoader,
+      useClass: SingleJsonLoader,
+      deps: [HttpClient],
+    },
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useClass: SingleJsonLoader,
+        deps: [HttpClient],
+      },
+    }).providers!,
   ],
 };

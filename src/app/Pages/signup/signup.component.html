@@ -5,14 +5,20 @@
   <div class="right">
     @if(questionType.farm!==questionNumber){
     <div class="d-flex justify-content-center align-items-center mb-4 register">
-      <img src="Trees&Rays_Logo.webp" alt="logo" width="75px" height="75px" />
-      <h2>TREES & RAYS</h2>
+      <!-- <img src="Trees&Rays_Logo.webp" alt="logo" width="75px" height="75px" />
+      <h2>TREES & RAYS</h2> -->
+      <img
+      class="agricentral-logo logo_img"
+      src="Logo.svg"
+      alt="logo"
+      height="50"
+    />
     </div>
     }
     <form [formGroup]="signupForm">
       <div class="container">
         @switch (questionNumber) { @case(questionType.mobilenumber){
-        <h1>Welcome to Trees & Rays</h1>
+        <h1>Welcome to AgriCentral</h1>
         <p>Enter your mobile number to receive an OTP</p>
         <input
           type="text"

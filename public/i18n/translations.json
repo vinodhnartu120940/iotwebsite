@@ -1,0 +1,65 @@
+{
+  "en": {
+    "DASHBOARD": {
+      "LOADING": "Loading Dashboard...",
+      "LANG_ENGLISH": "English",
+      "LANG_KANNADA": "Kannada",
+      "LANG_TAMIL": "Tamil",
+      "COFFEE_CYCLE": "Coffee Cycle",
+      "VIEW_MORE": "View More",
+      "TITLE": "Devices",
+      "DEVICE": "Device",
+      "ACTIVE": "Active",
+      "TEMPERATURE": "Temperature",
+      "HUMIDITY": "Humidity",
+      "SOIL_MOISTURE": "Soil Moisture",
+      "NITROGEN": "Nitrogen",
+      "PHOSPHORUS": "Phosphorus",
+      "POTASSIUM": "Potassium",
+      "NO_DATA": "No active device detected.",
+      "CONTACT_SUPPORT": "For more information, contact support at: agritech@smbxl.com or call +123456789"
+    }
+  },
+  "kn": {
+    "DASHBOARD": {
+      "LOADING": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್ ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+      "LANG_ENGLISH": "ಇಂಗ್ಲಿಷ್",
+      "LANG_KANNADA": "ಕನ್ನಡ",
+      "LANG_TAMIL": "ತಮಿಳು",
+      "COFFEE_CYCLE": "ಕಾಫಿ ಚಕ್ರ",
+      "VIEW_MORE": "ಹೆಚ್ಚು ವೀಕ್ಷಿಸಿ",
+      "TITLE": "ಸಾಧನಗಳು",
+      "DEVICE": "ಸಾಧನ",
+      "ACTIVE": "ಸಕ್ರಿಯ",
+      "TEMPERATURE": "ತಾಪಮಾನ",
+      "HUMIDITY": "ಆದ್ರತೆ",
+      "SOIL_MOISTURE": "ಮಣ್ಣಿನ ತೇವಾಂಶ",
+      "NITROGEN": "ನೈಟ್ರಜನ",
+      "PHOSPHORUS": "ಫಾಸ್ಪರಸ್",
+      "POTASSIUM": "ಪೊಟಾಶಿಯಮ್",
+      "NO_DATA": "ಯಾವುದೇ ಸಕ್ರಿಯ ಸಾಧನ ಪತ್ತೆಯಾಗಿಲ್ಲ.",
+      "CONTACT_SUPPORT": "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ, ಬೆಂಬಲವನ್ನು ಸಂಪರ್ಕಿಸಿ: agritech@smbxl.com ಅಥವಾ ಕರೆಮಾಡಿ +123456789"
+    }
+  },
+  "ta": {
+    "DASHBOARD": {
+      "LOADING": "டாஷ்போர்டை ஏற்றுகிறது...",
+      "LANG_ENGLISH": "ஆங்கிலம்",
+      "LANG_KANNADA": "கன்னடம்",
+      "LANG_TAMIL": "தமிழ்",
+      "COFFEE_CYCLE": "காபி சுழற்சி",
+      "VIEW_MORE": "மேலும் காண்க",
+      "TITLE": "சாதனங்கள்",
+      "DEVICE": "சாதனம்",
+      "ACTIVE": "செயலில் உள்ளது",
+      "TEMPERATURE": "வெப்பநிலை",
+      "HUMIDITY": "இரப்பு",
+      "SOIL_MOISTURE": "மண்ணின் ஈரப்பதம்",
+      "NITROGEN": "நைட்ரஜன்",
+      "PHOSPHORUS": "பாஸ்பரஸ்",
+      "POTASSIUM": "பொட்டாசியம்",
+      "NO_DATA": "செயலில் உள்ள சாதனம் கண்டறியப்படவில்லை.",
+      "CONTACT_SUPPORT": "மேலும் தகவலுக்கு, ஆதரவைத் தொடர்பு கொள்ளவும்: agritech@smbxl.com அல்லது +123456789 என்ற எண்ணுக்கு அழைக்கவும்"
+    }
+  }
+}

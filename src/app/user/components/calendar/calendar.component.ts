@@ -157,7 +157,7 @@ export class CalendarComponent {
       "eventID": this.isEdit ? this.modalData.event.eventID : undefined // Include eventID if editing
     };
 
-    this.calendarService.addNewCalendarEvent(data).subscribe(() => {
+    this.calendarService.addNewCalendarEvent(data).subscribe((res:any) => {
       if (this.isEdit) {
         const index = this.events.findIndex(event => event.eventID === this.modalData.event.eventID);
         if (index !== -1) {
@@ -167,6 +167,7 @@ export class CalendarComponent {
       } else {
         this.events.push({
           ...eventData,
+          eventID: res.eventID,
           color: { primary: '#ad2121', secondary: '#FAE3E3' },
         });
         this.notify.showSuccess("Event Added Successfully!");
