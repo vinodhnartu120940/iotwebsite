@@ -7,12 +7,7 @@
     <div class="d-flex justify-content-center align-items-center mb-4 register">
       <!-- <img src="Trees&Rays_Logo.webp" alt="logo" width="75px" height="75px" />
       <h2>TREES & RAYS</h2> -->
-      <img
-      class="agricentral-logo logo_img"
-      src="Logo.svg"
-      alt="logo"
-      height="50"
-    />
+      <img class="agricentral-logo logo_img" src="logo_.svg" alt="logo" height="50" />
     </div>
     }
     <form [formGroup]="signupForm">
@@ -20,34 +15,18 @@
         @switch (questionNumber) { @case(questionType.mobilenumber){
         <h1>Welcome to AgriCentral</h1>
         <p>Enter your mobile number to receive an OTP</p>
-        <input
-          type="text"
-          placeholder="Enter mobile number"
-          type="number"
-          id="mobile-number"
-          name="mobile-number"
-          formControlName="phoneNumber"
-          required
-          appNumericOnly
-        />
+        <input type="text" placeholder="Enter mobile number" type="number" id="mobile-number" name="mobile-number"
+          formControlName="phoneNumber" required appNumericOnly />
         } @case (questionType.otp) {
         <h2>Enter OTP</h2>
         <p>Enter the OTP sent to your mobile number</p>
-        <ngx-otp-input
-          [config]="otpInputConfig"
-          (fill)="handleFillEvent($event)"
-        ></ngx-otp-input>
+        <ngx-otp-input [config]="otpInputConfig" (fill)="handleFillEvent($event)"></ngx-otp-input>
         @if(!canResend){
         <div class="timer" id="timer">
           Time remaining:{{ minutes }}:{{ seconds }}
         </div>
         } @if (canResend) {
-        <button
-          type="button"
-          class="btn btn-secondary"
-          id="resendOtpButton"
-          (click)="resendOtp()"
-        >
+        <button type="button" class="btn btn-secondary" id="resendOtpButton" (click)="resendOtp()">
           Resend OTP
         </button>
         } } @case(questionType.user){
@@ -57,14 +36,8 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="phoneNumber"
-                  placeholder="Enter phone number"
-                  required
-                  formControlName="phoneNumber"
-                />
+                <input type="text" class="form-control" id="phoneNumber" placeholder="Enter phone number" required
+                  formControlName="phoneNumber" />
               </div>
             </div>
           </div>
@@ -72,14 +45,8 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="name"
-                  placeholder="Enter name"
-                  formControlName="firstName"
-                  required
-                />
+                <input type="text" class="form-control" id="name" placeholder="Enter name" formControlName="firstName"
+                  required />
               </div>
             </div>
           </div>
@@ -87,14 +54,8 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="email">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  placeholder="Enter email"
-                  formControlName="email"
-                  required
-                />
+                <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email"
+                  required />
               </div>
             </div>
           </div>
@@ -106,14 +67,8 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label for="farmAddress">Farm Address</label>
-                <textarea
-                  class="form-control"
-                  id="farmAddress"
-                  rows="2"
-                  placeholder="Enter farm address"
-                  formControlName="farmAdress"
-                  required
-                ></textarea>
+                <textarea class="form-control" id="farmAddress" rows="2" placeholder="Enter farm address"
+                  formControlName="farmAdress" required></textarea>
               </div>
             </div>
           </div>
@@ -121,25 +76,14 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="landSize">Land Size</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="landSize"
-                  placeholder="Enter land size"
-                  formControlName="landSize"
-                  required
-                />
+                <input type="text" class="form-control" id="landSize" placeholder="Enter land size"
+                  formControlName="landSize" required />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="cropStartDate">Crop Planting Date</label>
-                <input
-                  type="date"
-                  class="form-control"
-                  id="cropStartDate"
-                  formControlName="growingStartDate"
-                />
+                <input type="date" class="form-control" id="cropStartDate" formControlName="growingStartDate" />
               </div>
             </div>
           </div>
@@ -147,11 +91,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="soilType">Soil Type</label>
-                <select
-                  class="form-control"
-                  id="soilType"
-                  formControlName="soilType"
-                >
+                <select class="form-control" id="soilType" formControlName="soilType">
                   <option [value]="null" disabled selected>Soil type</option>
                   @for (type of soilTypes; track $index) {
                   <option [value]="type">
@@ -164,11 +104,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="cropType">Crop Type</label>
-                <select
-                  class="form-control"
-                  id="typeofCrop"
-                  formControlName="typeofCrop"
-                >
+                <select class="form-control" id="typeofCrop" formControlName="typeofCrop">
                   <option [value]="null" disabled selected>Crop type</option>
                   @for (type of cropTypes; track $index) {
                   <option [value]="type">
@@ -183,27 +119,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="soilType">Longitude</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="soilType"
-                  placeholder="Longitude"
-                  formControlName="longitude"
-                  required
-                />
+                <input type="text" class="form-control" id="soilType" placeholder="Longitude"
+                  formControlName="longitude" required />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="cropType">Latitude</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cropType"
-                  placeholder="Latitude"
-                  formControlName="latitude"
-                  required
-                />
+                <input type="text" class="form-control" id="cropType" placeholder="Latitude" formControlName="latitude"
+                  required />
               </div>
             </div>
           </div>
@@ -211,27 +135,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label for="state">State</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="state"
-                  placeholder="Enter state"
-                  formControlName="state"
-                  required
-                />
+                <input type="text" class="form-control" id="state" placeholder="Enter state" formControlName="state"
+                  required />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label for="zipcode">Zipcode</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="zipcode"
-                  placeholder="Enter zipcode"
-                  formControlName="zipcode"
-                  required
-                />
+                <input type="text" class="form-control" id="zipcode" placeholder="Enter zipcode"
+                  formControlName="zipcode" required />
               </div>
             </div>
           </div>

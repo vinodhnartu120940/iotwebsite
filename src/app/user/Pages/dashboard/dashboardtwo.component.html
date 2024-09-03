@@ -1,95 +1,46 @@
 <!-- dashboard.component.html -->
 <div class="container-fluid bg-light">
   <div class="row">
-    <span class="menu-toggle" (click)="toggleMenu()"
-      ><i class="fas fa-bars"></i
-    ></span>
+    <span class="menu-toggle" (click)="toggleMenu()"><i class="fas fa-bars"></i></span>
     <div class="sidenav" [ngClass]="{ show: isMenuVisible }" id="sidenav">
       <span class="close-btn" (click)="toggleMenu()">&times;</span>
       <div class="text-center mb-4">
         <!-- <h3>AgriCentral.io</h3> -->
-        <img
-        class="logo_img "
-        src="dashboard-logo.svg"
-        alt="logo"
-        height="90"
-        width="90"
-      />
-      <img
-        class="mt-1"
-        src="AgriCentral.svg"
-        alt="logo"
-        width="160px"
-      />
+        <img class="logo_img " src="logo_.svg" alt="logo" height="90" width="90" />
+        <!-- <img class="mt-1" src="AgriCentral.svg" alt="logo" width="160px" /> -->
+        <div class="agriCentral-text">AgriCentral</div>
       </div>
-      <a
-        routerLink="/user/dashboard"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+      <a routerLink="/user/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <!-- <i class="fas fa-tachometer-alt icon"></i> -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="w-6 h-6 mr-2"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mr-2">
           <rect width="7" height="9" x="3" y="3" rx="1"></rect>
           <rect width="7" height="5" x="14" y="3" rx="1"></rect>
           <rect width="7" height="9" x="14" y="12" rx="1"></rect>
           <rect width="7" height="5" x="3" y="16" rx="1"></rect>
         </svg>
-        Dashboard</a
-      >
+        Dashboard</a>
       <!-- <a href="#"><i class="fas fa-database icon"></i>Sensor Data</a> -->
-      <a
-        routerLink="/user/dashboard/predict"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+      <a routerLink="/user/dashboard/predict" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <i class="fas fa-seedling icon"></i>
 
-        Disease Management</a
-      >
-      <a
-        routerLink="/user/dashboard/coffee-cycle"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+        Disease Management</a>
+      <a routerLink="/user/dashboard/coffee-cycle" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
         <img class="pr-2" src="../images/coffee-cycle.svg" alt="img" /> Coffee
-        Cycle</a
-      >
-      <a
-        routerLink="/user/dashboard/finance"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-      <i class="fas fa-coins me-2"></i> Farm Finances</a>
-      <a
-        routerLink="/user/dashboard/pest-management"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-      <i class="fas fa-bug me-2"></i>Pest Management</a>
-      <a
-        routerLink="/user/dashboard/crop-education"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-      <i class="fas fa-book-open me-2"></i> Crop Education</a>
-      <a
-        routerLink="/user/dashboard/coffee-yield-calculator"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-      <i class="fas fa-calculator me-3"></i> Yield Calculator
-    </a>
+        Cycle</a>
+      <a routerLink="/user/dashboard/finance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-coins me-2"></i> Farm Finances</a>
+      <a routerLink="/user/dashboard/pest-management" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-bug me-2"></i>Pest Management</a>
+      <a routerLink="/user/dashboard/crop-education" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-book-open me-2"></i> Crop Education</a>
+      <a routerLink="/user/dashboard/coffee-yield-calculator" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-calculator me-3"></i> Yield Calculator
+      </a>
       <!-- <a href="#"><i class="fas fa-user-friends icon"></i>Farmers</a>
       <a href="#"><i class="fas fa-tint icon"></i>Soil Moisture</a>
       <hr />
@@ -104,18 +55,13 @@
         <a href="mailto:user@coffeesense.com">usercoffeesense.com</a>
       </div> -->
       <div class="text-center logout-account">
-        <a routerLink="/user/dashboard/my-account"
-          ><i class="fa-solid fa-user icon"></i>My Account</a
-        >
-        <a (click)="auth.logOut()"
-          ><i class="fas fa-sign-out-alt icon"></i>Sign Out</a
-        >
+        <a routerLink="/user/dashboard/my-account"><i class="fa-solid fa-user icon"></i>My Account</a>
+        <a (click)="auth.logOut()"><i class="fas fa-sign-out-alt icon"></i>Sign Out</a>
       </div>
     </div>
     <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4 main">
       <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-      >
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">{{ currentRouteTitle }}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <!-- <div class="btn-group mr-2">
@@ -123,31 +69,17 @@
               Alerts
             </button>
           </div> -->
-          <button
-            type="button"
-            class="btn btn-sm btn-outline-secondary dropdown-toggle"
-            type="button"
-            id="accountMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+            id="accountMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span data-feather="calendar"></span>
             User
           </button>
-          <div
-            class="dropdown-menu dropdown-menu-right"
-            aria-labelledby="accountMenuButton"
-          >
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountMenuButton">
             <span class="dropdown-item-text">{{
               userService.userInfo?.name
-            }}</span>
-            <a class="dropdown-item" routerLink="/user/dashboard/my-account"
-              ><i class="fas fa-user"></i> My Account</a
-            >
-            <a class="dropdown-item" (click)="auth.logOut()"
-              ><i class="fas fa-sign-out-alt"></i> Log Out</a
-            >
+              }}</span>
+            <a class="dropdown-item" routerLink="/user/dashboard/my-account"><i class="fas fa-user"></i> My Account</a>
+            <a class="dropdown-item" (click)="auth.logOut()"><i class="fas fa-sign-out-alt"></i> Log Out</a>
           </div>
         </div>
       </div>
