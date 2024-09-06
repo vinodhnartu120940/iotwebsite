@@ -98,6 +98,9 @@ export class SignupComponent implements OnInit {
                 }
               });
           }
+          else if (res.status === 'Error') {
+            this.notificationService.showError('Please enter valid OTP');
+          }
         });
       } else if (this.questionNumber === this.questionType.mobilenumber) {
         this.auth
