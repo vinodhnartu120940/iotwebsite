@@ -33,10 +33,10 @@ export class UserService {
     return this.http
       .get(`${APIEndPoints.Data}/GetUserInfo`)
       .subscribe((res: any) => {
-        this.tenets = res?.tenants;
-        this.userInfo = res?.userInfo;
+        this.tenets = res?.Tenants;
+        this.userInfo = res?.UserInfo;
         console.log(this.userInfo);
-        this.userId = this.userInfo.id;
+        this.userId = this.userInfo?.Id;
       });
   }
   GetAgronomicPractices(){

@@ -165,6 +165,7 @@ export class NewDashboardComponent implements OnInit {
   GetAllSensorsLatestData() {
     this.userService.GetAllSensorsLatestData().subscribe(
       (res: any) => {
+      
         this.sensorData = res;
         console.log(this.sensorData); // For debugging, check if data is available
 
@@ -189,7 +190,7 @@ export class NewDashboardComponent implements OnInit {
 
   getCalendarEvents() {
     this.calendarService.getCalendarEvents().subscribe((res: any) => {
-      this.CoffeeCycle = res.calendarCommonEvents;
+      this.CoffeeCycle = res?.CalendarCommonEvents;
       this.updateCurrentMonthEventTitle();
     });
   }
@@ -231,12 +232,12 @@ export class NewDashboardComponent implements OnInit {
   updateCurrentMonthEventTitle() {
     const currentDate = new Date();
     for (const event of this.CoffeeCycle) {
-      const startDate = parseISO(event.start);
-      const endDate = parseISO(event.end);
+      const startDate = parseISO(event?.Start);
+      const endDate = parseISO(event?.End);
 
       if (currentDate >= startDate && currentDate <= endDate) {
         this.currentPhaseTitle = this.translate.instant(
-          `DASHBOARD.${event.title.toUpperCase()}`
+          `DASHBOARD.${event?.Title.toUpperCase()}`
         );
         break;
       }

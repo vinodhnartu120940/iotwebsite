@@ -185,17 +185,18 @@ export class CalendarComponent {
   }
 
   GetCalendarEvents() {
+   
     this.calendarService.getCalendarEvents().subscribe((res: any) => {
-      this.calendarCommonEvents = this.getCommonEventsForFirstOfMonth(res.calendarCommonEvents);
+      this.calendarCommonEvents = this.getCommonEventsForFirstOfMonth(res.CalendarCommonEvents);
       
-      const userCalendarEvents = res.userCalendarEvents.map((event: any) => ({
-        start: new Date(event.start),
-        end: new Date(event.end),
-        title: event.title,
+      const userCalendarEvents = res.UserCalendarEvents.map((event: any) => ({
+        start: new Date(event.Start),
+        end: new Date(event.End),
+        title: event.Title,
         color: { primary: '#1e90ff', secondary: '#D1E8FF' }, // you can customize these colors if needed
         allDay: true,
-        meta: { details: event.metaDetails, expenses: [] },
-        eventID: event.eventID // Include eventID
+        meta: { details: event.MetaDetails, expenses: [] },
+        eventID: event.EventID // Include eventID
       }));
 
       this.events = [...this.calendarCommonEvents, ...userCalendarEvents];
@@ -222,19 +223,19 @@ export class CalendarComponent {
     const commonEvents: CustomCalendarEvent[] = [];
 
     events.forEach(event => {
-      const startDate = new Date(event.start);
-      const endDate = new Date(event.end);
+      const startDate = new Date(event.Start);
+      const endDate = new Date(event.End);
       let current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
 
       while (current <= endDate) {
         commonEvents.push({
           start: new Date(current),
           end: new Date(current),
-          title: event.title,
-          color: { primary: event.colorPrimary, secondary: event.colorSecondary },
+          title: event.Title,
+          color: { primary: event.ColorPrimary, secondary: event.ColorSecondary },
           allDay: true,
-          meta: { details: event.metaDetails, expenses: [] },
-          eventID: event.eventID|| '' // Include eventID
+          meta: { details: event.MetaDetails, expenses: [] },
+          eventID: event.EventID|| '' // Include eventID
         });
         current = addMonths(current, 1);
       }
@@ -256,6 +257,7 @@ export class CalendarComponent {
   }
 
   updateCurrentMonthEventTitle() {
+   
     const currentDate = new Date(this.viewDate);
     const currentEvent = this.calendarCommonEvents.find((event: any) =>
       event.start.getFullYear() === currentDate.getFullYear() && event.start.getMonth() === currentDate.getMonth()
