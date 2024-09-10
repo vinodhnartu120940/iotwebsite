@@ -13,8 +13,8 @@ Chart.register(...registerables);
 
 @Component({
   selector: 'app-sensordata',
-  standalone:true,
-  imports: [NgClass,NgStyle,NgIf],
+  standalone: true,
+  imports: [NgClass, NgStyle, NgIf],
   templateUrl: './sensordata.component.html',
   styleUrls: ['./sensordata.component.scss'],
 })
@@ -23,7 +23,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
   currentTab: string = 'all';
   sensorLatestData: any;
   chart: Chart | undefined;
-  sensorDataMonthly:any=[];
+  sensorDataMonthly: any = [];
 
   constructor(private userService: UserService, private router: Router) {
     const navigation = this.router.getCurrentNavigation();
@@ -33,7 +33,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
       // Handle the case where there's no passed data
       console.error('No sensor data was passed!');
     }
-    this.userService.GetSensorWeeklyData(this.sensorLatestData.tenantId,"month").subscribe((res: any) => {
+    this.userService.GetSensorWeeklyData(this.sensorLatestData.TenantId, "month").subscribe((res: any) => {
       this.sensorDataMonthly = res;
       console.log(this.sensorDataMonthly);
     });
@@ -61,15 +61,15 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
     if (!this.chartCanvas || this.chart) {
       return;
     }
-  
+
     const canvasElement = this.chartCanvas.nativeElement;
     const ctx = canvasElement.getContext('2d');
-  
+
     const chartData = this.getChartData();
-  
+
     let yAxisTitle = 'Value'; // Default value
     let yAxisCallback: any;
-  
+
     // Customize the Y-axis title and callback based on the current tab
     switch (this.currentTab) {
       case 'temp':
@@ -93,7 +93,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
         yAxisCallback = (value: number) => value;
         break;
     }
-  
+
     this.chart = new Chart(ctx, {
       type: 'line',
       data: chartData,
@@ -119,7 +119,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
       },
     });
   }
-  
+
 
   getChartData() {
     let data;
@@ -199,7 +199,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
       labels: this.sensorDataMonthly.map((entry: any) => `Week ${entry.week}`),
       datasets: data,
     };
-}
+  }
 
 
   getNeedlePosition(value: number, thresholds: number[]): number {
@@ -216,7 +216,7 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
   getTipAndStatus(title: string, value: number, thresholds: { min: number; max: number }): { status: string, tip: string } {
     let status = '';
     let tip = '';
-  
+
     if (value < thresholds.min) {
       status = 'Poor';
       if (title === 'Temperature') {
@@ -263,10 +263,10 @@ export class SensordataComponent implements AfterViewChecked, OnDestroy {
         tip = 'Potassium levels are sufficient; maintain current practices.';
       }
     }
-  
+
     return { status, tip };
   }
-  
+
 
 
 }

@@ -3,28 +3,13 @@
   <div class="content">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a
-          class="nav-link active"
-          [class.active]="currentTab === 'upload'"
-          (click)="setTab('upload')"
-          >Upload Pic</a
-        >
+        <a class="nav-link active" [class.active]="currentTab === 'upload'" (click)="setTab('upload')">Upload Pic</a>
       </li>
       <li class="nav-item">
-        <a
-          class="nav-link"
-          [class.active]="currentTab === 'result'"
-          (click)="setTab('result')"
-          >Result</a
-        >
+        <a class="nav-link" [class.active]="currentTab === 'result'" (click)="setTab('result')">Result</a>
       </li>
       <li class="nav-item">
-        <a
-          class="nav-link"
-          [class.active]="currentTab === 'diseases'"
-          (click)="setTab('diseases')"
-          >Major Diseases</a
-        >
+        <a class="nav-link" [class.active]="currentTab === 'diseases'" (click)="setTab('diseases')">Major Diseases</a>
       </li>
     </ul>
     @if (currentTab=='upload') {
@@ -36,12 +21,7 @@
       </div> -->
       <div class="upload-options ">
         <button class="btn btn-outline-success btn-lg">
-          <input
-            type="file"
-            class="form-control"
-            id="uploadImage"
-            (change)="loadFile($event)"
-          />
+          <input type="file" class="form-control" id="uploadImage" (change)="loadFile($event)" />
           <i class="fas fa-upload"></i> <span>Upload Picture</span>
         </button>
       </div>
@@ -109,18 +89,10 @@
       <div class="content">
         <div class="diseases-grid">
           @for (disease of diseasesData; track $index) {
-          <div
-            class="disease-card"
-            data-toggle="modal"
-            data-target="#diseaseModal"
-            (click)="diseaseModel(disease)"
-          >
-            <img
-              src="https://internalportaldevapi.smbxl.com/{{ disease?.image }}"
-              alt="Coffee
-            Leaf Spot"
-            />
-            <p>{{ disease.name }}</p>
+          <div class="disease-card" data-toggle="modal" data-target="#diseaseModal" (click)="diseaseModel(disease)">
+            <img src="https://internalportaldevapi.smbxl.com/{{ disease?.Image }}" alt="Coffee
+            Leaf Spot" />
+            <p>{{ disease.Name }}</p>
           </div>
           }
         </div>
@@ -132,64 +104,50 @@
 
 @if (individualDisease) {
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="diseaseModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="diseaseModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="diseaseModal" tabindex="-1" role="dialog" aria-labelledby="diseaseModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="diseaseModalLabel">
-          {{ individualDisease?.name }}
+          {{ individualDisease?.Name }}
         </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="result-image">
-          <img
-            src="https://internalportaldevapi.smbxl.com/{{
-              individualDisease?.image
-            }}"
-            alt="Coffee Leaf Rust"
-          />
+          <img src="https://internalportaldevapi.smbxl.com/{{
+              individualDisease?.Image
+            }}" alt="Coffee Leaf Rust" />
         </div>
         <div class="disease-info">
           <p>
-            {{ individualDisease?.details }}
+            {{ individualDisease?.Details }}
           </p>
           <p><strong>Symptoms:</strong></p>
 
           <ul>
-            @for (item of individualDisease?.symptoms; track $index) {
+            @for (item of individualDisease?.Symptoms; track $index) {
             <li>{{ item }}</li>
             }
           </ul>
           <p><strong>Remedies:</strong></p>
           <ul>
-            @for (item of individualDisease?.remedies; track $index) {
+            @for (item of individualDisease?.Remedies; track $index) {
             <li>{{ item }}</li>
             }
           </ul>
           <p><strong>Preventive Measures:</strong></p>
           <ul>
-            @for (item of individualDisease?.preventiveMeasures; track $index) {
+            @for (item of individualDisease?.PreventiveMeasures; track $index) {
             <li>{{ item }}</li>
             }
           </ul>
 
           <p><strong>What Caused It</strong></p>
-          <p>{{ individualDisease.cause }}</p>
+          <p>{{ individualDisease.Cause }}</p>
         </div>
       </div>
       <div class="modal-footer">

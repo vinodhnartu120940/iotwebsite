@@ -9,14 +9,10 @@
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="profile-content d-flex align-items-center">
-          <img
-            src="https://via.placeholder.com/100"
-            alt="Profile Picture"
-            class="rounded-circle mb-3"
-          />
+          <img src="https://via.placeholder.com/100" alt="Profile Picture" class="rounded-circle mb-3" />
           <div>
-            <h5>{{ userService.userInfo?.name }}</h5>
-            <p>+91 {{ userService.userInfo?.phoneNumber }}</p>
+            <h5>{{ userService.userInfo?.Name }}</h5>
+            <p>+91 {{ userService.userInfo?.PhoneNumber }}</p>
           </div>
         </div>
         <!-- <div class="device-dropdown">
@@ -48,10 +44,8 @@
       </div>
       <div class="box">
         <h6>Your Current Crop</h6>
-        <div
-          class="d-flex justify-content-between align-items-center p-2 bg-light rounded"
-        >
-          <span>{{ userService.userInfo?.cropType }}</span>
+        <div class="d-flex justify-content-between align-items-center p-2 bg-light rounded">
+          <span>{{ userService.userInfo?.CropType }}</span>
           <button class="btn btn-success btn-sm">Add+</button>
         </div>
       </div>

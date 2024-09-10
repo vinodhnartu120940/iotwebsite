@@ -20,36 +20,23 @@
         </div>
       </div>
     </div>
-  
+
     <button class="btn btn-outline-success my-3" (click)="openAddEventModal(addEventContent)">Add Event</button>
-    <button class="btn btn-outline-secondary my-3 ms-2" (click)="openCoffeeCalendar(coffeeCalendarContent)">Coffee Calendar</button>
-    <mwl-calendar-month-view
-      *ngIf="view === CalendarView.Month"
-      [viewDate]="viewDate"
-      [events]="events"
-      [activeDayIsOpen]="false"
-      (eventClicked)="handleEvent('Clicked', $event.event, content)">
+    <button class="btn btn-outline-secondary my-3 ms-2" (click)="openCoffeeCalendar(coffeeCalendarContent)">Coffee
+      Calendar</button>
+    <mwl-calendar-month-view *ngIf="view === CalendarView.Month" [viewDate]="viewDate" [events]="events"
+      [activeDayIsOpen]="false" (eventClicked)="handleEvent('Clicked', $event.event, content)">
     </mwl-calendar-month-view>
-  
-    <mwl-calendar-week-view
-      *ngIf="view === CalendarView.Week"
-      [viewDate]="viewDate"
-      [events]="events"
-      [hourSegments]="2"
-      [hourSegmentHeight]="30"
-      (eventClicked)="handleEvent('Clicked', $event.event, content)">
+
+    <mwl-calendar-week-view *ngIf="view === CalendarView.Week" [viewDate]="viewDate" [events]="events"
+      [hourSegments]="2" [hourSegmentHeight]="30" (eventClicked)="handleEvent('Clicked', $event.event, content)">
     </mwl-calendar-week-view>
-  
-    <mwl-calendar-day-view
-      *ngIf="view === CalendarView.Day"
-      [viewDate]="viewDate"
-      [events]="events"
-      [hourSegments]="2"
-      [hourSegmentHeight]="30"
-      (eventClicked)="handleEvent('Clicked', $event.event, content)">
+
+    <mwl-calendar-day-view *ngIf="view === CalendarView.Day" [viewDate]="viewDate" [events]="events" [hourSegments]="2"
+      [hourSegmentHeight]="30" (eventClicked)="handleEvent('Clicked', $event.event, content)">
     </mwl-calendar-day-view>
   </div>
-  
+
   <!-- Add expense popup -->
   <ng-template #content let-modal>
     <div class="modal-header">
@@ -64,12 +51,14 @@
       <p *ngIf="modalData?.event?.end">End: {{ modalData.event.end | date: 'medium' }}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger me-auto" (click)="DeleteCalendarEvent(modalData.event.eventID)" [disabled]="isCommonEvent(modalData.event)">Delete</button>
+      <button type="button" class="btn btn-danger me-auto" (click)="DeleteCalendarEvent(modalData.event.eventID)"
+        [disabled]="isCommonEvent(modalData.event)">Delete</button>
       <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
-      <button type="button" class="btn btn-primary" (click)="editEvent(modalData.event, addEventContent)" [disabled]="isCommonEvent(modalData.event)">Edit</button>
+      <button type="button" class="btn btn-primary" (click)="editEvent(modalData.event, addEventContent)"
+        [disabled]="isCommonEvent(modalData.event)">Edit</button>
     </div>
   </ng-template>
-  
+
   <!-- add Event Popup -->
   <ng-template #addEventContent let-modal>
     <div class="modal-header">
@@ -80,7 +69,8 @@
       <form [formGroup]="addEventForm" (ngSubmit)="addEvent(modal)">
         <div class="mb-3">
           <label for="eventTitle" class="form-label">Title</label>
-          <input type="text" class="form-control" id="eventTitle" required formControlName="title" name="title">
+          <input type="text" class="form-control" id="eventTitle" required formControlName="title" name="title"
+            placeholder="Enter title">
         </div>
         <div class="row mb-3">
           <div class="col">
@@ -94,14 +84,14 @@
         </div>
         <div class="mb-3">
           <label for="eventDetails" class="form-label">Details</label>
-          <textarea class="form-control" id="eventDetails" rows="3" formControlName="details" name="details"></textarea>
+          <textarea class="form-control" id="eventDetails" rows="3" formControlName="details" name="details" placeholder="Enter details"></textarea>
         </div>
         <button type="submit" class="btn btn-outline-primary">{{ isEdit ? 'Save Changes' : 'Save' }}</button>
         <button type="button" class="btn btn-secondary ms-3" (click)="modal.close('Close click')">Discard</button>
       </form>
     </div>
   </ng-template>
-  
+
   <!-- coffee-crop-calendar -->
   <ng-template #coffeeCalendarContent let-modal>
     <div class="modal-header">
@@ -112,27 +102,32 @@
       <div class="accordion" id="coffeeCalendarAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <b>  January - February</b>: Pruning, Shade Management, Soil Preparation
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              <b> January - February</b>: Pruning, Shade Management, Soil Preparation
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#coffeeCalendarAccordion">
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            data-bs-parent="#coffeeCalendarAccordion">
             <div class="accordion-body">
               <ul>
                 <li>Pruning Tools and Labor: Cost of pruning shears, saws, and labor.</li>
                 <li>Shade Management: Costs associated with trimming shade trees.</li>
-                <li>Soil Testing and Amendments: Expenses for soil testing kits and soil amendments like lime and organic matter.</li>
+                <li>Soil Testing and Amendments: Expenses for soil testing kits and soil amendments like lime and
+                  organic matter.</li>
               </ul>
             </div>
           </div>
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <b>  March - April</b>: Flowering, Irrigation, Fertilization
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <b> March - April</b>: Flowering, Irrigation, Fertilization
             </button>
           </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#coffeeCalendarAccordion">
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#coffeeCalendarAccordion">
             <div class="accordion-body">
               <ul>
                 <li>Fertilizers: Cost of purchasing and applying fertilizers.</li>
@@ -144,11 +139,13 @@
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               <b>May - June </b>: Berry Development, Weed Control
             </button>
           </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#coffeeCalendarAccordion">
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#coffeeCalendarAccordion">
             <div class="accordion-body">
               <ul>
                 <li>Irrigation and Nutrients: Ongoing irrigation and nutrient management costs.</li>
@@ -160,11 +157,13 @@
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingFour">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
               <b>July - August</b>: Fruit Setting, Rain Management
             </button>
           </h2>
-          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#coffeeCalendarAccordion">
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+            data-bs-parent="#coffeeCalendarAccordion">
             <div class="accordion-body">
               <ul>
                 <li>Nutrient Management: Continued application of fertilizers.</li>
@@ -176,11 +175,13 @@
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingFive">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
               <b>September - October</b>: Final Berry Development, Pre-Harvest Preparation
             </button>
           </h2>
-          <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#coffeeCalendarAccordion">
+          <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+            data-bs-parent="#coffeeCalendarAccordion">
             <div class="accordion-body">
               <ul>
                 <li>Shade Management: Costs for maintaining optimal shade.</li>
@@ -191,11 +192,13 @@
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingSix">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-            <b>  November - December</b>: Harvesting, Post-Harvest Processing
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              <b> November - December</b>: Harvesting, Post-Harvest Processing
             </button>
           </h2>
-          <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#coffeeCalendarAccordion">
+          <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
+            data-bs-parent="#coffeeCalendarAccordion">
             <div class="accordion-body">
               <ul>
                 <li>Harvesting: Labor costs for picking coffee cherries.</li>
