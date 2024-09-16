@@ -13,26 +13,26 @@
               class="icon"
             />
             <div>
-              <div class="expense-title">{{ exp.expenses.categoryName }}</div>
+              <div class="expense-title">{{ exp.Expenses.CategoryName }}</div>
               <div class="details">
                 <!-- Only show the section if the data exists -->
-                <span *ngIf="exp.workers.length > 0">Workers</span><br />
-                <span *ngIf="exp.machinery.length > 0">Machinery</span><br />
-                <span *ngIf="exp.otherExpenses.length > 0">Other</span>
+                <span *ngIf="exp.Workers.length > 0">Workers</span><br />
+                <span *ngIf="exp.Machinery.length > 0">Machinery</span><br />
+                <span *ngIf="exp.OtherExpenses.length > 0">Other</span>
               </div>
             </div>
           </div>
           <div class="amount">
-            ₹{{ exp.expenses.totalCost }}
+            ₹{{ exp.Expenses.TotalCost }}
             <span>
               <!-- Dynamically bind worker, machinery, and other expenses -->
-              <span *ngIf="exp.workers.length > 0"
+              <span *ngIf="exp.Workers.length > 0"
                 >₹{{ getTotalWorkerCost(exp) }}</span
               ><br />
-              <span *ngIf="exp.machinery.length > 0"
+              <span *ngIf="exp.Machinery.length > 0"
                 >₹{{ getTotalMachineryCost(exp) }}</span
               ><br />
-              <span *ngIf="exp.otherExpenses.length > 0"
+              <span *ngIf="exp.OtherExpenses.length > 0"
                 >₹{{ getTotalOtherExpensesCost(exp) }}</span
               >
             </span>

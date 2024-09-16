@@ -10,10 +10,10 @@
         <div class="card" (click)="goToRevenueScreen(category)">
           <img
             src=" Category/Harvesting.png"
-            alt="{{ category.revenueName }}"
+            alt="{{ category.RevenueName }}"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ category?.revenueName }}</h5>
+            <h5 class="card-title">{{ category?.RevenueName }}</h5>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
           <form [formGroup]="revenueForm">
             <div
               class="harvesteandsold-screen"
-              *ngIf="selectedCategory.revenueName === 'Harvested and sold'"
+              *ngIf="selectedCategory.RevenueName === 'Harvested and sold'"
             >
               <div class="form-group">
                 <label for="date">Date</label>
@@ -79,7 +79,7 @@
             </div>
             <div
               class="revenue-details"
-              *ngIf="selectedCategory.revenueName === 'Revenue details'"
+              *ngIf="selectedCategory.RevenueName === 'Revenue details'"
             >
               <div class="mb-3">
                 <label for="date" class="form-label">Date</label>

@@ -89,7 +89,7 @@ export class CashInComponent implements OnInit {
 
     let payload: any = {};
 
-    if (this.selectedCategory.revenueName === 'Harvested and sold') {
+    if (this.selectedCategory.RevenueName === 'Harvested and sold') {
       payload.harvestedAndSold = [
         {
           categoryId: categoryId,
@@ -103,7 +103,7 @@ export class CashInComponent implements OnInit {
         },
       ];
       payload.revenueDetails = [];
-    } else if (this.selectedCategory.revenueName === 'Revenue details') {
+    } else if (this.selectedCategory.RevenueName === 'Revenue details') {
       payload.revenueDetails = [
         {
           categoryId: categoryId,

@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 export class CashOutComponent implements OnInit {
   categories: any;
   expenseForm!: FormGroup;
-  subcategories: any;
+  SubCategories: any;
   dynamicFormCards: {
     category: string;
     event: string;
@@ -82,10 +82,10 @@ export class CashOutComponent implements OnInit {
   gotoExpenseScreen(category: any) {
     this.showLogCashOut = true;
     this.expenseForm.patchValue({
-      category: category.name,
-      categoryId: category.id,
+      category: category.Name,
+      categoryId: category.Id,
     });
-    this.subcategories = category.subCategory;
+    this.SubCategories = category.SubCategory;
   }
   getFields(event: string) {
     return this.activityEvents[event] ? this.activityEvents[event] : [];

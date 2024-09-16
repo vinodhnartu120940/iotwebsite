@@ -9,11 +9,11 @@
       <div class="col" *ngFor="let category of categories">
         <div class="card" (click)="gotoExpenseScreen(category)">
           <img
-            src="Category/{{ category.name }}.png"
-            alt="{{ category.name }}"
+            src="Category/{{ category.Name }}.png"
+            alt="{{ category.Name }}"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ category?.name }}</h5>
+            <h5 class="card-title">{{ category?.Name }}</h5>
           </div>
         </div>
       </div>
@@ -52,10 +52,10 @@
                     formControlName="event"
                   >
                     <option
-                      *ngFor="let event of subcategories"
-                      [value]="event?.subCategoryName"
+                      *ngFor="let event of SubCategories"
+                      [value]="event?.SubCategoryName"
                     >
-                      {{ event.subCategoryName }}
+                      {{ event.SubCategoryName }}
                     </option>
                   </select>
                 </div>

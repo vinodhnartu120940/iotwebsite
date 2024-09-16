@@ -10,20 +10,20 @@ import { NotificationService } from '../../../Services/notification.service';
 @Component({
   selector: 'app-finances',
   standalone: true,
-  imports: [PieChartComponent, RouterLink, NgIf,NgFor,FormsModule],
+  imports: [PieChartComponent, RouterLink, NgIf, NgFor, FormsModule],
   templateUrl: './finances.component.html',
   styleUrls: ['./finances.component.scss'],
 })
 export class FinancesComponent implements AfterViewInit {
   financialData = {
-    totalExpenses:0,
-    totalRevenue:0,
-    budget: 0 
+    totalExpenses: 0,
+    totalRevenue: 0,
+    budget: 0
   };
   pieChartWidth: number = 400;
   pieChartHeight: number = 300;
   isLoading: boolean = true;
-  budgetAmount: number=0;
+  budgetAmount: number = 0;
   originalBudgetAmount!: number;
 
   @ViewChild('budgetModal') budgetModal: ElementRef | undefined;
@@ -77,13 +77,17 @@ export class FinancesComponent implements AfterViewInit {
   modalTitle: string | undefined;
 
   constructor(
-    private expensiveService: ExpenseService, 
-    private cdr: ChangeDetectorRef, 
+    private expensiveService: ExpenseService,
+    private cdr: ChangeDetectorRef,
     private modalService: NgbModal,
-    private notify:NotificationService
+    private notify: NotificationService
   ) {
     this.expensiveService.GetToatlRevenueAndExpenses().subscribe((res) => {
-      this.financialData = res;
+      this.financialData = {
+        totalExpenses: res.TotalExpenses, 
+        totalRevenue: res.TotalRevenue,   
+        budget: res.Budget                
+      };
       console.log(res);
 
       // Update pie chart data for expenses
@@ -163,12 +167,12 @@ export class FinancesComponent implements AfterViewInit {
       return;
     }
     this.financialData.budget = this.budgetAmount;
-    this.expensiveService.SaveCustomerBudget(this.budgetAmount).subscribe((res)=>{
+    this.expensiveService.SaveCustomerBudget(this.budgetAmount).subscribe((res) => {
       this.notify.showSuccess("Budget Amount Added successfully!");
     });
     console.log('Budget Amount:', this.budgetAmount);
     modal.close();
   }
 
-  
+
 }
