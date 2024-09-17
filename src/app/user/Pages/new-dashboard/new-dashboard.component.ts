@@ -123,14 +123,12 @@ export class NewDashboardComponent implements OnInit {
     this.expensiveService.GetToatlRevenueAndExpenses().subscribe(
       (res) => {
         this.financialData = res;
-
-        // Update pie chart data for expenses
-        if (res.totalExpenses > 0) {
+        if (res.TotalExpenses > 0) {
           this.expensePieChartData.labels = Object.keys(
-            res.categorisedExpenses
+            res.CategorisedExpenses
           );
           this.expensePieChartData.datasets[0].data = Object.values(
-            res.categorisedExpenses
+            res.CategorisedExpenses
           );
         } else {
           this.expensePieChartData.labels = ['No Data'];
@@ -138,12 +136,12 @@ export class NewDashboardComponent implements OnInit {
         }
 
         // Update pie chart data for revenues
-        if (res.totalRevenue > 0) {
+        if (res.TotalRevenue > 0) {
           this.revenuePieChartData.labels = Object.keys(
-            res.categorisedRevenues
+            res.CategorisedRevenues
           );
           this.revenuePieChartData.datasets[0].data = Object.values(
-            res.categorisedRevenues
+            res.CategorisedRevenues
           );
         } else {
           this.revenuePieChartData.labels = ['No Data'];
@@ -165,7 +163,6 @@ export class NewDashboardComponent implements OnInit {
   GetAllSensorsLatestData() {
     this.userService.GetAllSensorsLatestData().subscribe(
       (res: any) => {
-      
         this.sensorData = res;
         console.log(this.sensorData); // For debugging, check if data is available
 
@@ -227,7 +224,6 @@ export class NewDashboardComponent implements OnInit {
   changeLanguage(lang: any) {
     this.translate.use(lang.value);
   }
-  // currentPhaseTitle!: string;
 
   updateCurrentMonthEventTitle() {
     const currentDate = new Date();

@@ -19,12 +19,9 @@ export const selectLatestWeather = createSelector(
     const latestWeather = weatherData.list[0];
     const tempMaxCelsius = latestWeather.main.temp_max - 273.15;
     const feelsLikeCelsius = latestWeather.main.feels_like - 273.15;
-
-    // Convert Unix timestamps to human-readable time
     const sunriseDate = new Date(weatherData.city.sunrise * 1000);
     const sunsetDate = new Date(weatherData.city.sunset * 1000);
 
-    // Format the dates to a readable string
     const sunriseFormatted = sunriseDate.toLocaleString('en-US', {
       hour: 'numeric',
       minute: 'numeric',
@@ -111,7 +108,6 @@ export const selectHourlyWeather = createSelector(
   }
 );
 
-
 export const selectDailyWeather = createSelector(
   selectWeather,
   (weatherData) => {
@@ -147,8 +143,8 @@ export const selectDailyWeather = createSelector(
       if (!days.has(date)) {
         days.set(date, {
           date: formattedDate,
-          temp_max: tempMaxCelsius, // Keep as number for calculations
-          temp_min: tempMinCelsius, // Keep as number for calculations
+          temp_max: tempMaxCelsius,
+          temp_min: tempMinCelsius,
           icon: mapWeatherToFontAwesomeIcon(weather.weather[0].main),
           pop: (weather.pop * 100).toFixed(0) + '%', // Convert to percentage
           description: weather.weather[0].description,
@@ -193,8 +189,8 @@ function mapWeatherToFontAwesomeIcon(main: string): string {
     Sand: 'fas fa-smog', // Sand
     Ash: 'fas fa-smog', // Ash
     Squall: 'fas fa-wind', // Squall
-    Tornado: 'fas fa-tornado', // Tornado
+    Tornado: 'fas fa-tornado',
   };
 
-  return iconMap[main] || 'fas fa-question'; // Default to a question mark if no match found
+  return iconMap[main] || 'fas fa-question';
 }

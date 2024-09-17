@@ -1,14 +1,14 @@
 <div class="container my-4" *ngIf="revenues.length > 0; else noRevenue">
   <div *ngFor="let activity of revenues">
     <!-- Revenue Details -->
-    <div *ngIf="activity.revenueDetails.length > 0">
+    <div *ngIf="activity.RevenueDetails.length > 0">
       <div
         class="card card-custom"
-        *ngFor="let revenueData of activity.revenueDetails"
+        *ngFor="let revenueData of activity.RevenueDetails"
       >
         <div class="card-body d-flex justify-content-between align-items-start">
           <div>
-            <div class="expense-title">{{ revenueData.categoryName }}</div>
+            <div class="expense-title">{{ revenueData.CategoryName }}</div>
             <div class="details">
               Name<br />
               Amount<br />
@@ -16,11 +16,11 @@
             </div>
           </div>
           <div class="revenue-info text-end">
-            <div class="revenue-amount">₹{{ revenueData.amount }}</div>
-            <div class="revenue-name">{{ revenueData.revenueName }}</div>
-            <div class="revenue-name">{{ revenueData.amount }}</div>
+            <div class="revenue-amount">₹{{ revenueData.Amount }}</div>
+            <div class="revenue-name">{{ revenueData.RevenueName }}</div>
+            <div class="revenue-name">{{ revenueData.Amount }}</div>
             <div class="revenue-date">
-              {{ revenueData.date | date : "dd/MM/yyyy" }}
+              {{ revenueData.Date | date : "dd/MM/yyyy" }}
             </div>
             <!-- <button class="btn btn-edit mt-2">Edit</button> -->
           </div>
@@ -29,14 +29,14 @@
     </div>
 
     <!-- Harvested and Sold Details -->
-    <div *ngIf="activity.harvestedAndSold.length > 0">
+    <div *ngIf="activity.HarvestedAndSold.length > 0">
       <div
         class="card card-custom"
-        *ngFor="let harvestData of activity.harvestedAndSold"
+        *ngFor="let harvestData of activity.HarvestedAndSold"
       >
         <div class="card-body d-flex justify-content-between align-items-start">
           <div>
-            <div class="expense-title">{{ harvestData.categoryName }}</div>
+            <div class="expense-title">{{ harvestData.CategoryName }}</div>
             <div class="details">
               Date<br />
               Quantity<br />
@@ -44,15 +44,15 @@
             </div>
           </div>
           <div class="revenue-info text-end">
-            <div class="revenue-amount">₹{{ harvestData.total }}</div>
+            <div class="revenue-amount">₹{{ harvestData.Total }}</div>
             <div class="harvest-date">
-              {{ harvestData.date | date : "dd/MM/yyyy" }}
+              {{ harvestData.Date | date : "dd/MM/yyyy" }}
             </div>
             <div class="harvest-quantity">
-              {{ harvestData.quantity }} {{ harvestData.quantityUnits }}
+              {{ harvestData.Quantity }} {{ harvestData.QuantityUnits }}
             </div>
             <div class="harvest-price">
-              ₹{{ harvestData.price }} {{ harvestData.priceUnits }}
+              ₹{{ harvestData.Price }} {{ harvestData.PriceUnits }}
             </div>
             <!-- <button class="btn btn-edit mt-2">Edit</button> -->
           </div>

@@ -12,7 +12,6 @@ import { NgFor, NgIf } from '@angular/common';
 export class ExpenseReportComponent {
   expenses: any;
 
-
   constructor(private expenseService: ExpenseService) {
     this.expenseService.GetExpenses().subscribe((res) => {
       console.log(res);
@@ -23,31 +22,26 @@ export class ExpenseReportComponent {
   // Method to calculate total worker cost
   getTotalWorkerCost(exp: any): number {
     return (
-      exp.workers?.reduce(
-        (sum: any, worker: any) => sum + worker.totalCost,
+      exp.Workers?.reduce(
+        (sum: any, worker: any) => sum + worker.TotalCost,
         0
       ) || 0
     );
   }
 
-  // Method to calculate total machinery cost
   getTotalMachineryCost(exp: any): number {
     return (
-      exp.machinery?.reduce(
-        (sum: any, machine: any) => sum + machine.totalCost,
+      exp.Machinery?.reduce(
+        (sum: any, machine: any) => sum + machine.TotalCost,
         0
       ) || 0
     );
   }
-  
-  hasExpenses(): boolean {
-    return this.expenses.some((exp: { expenses: { totalCost: number; }; }) => exp.expenses.totalCost > 0);
-  }
-  // Method to calculate total other expenses cost
+
   getTotalOtherExpensesCost(exp: any): number {
     return (
-      exp.otherExpenses?.reduce(
-        (sum: any, other: any) => sum + other.totalCost,
+      exp.OtherExpenses?.reduce(
+        (sum: any, other: any) => sum + other.TotalCost,
         0
       ) || 0
     );

@@ -70,8 +70,8 @@ export class CashInComponent implements OnInit {
   goToRevenueScreen(category: any) {
     this.selectedCategory = category;
     this.revenueForm.patchValue({
-      categoryId: category.revenueId,
-      categoryName: category.revenueName,
+      categoryId: category?.RevenueId,
+      categoryName: category?.RevenueName,
     });
     this.showLogCashIn = true;
   }

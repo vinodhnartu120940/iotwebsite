@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap");
 .sidebar {
   position: fixed;
   top: 0;
@@ -28,8 +28,8 @@
 
 body {
   font-family: "Arial", sans-serif;
-  background: linear-gradient(to right, #d4a373, #0F5C05);
-  color: #0F5C05;
+  background: linear-gradient(to right, #d4a373, #0f5c05);
+  color: #0f5c05;
   margin: 0;
   padding: 0;
 }
@@ -54,11 +54,11 @@ body {
   font-size: 20px;
   font-weight: bold;
   color: #eae7dc;
-  border-bottom: 3px solid #0F5C05;
+  border-bottom: 3px solid #0f5c05;
 }
 
 .content_style {
-  background: linear-gradient(to right, #d4a373, #0F5C05);
+  background: linear-gradient(to right, #d4a373, #0f5c05);
   padding: 20px 10px 10px 10px;
   border-radius: 5px;
   height: 100vh;
@@ -84,14 +84,14 @@ body {
 }
 
 .tabs .active {
-  background-color: #0F5C05;
+  background-color: #0f5c05;
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .tabs div:hover {
-  background-color: #0F5C05;
+  background-color: #0f5c05;
   color: white;
 }
 
@@ -320,7 +320,7 @@ thead th {
   cursor: pointer !important;
 }
 .sidenav {
-  width: 250px;
+  width: 200px;
   background-color: #e6e6e6;
   // padding-top: 20px;
   flex-shrink: 0;
@@ -338,8 +338,8 @@ thead th {
 .sidenav a {
   padding: 10px 15px;
   text-decoration: none;
-  font-size: 18px;
-  color: #0F5C05;
+  font-size: 14px;
+  color: #0f5c05;
   display: flex;
   align-items: center;
 }
@@ -347,11 +347,11 @@ thead th {
   background-color: #ccc;
 }
 .sidenav .active {
-  background-color: #0F5C05;
+  background-color: #0f5c05;
   color: white;
 }
 .active-nav {
-  background-color: #0F5C05;
+  background-color: #0f5c05;
   color: white;
 }
 .sidenav .profile-section {
@@ -366,10 +366,10 @@ thead th {
 }
 .sidenav .profile-section p {
   margin: 10px 0 5px;
-  color: #0F5C05;
+  color: #0f5c05;
 }
 .sidenav .profile-section a {
-  color: #0F5C05;
+  color: #0f5c05;
 }
 
 .sidenav .icon {
@@ -383,7 +383,7 @@ thead th {
 .text-center h3 {
   font-family: "Arial", sans-serif;
   font-weight: bold;
-  color: #0F5C05;
+  color: #0f5c05;
 }
 hr {
   border-top: 1px solid #d4d4d4;
@@ -391,7 +391,7 @@ hr {
 h6 {
   font-size: 16px;
   font-weight: bold;
-  color: #0F5C05;
+  color: #0f5c05;
 }
 .menu-toggle {
   display: none;
@@ -486,12 +486,9 @@ h6 {
 // }
 
 .agriCentral-text {
-  font-family: 'Sen', sans-serif;
+  font-family: "Sen", sans-serif;
   font-weight: 700;
-
-  font-size: 36px;
-
+  font-size: 25px;
   color: #0f5c05;
   text-decoration: none;
 }
-

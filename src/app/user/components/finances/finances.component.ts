@@ -91,18 +91,18 @@ export class FinancesComponent implements AfterViewInit {
       console.log(res);
 
       // Update pie chart data for expenses
-      if (res.totalExpenses > 0) {
-        this.expensePieChartData.labels = Object.keys(res.categorisedExpenses);
-        this.expensePieChartData.datasets[0].data = Object.values(res.categorisedExpenses);
+      if (res.TotalExpenses > 0) {
+        this.expensePieChartData.labels = Object.keys(res.CategorisedExpenses);
+        this.expensePieChartData.datasets[0].data = Object.values(res.CategorisedExpenses);
       } else {
         this.expensePieChartData.labels = ['No Data'];
         this.expensePieChartData.datasets[0].data = [1];
       }
 
       // Update pie chart data for revenues
-      if (res.totalRevenue > 0) {
-        this.revenuePieChartData.labels = Object.keys(res.categorisedRevenues);
-        this.revenuePieChartData.datasets[0].data = Object.values(res.categorisedRevenues);
+      if (res.TotalRevenue > 0) {
+        this.revenuePieChartData.labels = Object.keys(res.CategorisedRevenues);
+        this.revenuePieChartData.datasets[0].data = Object.values(res.CategorisedRevenues);
       } else {
         this.revenuePieChartData.labels = ['No Data'];
         this.revenuePieChartData.datasets[0].data = [1];

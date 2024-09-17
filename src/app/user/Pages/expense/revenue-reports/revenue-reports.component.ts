@@ -5,7 +5,7 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
 @Component({
   selector: 'app-revenue-reports',
   standalone: true,
-  imports: [NgFor, NgIf,DatePipe],
+  imports: [NgFor, NgIf, DatePipe],
   templateUrl: './revenue-reports.component.html',
   styleUrl: './revenue-reports.component.scss',
 })

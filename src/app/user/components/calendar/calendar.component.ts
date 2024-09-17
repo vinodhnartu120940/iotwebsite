@@ -1,9 +1,22 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { CalendarView, CalendarEvent, CalendarModule } from 'angular-calendar';
-import { startOfDay, endOfDay, addDays, addMonths, isWithinInterval, startOfMonth } from 'date-fns';
+import {
+  startOfDay,
+  endOfDay,
+  addDays,
+  addMonths,
+  isWithinInterval,
+  startOfMonth,
+} from 'date-fns';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NotificationService } from '../../../Services/notification.service';
 import { CalendarService } from '../../Services/calendar.service';
 import { UserService } from '../../user.service';
@@ -18,16 +31,22 @@ import { CustomCalendarEvent } from './custom-calendar-event';
     NgFor,
     NgIf,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent {
   view: CalendarView = CalendarView.Month;
   viewDate: Date = new Date();
-  modalData!: { event: CustomCalendarEvent; };
-  newEvent: CustomCalendarEvent = { start: new Date(), end: new Date(), title: '', color: { primary: '#ad2121', secondary: '#FAE3E3' }, meta: { details: [], expenses: [] } };
+  modalData!: { event: CustomCalendarEvent };
+  newEvent: CustomCalendarEvent = {
+    start: new Date(),
+    end: new Date(),
+    title: '',
+    color: { primary: '#ad2121', secondary: '#FAE3E3' },
+    meta: { details: [], expenses: [] },
+  };
   expense = { amount: null, date: '', vendor: '', notes: '', receipt: null };
   events: CustomCalendarEvent[] = [];
   calendarCommonEvents: CustomCalendarEvent[] = [];
@@ -42,15 +61,15 @@ export class CalendarComponent {
   constructor(
     private calendarService: CalendarService,
     private modalService: NgbModal,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private notify: NotificationService,
     private userService: UserService
-  ) { 
+  ) {
     this.addEventForm = this.fb.group({
       title: ['', Validators.required],
       start: ['', Validators.required],
       end: ['', Validators.required],
-      details: ['']
+      details: [''],
     });
 
     this.addExpenseForm = this.fb.group({
@@ -58,7 +77,7 @@ export class CalendarComponent {
       date: ['', Validators.required],
       vendor: ['', Validators.required],
       notes: ['', Validators.required],
-      receipt: [null, Validators.required]
+      receipt: [null, Validators.required],
     });
   }
 
@@ -80,7 +99,6 @@ export class CalendarComponent {
     }
     this.updateCurrentMonthEventTitle();
   }
-  
 
   setToday() {
     this.viewDate = new Date();
@@ -102,14 +120,14 @@ export class CalendarComponent {
       title: event.title,
       start: this.formatDateForInput(event.start),
       end: event.end ? this.formatDateForInput(event.end) : '',
-      details: event.meta.details[0] || ''
+      details: event.meta.details[0] || '',
     });
     this.activeModalRef = this.modalService.open(content, { size: 'lg' });
   }
 
   addExpense(modal: any) {
     if (!this.addExpenseForm.valid) {
-      this.notify.showWarning("Fill missing fields!");
+      this.notify.showWarning('Fill missing fields!');
       this.addEventForm.markAllAsTouched();
       return;
     }
@@ -120,7 +138,7 @@ export class CalendarComponent {
     const expense = this.addExpenseForm.value;
     this.modalData.event.meta.expenses.push({ ...expense });
     modal.close('Save click');
-    this.notify.showSuccess("Expenses added Successfully!");
+    this.notify.showSuccess('Expenses added Successfully!');
     this.addExpenseForm.reset();
   }
 
@@ -133,7 +151,7 @@ export class CalendarComponent {
 
   addEvent(modal: any) {
     if (!this.addEventForm.valid) {
-      this.notify.showWarning("Fill missing fields!");
+      this.notify.showWarning('Fill missing fields!');
       this.addEventForm.markAllAsTouched();
       return;
     }
@@ -143,26 +161,26 @@ export class CalendarComponent {
       start: new Date(this.addEventForm.value.start),
       end: new Date(this.addEventForm.value.end),
       meta: { details: [this.addEventForm.value.details], expenses: [] },
-      eventID: this.isEdit ? this.modalData.event.eventID : undefined // Maintain the eventID for edit
+      eventID: this.isEdit ? this.modalData.event.eventID : undefined,
     };
 
     const data = {
-      "start": new Date(this.addEventForm.value.start),
-      "end": new Date(this.addEventForm.value.end),
-      "title": this.addEventForm.value.title,
-      "metaDetails": [
-        this.addEventForm.value.details
-      ],
-      "userID": this.userService.userId,
-      "eventID": this.isEdit ? this.modalData.event.eventID : undefined // Include eventID if editing
+      start: new Date(this.addEventForm.value.start),
+      end: new Date(this.addEventForm.value.end),
+      title: this.addEventForm.value.title,
+      metaDetails: [this.addEventForm.value.details],
+      userID: this.userService.userId,
+      eventID: this.isEdit ? this.modalData.event.eventID : undefined,
     };
 
-    this.calendarService.addNewCalendarEvent(data).subscribe((res:any) => {
+    this.calendarService.addNewCalendarEvent(data).subscribe((res: any) => {
       if (this.isEdit) {
-        const index = this.events.findIndex(event => event.eventID === this.modalData.event.eventID);
+        const index = this.events.findIndex(
+          (event) => event.eventID === this.modalData.event.eventID
+        );
         if (index !== -1) {
           this.events[index] = { ...this.modalData.event, ...eventData };
-          this.notify.showSuccess("Event Updated Successfully!");
+          this.notify.showSuccess('Event Updated Successfully!');
         }
       } else {
         this.events.push({
@@ -170,7 +188,7 @@ export class CalendarComponent {
           eventID: res.eventID,
           color: { primary: '#ad2121', secondary: '#FAE3E3' },
         });
-        this.notify.showSuccess("Event Added Successfully!");
+        this.notify.showSuccess('Event Added Successfully!');
       }
 
       this.setToday();
@@ -185,10 +203,11 @@ export class CalendarComponent {
   }
 
   GetCalendarEvents() {
-   
     this.calendarService.getCalendarEvents().subscribe((res: any) => {
-      this.calendarCommonEvents = this.getCommonEventsForFirstOfMonth(res.CalendarCommonEvents);
-      
+      this.calendarCommonEvents = this.getCommonEventsForFirstOfMonth(
+        res.CalendarCommonEvents
+      );
+
       const userCalendarEvents = res.UserCalendarEvents.map((event: any) => ({
         start: new Date(event.Start),
         end: new Date(event.End),
@@ -196,7 +215,7 @@ export class CalendarComponent {
         color: { primary: '#1e90ff', secondary: '#D1E8FF' }, // you can customize these colors if needed
         allDay: true,
         meta: { details: event.MetaDetails, expenses: [] },
-        eventID: event.EventID // Include eventID
+        eventID: event.EventID, // Include eventID
       }));
 
       this.events = [...this.calendarCommonEvents, ...userCalendarEvents];
@@ -207,22 +226,21 @@ export class CalendarComponent {
   DeleteCalendarEvent(eventID: any) {
     console.log(eventID);
     this.calendarService.deleteCalendarEvent(eventID).subscribe((res) => {
-      this.notify.showSuccess("Event Deleted Successfully!");
+      this.notify.showSuccess('Event Deleted Successfully!');
       // Remove the deleted event from the events array
-      this.events = this.events.filter(event => event.eventID !== eventID);
-  
+      this.events = this.events.filter((event) => event.eventID !== eventID);
+
       if (this.activeModalRef) {
         this.activeModalRef.close();
         this.activeModalRef = null;
       }
     });
   }
-  
 
   getCommonEventsForFirstOfMonth(events: any[]): CustomCalendarEvent[] {
     const commonEvents: CustomCalendarEvent[] = [];
 
-    events.forEach(event => {
+    events.forEach((event) => {
       const startDate = new Date(event.Start);
       const endDate = new Date(event.End);
       let current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
@@ -232,10 +250,13 @@ export class CalendarComponent {
           start: new Date(current),
           end: new Date(current),
           title: event.Title,
-          color: { primary: event.ColorPrimary, secondary: event.ColorSecondary },
+          color: {
+            primary: event.ColorPrimary,
+            secondary: event.ColorSecondary,
+          },
           allDay: true,
           meta: { details: event.MetaDetails, expenses: [] },
-          eventID: event.EventID|| '' // Include eventID
+          eventID: event.EventID || '', // Include eventID
         });
         current = addMonths(current, 1);
       }
@@ -257,32 +278,35 @@ export class CalendarComponent {
   }
 
   updateCurrentMonthEventTitle() {
-   
     const currentDate = new Date(this.viewDate);
-    const currentEvent = this.calendarCommonEvents.find((event: any) =>
-      event.start.getFullYear() === currentDate.getFullYear() && event.start.getMonth() === currentDate.getMonth()
+    const currentEvent = this.calendarCommonEvents.find(
+      (event: any) =>
+        event.start.getFullYear() === currentDate.getFullYear() &&
+        event.start.getMonth() === currentDate.getMonth()
     );
 
-    this.currentMonthEventTitle = currentEvent ? currentEvent.title : 'No Event for this Month';
+    this.currentMonthEventTitle = currentEvent
+      ? currentEvent.title
+      : 'No Event for this Month';
   }
 
   formatDateForInput(date: Date | undefined): string {
     if (!date) {
-        return '';
+      return '';
     }
     const d = new Date(date);
     let month = '' + (d.getMonth() + 1);
     let day = '' + d.getDate();
     const year = d.getFullYear();
 
-    if (month.length < 2) 
-      month = '0' + month;
-    if (day.length < 2) 
-      day = '0' + day;
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
   }
   isCommonEvent(event: CustomCalendarEvent): boolean {
-    return this.calendarCommonEvents.some(commonEvent => commonEvent.eventID === event.eventID);
-}
+    return this.calendarCommonEvents.some(
+      (commonEvent) => commonEvent.eventID === event.eventID
+    );
+  }
 }

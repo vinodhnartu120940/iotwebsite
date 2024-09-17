@@ -53,30 +53,30 @@
 
       @for (disease of matchingDisease; track $index) {
       <div class="disease-info">
-        <h5>{{ disease?.name }}</h5>
+        <h5>{{ disease?.Name }}</h5>
         <p>
-          {{ disease?.details }}
+          {{ disease?.Details }}
         </p>
         <p><strong>Symptoms:</strong></p>
         <ul>
-          @for (item of disease.symptoms; track $index) {
+          @for (item of disease.Symptoms; track $index) {
           <li>{{ item }}</li>
           }
         </ul>
         <p><strong>Remedies:</strong></p>
         <ul>
-          @for (item of disease.remedies; track $index) {
+          @for (item of disease.Remedies; track $index) {
           <li>{{ item }}</li>
           }
         </ul>
         <p><strong>Preventive Measures:</strong></p>
         <ul>
-          @for (item of disease.preventiveMeasures; track $index) {
+          @for (item of disease.PreventiveMeasures; track $index) {
           <li>{{ item }}</li>
           }
         </ul>
         <p><strong>What Caused It</strong></p>
-        <p>{{ disease.cause }}</p>
+        <p>{{ disease.Cause }}</p>
       </div>
       }
     </div>
@@ -103,7 +103,6 @@
 </div>
 
 @if (individualDisease) {
-<!-- Modal -->
 <div class="modal fade" id="diseaseModal" tabindex="-1" role="dialog" aria-labelledby="diseaseModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">

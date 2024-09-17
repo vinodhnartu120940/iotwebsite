@@ -76,7 +76,7 @@ export class PredictDiseaseComponent {
 
   findMatchingDiseases(predictedClass: any, result: any) {
     return result.filter((disease: any) =>
-      disease.name.toLowerCase().includes(predictedClass.toLowerCase())
+      disease.Name.toLowerCase().includes(predictedClass.toLowerCase())
     );
   }
 
